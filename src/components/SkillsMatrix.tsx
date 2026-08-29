@@ -26,10 +26,10 @@ export const SkillsMatrix: React.FC = () => {
           <div className="text-xs font-mono text-[#5E6AD2] uppercase tracking-wider">
             Technical Competencies
           </div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#EDEDEF] tracking-tight">
+          <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-[#EDEDEF] tracking-tight">
             Skills Architecture
           </h2>
-          <p className="text-[#8A8F98] text-sm max-w-2xl">
+          <p className="text-slate-600 dark:text-[#8A8F98] text-sm max-w-2xl">
             Categorized capabilities spanning large-scale data engineering, Gen AI agent development, and high-performance backend systems.
           </p>
         </div>
@@ -45,8 +45,8 @@ export const SkillsMatrix: React.FC = () => {
                 onClick={() => setActiveTabTitle(cat.title)}
                 className={`px-4 py-2.5 rounded-lg text-xs font-mono transition-all flex items-center gap-2 cursor-pointer ${
                   isActive
-                    ? 'bg-[#5E6AD2] text-[#EDEDEF] font-semibold shadow-sm'
-                    : 'bg-[#101114] border border-white/[0.08] hover:border-white/[0.18] text-[#8A8F98] hover:text-[#EDEDEF]'
+                    ? 'bg-[#5E6AD2] text-white dark:text-[#EDEDEF] font-semibold shadow-sm'
+                    : 'bg-white dark:bg-[#101114] border border-slate-200 dark:border-white/[0.08] hover:border-slate-300 dark:hover:border-white/[0.18] text-slate-600 dark:text-[#8A8F98] hover:text-slate-900 dark:hover:text-[#EDEDEF]'
                 }`}
               >
                 <Icon className="w-3.5 h-3.5" />
@@ -58,11 +58,11 @@ export const SkillsMatrix: React.FC = () => {
 
         {/* Selected Skill Category Card */}
         <div className="editorial-card rounded-xl p-6 sm:p-8 space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-white/[0.08]">
-            <h3 className="text-lg font-bold text-[#EDEDEF] flex items-center gap-2">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-slate-200 dark:border-white/[0.08]">
+            <h3 className="text-lg font-bold text-slate-900 dark:text-[#EDEDEF] flex items-center gap-2">
               <span>{activeCategory.title}</span>
             </h3>
-            <span className="text-xs font-mono text-[#62666D]">
+            <span className="text-xs font-mono text-slate-500 dark:text-[#62666D]">
               {activeCategory.skills.length} Core Competencies
             </span>
           </div>
@@ -72,10 +72,10 @@ export const SkillsMatrix: React.FC = () => {
             {activeCategory.skills.map((skill) => (
               <div
                 key={skill.name}
-                className="p-4 rounded-lg bg-[#08090A] border border-white/[0.06] space-y-2.5"
+                className="p-4 rounded-lg bg-slate-50 dark:bg-[#08090A] border border-slate-200 dark:border-white/[0.06] space-y-2.5"
               >
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-semibold text-[#EDEDEF]">
+                  <span className="text-xs font-semibold text-slate-900 dark:text-[#EDEDEF]">
                     {skill.name}
                   </span>
                   <span className="text-[10px] font-mono text-[#5E6AD2] font-semibold">
@@ -84,7 +84,7 @@ export const SkillsMatrix: React.FC = () => {
                 </div>
 
                 {/* Progress Meter */}
-                <div className="w-full h-1.5 bg-white/[0.06] rounded-full overflow-hidden">
+                <div className="w-full h-1.5 bg-slate-200 dark:bg-white/[0.06] rounded-full overflow-hidden">
                   <div
                     className="h-full bg-gradient-to-r from-[#5E6AD2] to-[#6875E3] rounded-full transition-all duration-500"
                     style={{ width: `${skill.level}%` }}
@@ -97,7 +97,7 @@ export const SkillsMatrix: React.FC = () => {
                     {skill.tags.map((t) => (
                       <span
                         key={t}
-                        className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-[#8A8F98]"
+                        className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-white/[0.04] text-slate-600 dark:text-[#8A8F98]"
                       >
                         {t}
                       </span>

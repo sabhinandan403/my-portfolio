@@ -71,7 +71,7 @@ export const JourneyNavRail: React.FC = () => {
       aria-label="Journey Navigation Rail"
       className="hidden xl:flex fixed left-6 top-1/2 -translate-y-1/2 z-40 select-none"
     >
-      <div className="bg-[#101114]/90 backdrop-blur-md p-5 rounded-xl border border-white/[0.08] shadow-2xl flex flex-col">
+      <div className="bg-white/95 dark:bg-[#101114]/90 backdrop-blur-md p-5 rounded-xl border border-slate-200 dark:border-white/[0.08] shadow-xl dark:shadow-2xl shadow-black/5 dark:shadow-black/80 flex flex-col transition-colors duration-200">
         
         {/* Track and Labels Container */}
         <div className="relative flex items-stretch" style={{ height: '320px' }}>
@@ -80,12 +80,12 @@ export const JourneyNavRail: React.FC = () => {
           <div className="relative w-7 flex flex-col items-center justify-between shrink-0">
             
             {/* Top START Text */}
-            <span className="text-[9px] font-mono font-bold tracking-widest text-[#62666D] uppercase -mt-2">
+            <span className="text-[9px] font-mono font-bold tracking-widest text-slate-400 dark:text-[#62666D] uppercase -mt-2">
               START
             </span>
 
             {/* Background Base Rail Line */}
-            <div className="absolute top-4 bottom-4 left-1/2 -translate-x-1/2 w-[2px] bg-white/[0.08] rounded-full" />
+            <div className="absolute top-4 bottom-4 left-1/2 -translate-x-1/2 w-[2px] bg-slate-200 dark:bg-white/[0.08] rounded-full" />
 
             {/* Active Progress Glowing Fill Line */}
             <div
@@ -97,12 +97,12 @@ export const JourneyNavRail: React.FC = () => {
 
             {/* Walking Traveler Avatar */}
             <div
-              className="absolute left-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-[#5E6AD2] border-2 border-[#101114] flex items-center justify-center text-[#EDEDEF] shadow-md shadow-[#5E6AD2]/50 transition-all duration-150 pointer-events-none z-30"
+              className="absolute left-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-[#5E6AD2] border-2 border-white dark:border-[#101114] flex items-center justify-center text-white dark:text-[#EDEDEF] shadow-md shadow-[#5E6AD2]/50 transition-all duration-150 pointer-events-none z-30"
               style={{
                 top: `calc(16px + ${scrollProgress} * (100% - 44px))`,
               }}
             >
-              <User className="w-3.5 h-3.5 text-[#EDEDEF] stroke-[2.8]" />
+              <User className="w-3.5 h-3.5 text-white stroke-[2.8]" />
             </div>
 
             {/* Node Dots on the Track */}
@@ -115,7 +115,7 @@ export const JourneyNavRail: React.FC = () => {
                     className={`w-2.5 h-2.5 rounded-full border transition-all duration-200 z-20 ${
                       isActive
                         ? 'bg-[#5E6AD2] border-[#5E6AD2] scale-125 shadow-sm shadow-[#5E6AD2]'
-                        : 'bg-[#101114] border-white/[0.2]'
+                        : 'bg-white dark:bg-[#101114] border-slate-300 dark:border-white/[0.2]'
                     }`}
                   />
                 );
@@ -123,7 +123,7 @@ export const JourneyNavRail: React.FC = () => {
             </div>
 
             {/* Bottom NOW Text */}
-            <span className="text-[9px] font-mono font-bold tracking-widest text-[#62666D] uppercase -mb-2">
+            <span className="text-[9px] font-mono font-bold tracking-widest text-slate-400 dark:text-[#62666D] uppercase -mb-2">
               NOW
             </span>
           </div>
@@ -142,8 +142,8 @@ export const JourneyNavRail: React.FC = () => {
                   <span
                     className={`text-xs font-mono tracking-tight transition-all ${
                       isActive
-                        ? 'text-[#EDEDEF] font-bold scale-105 origin-left'
-                        : 'text-[#8A8F98] group-hover:text-[#EDEDEF]'
+                        ? 'text-slate-900 dark:text-[#EDEDEF] font-bold scale-105 origin-left'
+                        : 'text-slate-500 dark:text-[#8A8F98] hover:text-slate-900 dark:hover:text-[#EDEDEF]'
                     }`}
                   >
                     {section.label}

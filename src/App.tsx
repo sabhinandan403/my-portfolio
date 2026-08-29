@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { ThemeProvider } from './context/ThemeContext';
 import { Navbar } from './components/Navbar';
 import { JourneyNavRail } from './components/JourneyNavRail';
 import { Hero } from './components/Hero';
@@ -12,13 +13,13 @@ import { Footer } from './components/Footer';
 import { ResumeModal } from './components/ResumeModal';
 import { LisaChatWidget } from './components/LisaChatWidget';
 
-export function App() {
+export function AppContent() {
   const [isResumeOpen, setIsResumeOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#08090A] text-[#8A8F98] selection:bg-[#5E6AD2]/30 selection:text-[#EDEDEF] relative">
+    <div className="min-h-screen bg-[#F8FAFC] dark:bg-[#08090A] text-slate-600 dark:text-[#8A8F98] selection:bg-[#5E6AD2]/25 selection:text-[#5E6AD2] relative transition-colors duration-200">
       
-      {/* Top Floating Glassmorphic Navbar */}
+      {/* Top Floating Glassmorphic Navbar with Sun/Moon Theme Toggle */}
       <Navbar onOpenResume={() => setIsResumeOpen(true)} />
 
       {/* Interactive Left-Side Journey Rail */}
@@ -65,6 +66,14 @@ export function App() {
       />
 
     </div>
+  );
+}
+
+export function App() {
+  return (
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
   );
 }
 

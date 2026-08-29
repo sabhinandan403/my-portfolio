@@ -162,7 +162,7 @@ export const ArchitectureShowcase: React.FC = () => {
   };
 
   return (
-    <section id="architectures" className="py-20 relative border-y border-white/[0.08]">
+    <section id="architectures" className="py-20 relative border-y border-slate-200 dark:border-white/[0.08]">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         
         {/* Section Header */}
@@ -170,10 +170,10 @@ export const ArchitectureShowcase: React.FC = () => {
           <div className="text-xs font-mono text-[#5E6AD2] uppercase tracking-wider">
             System Design &amp; Flow
           </div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#EDEDEF] tracking-tight">
+          <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-[#EDEDEF] tracking-tight">
             System Architecture Deep Dives
           </h2>
-          <p className="text-[#8A8F98] text-sm max-w-2xl">
+          <p className="text-slate-600 dark:text-[#8A8F98] text-sm max-w-2xl">
             Visual workflows showing how data flows continuously through each stage from input ingestion to delivered insights.
           </p>
         </div>
@@ -187,8 +187,8 @@ export const ArchitectureShowcase: React.FC = () => {
             }}
             className={`px-4 py-2.5 rounded-lg text-xs font-mono transition-all flex items-center gap-2 cursor-pointer ${
               activeArch === 'caching'
-                ? 'bg-[#5E6AD2] text-[#EDEDEF] font-semibold shadow-lg shadow-[#5E6AD2]/20 border border-white/[0.1]'
-                : 'bg-[#101114] border border-white/[0.08] hover:border-white/[0.18] text-[#8A8F98] hover:text-[#EDEDEF]'
+                ? 'bg-[#5E6AD2] text-white dark:text-[#EDEDEF] font-semibold shadow-md shadow-[#5E6AD2]/20 border border-white/[0.1]'
+                : 'bg-white dark:bg-[#101114] border border-slate-200 dark:border-white/[0.08] hover:border-slate-300 dark:hover:border-white/[0.18] text-slate-600 dark:text-[#8A8F98] hover:text-slate-900 dark:hover:text-[#EDEDEF]'
             }`}
           >
             <Zap className="w-3.5 h-3.5" />
@@ -202,8 +202,8 @@ export const ArchitectureShowcase: React.FC = () => {
             }}
             className={`px-4 py-2.5 rounded-lg text-xs font-mono transition-all flex items-center gap-2 cursor-pointer ${
               activeArch === 'telemetry'
-                ? 'bg-[#5E6AD2] text-[#EDEDEF] font-semibold shadow-lg shadow-[#5E6AD2]/20 border border-white/[0.1]'
-                : 'bg-[#101114] border border-white/[0.08] hover:border-white/[0.18] text-[#8A8F98] hover:text-[#EDEDEF]'
+                ? 'bg-[#5E6AD2] text-white dark:text-[#EDEDEF] font-semibold shadow-md shadow-[#5E6AD2]/20 border border-white/[0.1]'
+                : 'bg-white dark:bg-[#101114] border border-slate-200 dark:border-white/[0.08] hover:border-slate-300 dark:hover:border-white/[0.18] text-slate-600 dark:text-[#8A8F98] hover:text-slate-900 dark:hover:text-[#EDEDEF]'
             }`}
           >
             <Database className="w-3.5 h-3.5" />
@@ -217,8 +217,8 @@ export const ArchitectureShowcase: React.FC = () => {
             }}
             className={`px-4 py-2.5 rounded-lg text-xs font-mono transition-all flex items-center gap-2 cursor-pointer ${
               activeArch === 'aggregation'
-                ? 'bg-[#5E6AD2] text-[#EDEDEF] font-semibold shadow-lg shadow-[#5E6AD2]/20 border border-white/[0.1]'
-                : 'bg-[#101114] border border-white/[0.08] hover:border-white/[0.18] text-[#8A8F98] hover:text-[#EDEDEF]'
+                ? 'bg-[#5E6AD2] text-white dark:text-[#EDEDEF] font-semibold shadow-md shadow-[#5E6AD2]/20 border border-white/[0.1]'
+                : 'bg-white dark:bg-[#101114] border border-slate-200 dark:border-white/[0.08] hover:border-slate-300 dark:hover:border-white/[0.18] text-slate-600 dark:text-[#8A8F98] hover:text-slate-900 dark:hover:text-[#EDEDEF]'
             }`}
           >
             <Activity className="w-3.5 h-3.5" />
@@ -230,19 +230,19 @@ export const ArchitectureShowcase: React.FC = () => {
         <div className="editorial-card rounded-xl p-6 sm:p-8 min-h-[590px] flex flex-col justify-between transition-all duration-200">
           
           {/* Top Info Bar */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-white/[0.08]">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-slate-200 dark:border-white/[0.08]">
             <div>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#5E6AD2]/10 text-[#5E6AD2] border border-[#5E6AD2]/25">
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#5E6AD2]/10 text-[#5E6AD2] border border-[#5E6AD2]/25 font-semibold">
                 {activeArch === 'caching' && 'VANTIVA INDIA • HOMESIGHT CARE'}
                 {activeArch === 'telemetry' && 'VANTIVA INDIA • SMART SPACES'}
                 {activeArch === 'aggregation' && 'VANTIVA INDIA • HOMESIGHT CARE'}
               </span>
-              <h3 className="text-lg font-bold text-[#EDEDEF] mt-1.5">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-[#EDEDEF] mt-1.5">
                 {activeArch === 'caching' && 'Kafka & In-Memory Cache Migration (7s → 40–50ms)'}
                 {activeArch === 'telemetry' && 'IoT Telemetry Lakehouse & Automated Wi-Fi SLA Engine'}
                 {activeArch === 'aggregation' && '15-Minute Interval Sensor Aggregation Engine'}
               </h3>
-              <p className="text-xs text-[#8A8F98] mt-0.5">
+              <p className="text-xs text-slate-600 dark:text-[#8A8F98] mt-0.5">
                 {activeArch === 'caching' && 'Decoupled heavy database reads by preloading memory indexes and syncing mutations via Kafka.'}
                 {activeArch === 'telemetry' && 'Processing 10,000+ daily IoT telemetry events with automated uptime SLA calculations.'}
                 {activeArch === 'aggregation' && 'Mathematical aggregation of sparse binary pulses into continuous 15-min intensity intervals.'}
@@ -251,10 +251,10 @@ export const ArchitectureShowcase: React.FC = () => {
 
             {/* Performance KPI Badge */}
             {activeArch === 'caching' && (
-              <div className="bg-[#08090A] rounded-lg p-3 border border-white/[0.08] flex items-center gap-4 shrink-0 font-mono">
+              <div className="bg-slate-50 dark:bg-[#08090A] rounded-lg p-3 border border-slate-200 dark:border-white/[0.08] flex items-center gap-4 shrink-0 font-mono">
                 <div>
-                  <div className="text-[9px] text-[#62666D]">BEFORE (DIRECT DB)</div>
-                  <div className="text-sm font-bold text-red-400 line-through">~7,000 ms</div>
+                  <div className="text-[9px] text-slate-500 dark:text-[#62666D]">BEFORE (DIRECT DB)</div>
+                  <div className="text-sm font-bold text-red-500 dark:text-red-400 line-through">~7,000 ms</div>
                 </div>
                 <ArrowRight className="w-4 h-4 text-[#5E6AD2]" />
                 <div>
@@ -265,25 +265,25 @@ export const ArchitectureShowcase: React.FC = () => {
             )}
 
             {activeArch === 'telemetry' && (
-              <div className="bg-[#08090A] rounded-lg p-3 border border-white/[0.08] flex items-center gap-4 shrink-0 font-mono text-xs">
+              <div className="bg-slate-50 dark:bg-[#08090A] rounded-lg p-3 border border-slate-200 dark:border-white/[0.08] flex items-center gap-4 shrink-0 font-mono text-xs">
                 <div>
-                  <div className="text-[9px] text-[#62666D]">DAILY EVENTS</div>
-                  <div className="text-[#EDEDEF] font-bold">10,000+</div>
+                  <div className="text-[9px] text-slate-500 dark:text-[#62666D]">DAILY EVENTS</div>
+                  <div className="text-slate-900 dark:text-[#EDEDEF] font-bold">10,000+</div>
                 </div>
                 <div>
-                  <div className="text-[9px] text-[#62666D]">FACILITIES</div>
-                  <div className="text-[#EDEDEF] font-bold">50+</div>
+                  <div className="text-[9px] text-slate-500 dark:text-[#62666D]">FACILITIES</div>
+                  <div className="text-slate-900 dark:text-[#EDEDEF] font-bold">50+</div>
                 </div>
                 <div>
-                  <div className="text-[9px] text-[#4EBA6F] font-semibold">UPTIME SLA</div>
-                  <div className="text-[#4EBA6F] font-bold">~99%</div>
+                  <div className="text-[9px] text-[#16A34A] dark:text-[#4EBA6F] font-semibold">UPTIME SLA</div>
+                  <div className="text-[#16A34A] dark:text-[#4EBA6F] font-bold">~99%</div>
                 </div>
               </div>
             )}
 
             {activeArch === 'aggregation' && (
-              <div className="bg-[#08090A] rounded-lg p-3 border border-white/[0.08] text-xs font-mono shrink-0">
-                <div className="text-[9px] text-[#62666D] uppercase">INTERVAL RESOLUTION</div>
+              <div className="bg-slate-50 dark:bg-[#08090A] rounded-lg p-3 border border-slate-200 dark:border-white/[0.08] text-xs font-mono shrink-0">
+                <div className="text-[9px] text-slate-500 dark:text-[#62666D] uppercase">INTERVAL RESOLUTION</div>
                 <div className="text-[#5E6AD2] font-bold">15-Min Buckets (96/day)</div>
               </div>
             )}
@@ -292,7 +292,7 @@ export const ArchitectureShowcase: React.FC = () => {
           {/* Synchronized 4-Step Cards Flow */}
           <div className="space-y-4 my-2">
             
-            <div className="flex items-center justify-between text-[10px] font-mono text-[#62666D] uppercase tracking-wider">
+            <div className="flex items-center justify-between text-[10px] font-mono text-slate-500 dark:text-[#62666D] uppercase tracking-wider">
               <span>Data Movement &amp; Pipeline Execution (Click node to inspect)</span>
               <span className="text-[#5E6AD2] flex items-center gap-1.5 font-semibold">
                 <span className="w-2 h-2 rounded-full bg-[#5E6AD2] animate-ping" />
@@ -316,23 +316,23 @@ export const ArchitectureShowcase: React.FC = () => {
                     }}
                     className={`border rounded-lg p-4 min-h-[160px] flex flex-col justify-between transition-all duration-300 cursor-pointer relative ${
                       isCurrent
-                        ? 'border-[#5E6AD2] bg-[#16181D] shadow-lg shadow-[#5E6AD2]/15 scale-[1.02] ring-1 ring-[#5E6AD2]/50'
+                        ? 'border-[#5E6AD2] bg-indigo-50/50 dark:bg-[#16181D] shadow-md shadow-[#5E6AD2]/15 scale-[1.02] ring-1 ring-[#5E6AD2]/50'
                         : isPast
-                          ? 'border-white/[0.12] bg-[#101114]'
-                          : 'border-white/[0.06] bg-[#08090A]/60 opacity-75 hover:opacity-100 hover:bg-[#101114]'
+                          ? 'border-slate-200 dark:border-white/[0.12] bg-slate-50 dark:bg-[#101114]'
+                          : 'border-slate-200 dark:border-white/[0.06] bg-white dark:bg-[#08090A]/60 opacity-80 hover:opacity-100 hover:bg-slate-50 dark:hover:bg-[#101114]'
                     }`}
                   >
                     <div>
                       <div className="flex items-center justify-between mb-2">
-                        <span className={`text-xs font-mono font-bold ${isCurrent ? 'text-[#5E6AD2]' : 'text-[#8A8F98]'}`}>
+                        <span className={`text-xs font-mono font-bold ${isCurrent ? 'text-[#5E6AD2]' : 'text-slate-600 dark:text-[#8A8F98]'}`}>
                           {s.step}
                         </span>
-                        <div className={`p-1 rounded ${isCurrent ? 'bg-[#5E6AD2]/20 text-[#5E6AD2]' : 'bg-white/[0.04] text-[#62666D]'}`}>
+                        <div className={`p-1 rounded ${isCurrent ? 'bg-[#5E6AD2]/20 text-[#5E6AD2]' : 'bg-slate-100 dark:bg-white/[0.04] text-slate-500 dark:text-[#62666D]'}`}>
                           <Icon className="w-3.5 h-3.5" />
                         </div>
                       </div>
-                      <h4 className="text-xs font-semibold text-[#EDEDEF]">{s.title}</h4>
-                      <p className="text-[11px] text-[#8A8F98] mt-1 leading-relaxed">
+                      <h4 className="text-xs font-semibold text-slate-900 dark:text-[#EDEDEF]">{s.title}</h4>
+                      <p className="text-[11px] text-slate-600 dark:text-[#8A8F98] mt-1 leading-relaxed">
                         {s.description}
                       </p>
                     </div>
@@ -340,10 +340,10 @@ export const ArchitectureShowcase: React.FC = () => {
                     <div className="pt-2 flex items-center justify-between">
                       <span className={`text-[10px] font-mono px-2 py-0.5 rounded ${
                         s.badgeType === 'green'
-                          ? 'bg-[#4EBA6F]/15 text-[#4EBA6F] font-semibold border border-[#4EBA6F]/30'
+                          ? 'bg-emerald-500/15 text-emerald-700 dark:text-[#4EBA6F] font-semibold border border-emerald-500/30'
                           : s.badgeType === 'indigo' || isCurrent
                             ? 'bg-[#5E6AD2]/15 text-[#5E6AD2] font-semibold border border-[#5E6AD2]/30'
-                            : 'bg-white/[0.04] text-[#8A8F98] border border-white/[0.06]'
+                            : 'bg-slate-100 dark:bg-white/[0.04] text-slate-600 dark:text-[#8A8F98] border border-slate-200 dark:border-white/[0.06]'
                       }`}>
                         {s.badge}
                       </span>
@@ -360,7 +360,7 @@ export const ArchitectureShowcase: React.FC = () => {
             <div className="pt-2 space-y-2">
               
               {/* Connected Track Line with 4 Stage Dots */}
-              <div className="relative h-2 bg-[#08090A] rounded-full border border-white/[0.08] overflow-hidden flex items-center">
+              <div className="relative h-2 bg-slate-200 dark:bg-[#08090A] rounded-full border border-slate-200 dark:border-white/[0.08] overflow-hidden flex items-center">
                 
                 {/* Flowing Progress Fill Beam */}
                 <div
@@ -383,11 +383,11 @@ export const ArchitectureShowcase: React.FC = () => {
                         isCurrent
                           ? 'text-[#5E6AD2] font-bold'
                           : isPast
-                            ? 'text-[#EDEDEF]'
-                            : 'text-[#62666D]'
+                            ? 'text-slate-800 dark:text-[#EDEDEF]'
+                            : 'text-slate-400 dark:text-[#62666D]'
                       }`}
                     >
-                      <span className={`w-1.5 h-1.5 rounded-full ${isCurrent ? 'bg-[#5E6AD2] animate-ping' : isPast ? 'bg-[#5E6AD2]' : 'bg-[#16181D]'}`} />
+                      <span className={`w-1.5 h-1.5 rounded-full ${isCurrent ? 'bg-[#5E6AD2] animate-ping' : isPast ? 'bg-[#5E6AD2]' : 'bg-slate-300 dark:bg-[#16181D]'}`} />
                       <span>{s.tag}</span>
                     </div>
                   );
@@ -395,8 +395,8 @@ export const ArchitectureShowcase: React.FC = () => {
               </div>
 
               {/* Flow Direction Text Indicator */}
-              <div className="flex items-center justify-between text-[11px] font-mono text-[#8A8F98] pt-1 px-1">
-                <span className="flex items-center gap-1.5 text-[#EDEDEF]">
+              <div className="flex items-center justify-between text-[11px] font-mono text-slate-500 dark:text-[#8A8F98] pt-1 px-1">
+                <span className="flex items-center gap-1.5 text-slate-800 dark:text-[#EDEDEF]">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#5E6AD2] animate-pulse" />
                   {activeArch === 'caching' && 'Client Request Ingestion'}
                   {activeArch === 'telemetry' && '50+ Sites Stream In'}
@@ -422,54 +422,54 @@ export const ArchitectureShowcase: React.FC = () => {
           </div>
 
           {/* Bottom Feature Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-3 border-t border-white/[0.08]">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-3 border-t border-slate-200 dark:border-white/[0.08]">
             {activeArch === 'caching' && (
               <>
-                <div className="p-3 rounded-lg bg-[#08090A] border border-white/[0.06] text-xs">
-                  <div className="font-semibold text-[#EDEDEF]">Server-Start Preload</div>
-                  <div className="text-[#8A8F98] text-[11px] mt-0.5">Preloads high-frequency topology into RAM at boot for zero-lag index hits.</div>
+                <div className="p-3 rounded-lg bg-slate-50 dark:bg-[#08090A] border border-slate-200 dark:border-white/[0.06] text-xs">
+                  <div className="font-semibold text-slate-900 dark:text-[#EDEDEF]">Server-Start Preload</div>
+                  <div className="text-slate-600 dark:text-[#8A8F98] text-[11px] mt-0.5">Preloads high-frequency topology into RAM at boot for zero-lag index hits.</div>
                 </div>
-                <div className="p-3 rounded-lg bg-[#08090A] border border-white/[0.06] text-xs">
-                  <div className="font-semibold text-[#EDEDEF]">RBAC / ABAC Integrated</div>
-                  <div className="text-[#8A8F98] text-[11px] mt-0.5">Role &amp; attribute security enforced directly at the cached routing layer.</div>
+                <div className="p-3 rounded-lg bg-slate-50 dark:bg-[#08090A] border border-slate-200 dark:border-white/[0.06] text-xs">
+                  <div className="font-semibold text-slate-900 dark:text-[#EDEDEF]">RBAC / ABAC Integrated</div>
+                  <div className="text-slate-600 dark:text-[#8A8F98] text-[11px] mt-0.5">Role &amp; attribute security enforced directly at the cached routing layer.</div>
                 </div>
-                <div className="p-3 rounded-lg bg-[#08090A] border border-white/[0.06] text-xs">
-                  <div className="font-semibold text-[#EDEDEF]">99% Latency Cut</div>
-                  <div className="text-[#8A8F98] text-[11px] mt-0.5">Validated and verified with senior architecture team before production release.</div>
+                <div className="p-3 rounded-lg bg-slate-50 dark:bg-[#08090A] border border-slate-200 dark:border-white/[0.06] text-xs">
+                  <div className="font-semibold text-slate-900 dark:text-[#EDEDEF]">99% Latency Cut</div>
+                  <div className="text-slate-600 dark:text-[#8A8F98] text-[11px] mt-0.5">Validated and verified with senior architecture team before production release.</div>
                 </div>
               </>
             )}
 
             {activeArch === 'telemetry' && (
               <>
-                <div className="p-3 rounded-lg bg-[#08090A] border border-white/[0.06] text-xs">
-                  <div className="font-semibold text-[#EDEDEF]">Automated SLA Monitoring</div>
-                  <div className="text-[#8A8F98] text-[11px] mt-0.5">Replaced manual router checks with automated calculations across 50+ facilities.</div>
+                <div className="p-3 rounded-lg bg-slate-50 dark:bg-[#08090A] border border-slate-200 dark:border-white/[0.06] text-xs">
+                  <div className="font-semibold text-slate-900 dark:text-[#EDEDEF]">Automated SLA Monitoring</div>
+                  <div className="text-slate-600 dark:text-[#8A8F98] text-[11px] mt-0.5">Replaced manual router checks with automated calculations across 50+ facilities.</div>
                 </div>
-                <div className="p-3 rounded-lg bg-[#08090A] border border-white/[0.06] text-xs">
-                  <div className="font-semibold text-[#EDEDEF]">AWS Lambda On-Demand</div>
-                  <div className="text-[#8A8F98] text-[11px] mt-0.5">Instant 24-hour and custom date-range performance reporting for engineering debugging.</div>
+                <div className="p-3 rounded-lg bg-slate-50 dark:bg-[#08090A] border border-slate-200 dark:border-white/[0.06] text-xs">
+                  <div className="font-semibold text-slate-900 dark:text-[#EDEDEF]">AWS Lambda On-Demand</div>
+                  <div className="text-slate-600 dark:text-[#8A8F98] text-[11px] mt-0.5">Instant 24-hour and custom date-range performance reporting for engineering debugging.</div>
                 </div>
-                <div className="p-3 rounded-lg bg-[#08090A] border border-white/[0.06] text-xs">
-                  <div className="font-semibold text-[#EDEDEF]">Real-Time Power BI</div>
-                  <div className="text-[#8A8F98] text-[11px] mt-0.5">Custom visual metrics monitoring mesh health, packet drops, and device latency.</div>
+                <div className="p-3 rounded-lg bg-slate-50 dark:bg-[#08090A] border border-slate-200 dark:border-white/[0.06] text-xs">
+                  <div className="font-semibold text-slate-900 dark:text-[#EDEDEF]">Real-Time Power BI</div>
+                  <div className="text-slate-600 dark:text-[#8A8F98] text-[11px] mt-0.5">Custom visual metrics monitoring mesh health, packet drops, and device latency.</div>
                 </div>
               </>
             )}
 
             {activeArch === 'aggregation' && (
               <>
-                <div className="p-3 rounded-lg bg-[#08090A] border border-white/[0.06] text-xs">
-                  <div className="font-semibold text-[#EDEDEF]">Reusable Engine Design</div>
-                  <div className="text-[#8A8F98] text-[11px] mt-0.5">Generalized module handles PIR motion, magnetic door contacts, and smart plugs.</div>
+                <div className="p-3 rounded-lg bg-slate-50 dark:bg-[#08090A] border border-slate-200 dark:border-white/[0.06] text-xs">
+                  <div className="font-semibold text-slate-900 dark:text-[#EDEDEF]">Reusable Engine Design</div>
+                  <div className="text-slate-600 dark:text-[#8A8F98] text-[11px] mt-0.5">Generalized module handles PIR motion, magnetic door contacts, and smart plugs.</div>
                 </div>
-                <div className="p-3 rounded-lg bg-[#08090A] border border-white/[0.06] text-xs">
-                  <div className="font-semibold text-[#EDEDEF]">15-Min Granularity</div>
-                  <div className="text-[#8A8F98] text-[11px] mt-0.5">Provides ideal balance between statistical precision and caregiver clarity.</div>
+                <div className="p-3 rounded-lg bg-slate-50 dark:bg-[#08090A] border border-slate-200 dark:border-white/[0.06] text-xs">
+                  <div className="font-semibold text-slate-900 dark:text-[#EDEDEF]">15-Min Granularity</div>
+                  <div className="text-slate-600 dark:text-[#8A8F98] text-[11px] mt-0.5">Provides ideal balance between statistical precision and caregiver clarity.</div>
                 </div>
-                <div className="p-3 rounded-lg bg-[#08090A] border border-white/[0.06] text-xs">
-                  <div className="font-semibold text-[#EDEDEF]">Anomaly Detection</div>
-                  <div className="text-[#8A8F98] text-[11px] mt-0.5">Flags unexpected gaps during habitual morning and evening active hours.</div>
+                <div className="p-3 rounded-lg bg-slate-50 dark:bg-[#08090A] border border-slate-200 dark:border-white/[0.06] text-xs">
+                  <div className="font-semibold text-slate-900 dark:text-[#EDEDEF]">Anomaly Detection</div>
+                  <div className="text-slate-600 dark:text-[#8A8F98] text-[11px] mt-0.5">Flags unexpected gaps during habitual morning and evening active hours.</div>
                 </div>
               </>
             )}
