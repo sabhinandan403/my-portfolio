@@ -39,7 +39,7 @@ export const PORTFOLIO_DATA = {
     location: "India",
     email: "sabhinandan403@gmail.com",
     phone: "+91-9817750262",
-    linkedin: "https://linkedin.com/in/abhinandankumar",
+    linkedin: "https://www.linkedin.com/in/abhinandan-kumar-611a64192/",
     github: "https://github.com/sabhinandan403",
     googleDriveResumeUrl: "https://drive.google.com/drive/folders/latest-resume?usp=sharing",
     summary: `Full Stack Data Engineer with 2+ years of experience architecting IoT data pipelines and low-latency systems that convert raw telemetry into business-critical insights. Proven track record of designing Databricks Medallion Lakehouses ingesting from Cassandra DB for 10,000+ daily events, architecting Vertical Modular Monolith in-memory caches (slashing API response times from 7s to 40–50ms), and delivering timezone-normalized 15-minute sensor aggregation engines.`

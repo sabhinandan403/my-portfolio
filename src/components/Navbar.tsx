@@ -109,7 +109,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
               className="px-3 py-1.5 rounded-lg text-xs font-mono text-stone-600 dark:text-[#8A8F98] hover:text-[#5E6AD2] hover:bg-stone-200/50 dark:hover:bg-white/[0.03] transition-all flex items-center gap-1.5 cursor-pointer"
             >
               <FileText className="w-3.5 h-3.5 text-[#5E6AD2]" />
-              <span>Resume (Drive)</span>
+              <span>Resume</span>
             </button>
           </nav>
 

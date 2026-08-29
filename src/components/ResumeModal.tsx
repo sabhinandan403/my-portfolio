@@ -34,7 +34,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
                 Abhinandan Kumar — Resume
               </h3>
               <p className="text-[11px] text-stone-500 dark:text-[#8A8F98] font-mono">
-                Full Stack Data Engineer &bull; Verified 2026 Edition
+                Full Stack Data Engineer &bull; Curriculum Vitae
               </p>
             </div>
           </div>
