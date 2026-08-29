@@ -12,7 +12,7 @@ export const JourneyNavRail: React.FC = () => {
 
   const sections: Section[] = [
     { id: 'hero', label: 'profile' },
-    { id: 'architectures', label: 'system design' },
+    { id: 'architectures', label: 'deliverables' },
     { id: 'experience', label: 'experience' },
     { id: 'projects', label: 'projects' },
     { id: 'skills', label: 'capabilities' },

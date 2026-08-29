@@ -29,7 +29,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenResume }) => {
 
           {/* Quick Nav */}
           <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-5 text-xs font-mono text-stone-600 dark:text-[#8A8F98]">
-            <a href="#architectures" className="hover:text-[#5E6AD2] transition-colors">System Design</a>
+            <a href="#architectures" className="hover:text-[#5E6AD2] transition-colors">Deliverables</a>
             <a href="#experience" className="hover:text-stone-900 dark:hover:text-[#EDEDEF] transition-colors">Experience</a>
             <a href="#projects" className="hover:text-stone-900 dark:hover:text-[#EDEDEF] transition-colors">Projects</a>
             <a href="#skills" className="hover:text-stone-900 dark:hover:text-[#EDEDEF] transition-colors">Skills</a>
