@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Bot, Send, Sparkles, User, X, ChevronDown, MessageSquare, CheckCircle2, ChevronRight, Zap, Minimize2, Maximize2 } from 'lucide-react';
+import React, { useState } from 'react';
+import { Bot, Send, X, CheckCircle2, Zap, Minimize2 } from 'lucide-react';
 
 interface ChatMessage {
   id: string;
@@ -11,25 +11,16 @@ interface ChatMessage {
 
 export const LisaChatWidget: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [showGreetingBubble, setShowGreetingBubble] = useState<boolean>(true);
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: 'msg-1',
       sender: 'agent',
-      text: `Hi! I'm Lisa, Abhinandan's AI assistant. Ask me anything about his PySpark & Databricks telemetry pipelines, sub-50ms API caching architectures, or his Gen AI agent systems!`,
+      text: `Hi! I'm Lisa, Abhinandan's AI assistant. Ask me anything about his PySpark & Databricks pipelines, sub-50ms API caching architectures, or his Gen AI agent systems!`,
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     }
   ]);
   const [inputText, setInputText] = useState('');
   const [isThinking, setIsThinking] = useState(false);
-
-  // Auto-display greeting bubble on mount
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowGreetingBubble(true);
-    }, 1500);
-    return () => clearTimeout(timer);
-  }, []);
 
   const samplePrompts = [
     "What is his experience with PySpark & Databricks?",
@@ -88,78 +79,41 @@ export const LisaChatWidget: React.FC = () => {
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
       
-      {/* Floating Greeting Bubble (when widget is minimized) */}
-      {!isOpen && showGreetingBubble && (
-        <div className="mb-3 max-w-xs bg-[#0E131F] border border-emerald-500/30 rounded-2xl p-3.5 shadow-2xl animate-fadeIn relative">
-          <button
-            onClick={() => setShowGreetingBubble(false)}
-            className="absolute top-2 right-2 text-neutral-400 hover:text-white"
-            aria-label="Dismiss message"
-          >
-            <X className="w-3.5 h-3.5" />
-          </button>
-
-          <div className="flex items-start gap-2.5">
-            <div className="w-7 h-7 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center shrink-0 mt-0.5">
-              <Bot className="w-4 h-4 text-emerald-400" />
-            </div>
-            <div className="space-y-1 pr-3">
-              <div className="text-xs font-semibold text-white flex items-center gap-1.5">
-                <span>Lisa</span>
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              </div>
-              <p className="text-[11px] text-neutral-300 leading-snug">
-                Hi! I'm Lisa, Abhinandan's AI assistant. Ask me anything about his PySpark pipelines, 40ms caching, or Gen AI projects!
-              </p>
-              <button
-                onClick={() => {
-                  setIsOpen(true);
-                  setShowGreetingBubble(false);
-                }}
-                className="text-[11px] text-emerald-400 font-semibold font-mono hover:underline pt-0.5 block"
-              >
-                Chat with Lisa &rarr;
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
       {/* Expanded Chat Window */}
       {isOpen ? (
-        <div className="w-[90vw] sm:w-[380px] h-[520px] bg-[#0E131F] border border-white/[0.15] rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-fadeIn">
+        <div className="w-[90vw] sm:w-[380px] h-[520px] bg-white dark:bg-[#0E131F] border border-slate-200 dark:border-white/[0.12] rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-fadeIn">
           
           {/* Header */}
-          <div className="px-4 py-3 bg-[#090D16] border-b border-white/[0.08] flex items-center justify-between">
+          <div className="px-4 py-3 bg-slate-50 dark:bg-[#090D16] border-b border-slate-200 dark:border-white/[0.08] flex items-center justify-between">
             <div className="flex items-center gap-2.5">
               <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-emerald-500 to-teal-400 p-[1px]">
-                <div className="w-full h-full bg-[#090D16] rounded-full flex items-center justify-center">
-                  <Bot className="w-4 h-4 text-emerald-400" />
+                <div className="w-full h-full bg-slate-50 dark:bg-[#090D16] rounded-full flex items-center justify-center">
+                  <Bot className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                 </div>
               </div>
               <div>
                 <div className="flex items-center gap-1.5">
-                  <span className="font-semibold text-white text-xs">Lisa</span>
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  <span className="text-[9px] font-mono px-1.5 py-0.2 rounded bg-emerald-500/10 text-emerald-400">
+                  <span className="font-semibold text-slate-900 dark:text-white text-xs">Lisa</span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  <span className="text-[9px] font-mono px-1.5 py-0.2 rounded bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-500/20">
                     Online
                   </span>
                 </div>
-                <div className="text-[10px] text-neutral-400 font-mono">Abhinandan's AI Assistant</div>
+                <div className="text-[10px] text-slate-500 dark:text-neutral-400 font-mono">Abhinandan's AI Assistant</div>
               </div>
             </div>
 
             <div className="flex items-center gap-1">
               <button
                 onClick={() => setIsOpen(false)}
-                className="p-1.5 rounded-lg text-neutral-400 hover:text-white hover:bg-white/[0.06] transition-colors"
+                className="p-1.5 rounded-lg text-slate-400 dark:text-neutral-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-colors cursor-pointer"
                 title="Minimize chat"
               >
                 <Minimize2 className="w-3.5 h-3.5" />
               </button>
               <button
                 onClick={() => setIsOpen(false)}
-                className="p-1.5 rounded-lg text-neutral-400 hover:text-white hover:bg-white/[0.06] transition-colors"
+                className="p-1.5 rounded-lg text-slate-400 dark:text-neutral-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-colors cursor-pointer"
                 title="Close chat"
               >
                 <X className="w-4 h-4" />
@@ -168,12 +122,12 @@ export const LisaChatWidget: React.FC = () => {
           </div>
 
           {/* Quick Questions Pill Carousel */}
-          <div className="px-3 py-2 bg-black/20 border-b border-white/[0.04] overflow-x-auto whitespace-nowrap flex gap-1.5 scrollbar-none">
+          <div className="px-3 py-2 bg-slate-100/50 dark:bg-black/20 border-b border-slate-200 dark:border-white/[0.04] overflow-x-auto whitespace-nowrap flex gap-1.5 scrollbar-none">
             {samplePrompts.map((prompt, idx) => (
               <button
                 key={idx}
                 onClick={() => handleAsk(prompt)}
-                className="text-[10px] font-mono px-2.5 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-neutral-300 hover:text-emerald-300 hover:border-emerald-500/30 transition-colors shrink-0"
+                className="text-[10px] font-mono px-2.5 py-1 rounded-full bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] text-slate-600 dark:text-neutral-300 hover:text-emerald-600 dark:hover:text-emerald-300 hover:border-emerald-500/40 transition-colors shrink-0 cursor-pointer"
               >
                 {prompt}
               </button>
@@ -181,15 +135,15 @@ export const LisaChatWidget: React.FC = () => {
           </div>
 
           {/* Messages Container */}
-          <div className="flex-1 p-3.5 overflow-y-auto space-y-3 bg-[#090D16]/50">
+          <div className="flex-1 p-3.5 overflow-y-auto space-y-3 bg-slate-50/50 dark:bg-[#090D16]/50">
             {messages.map((msg) => (
               <div
                 key={msg.id}
                 className={`flex gap-2 ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 {msg.sender === 'agent' && (
-                  <div className="w-5 h-5 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center shrink-0 mt-0.5">
-                    <Bot className="w-3 h-3 text-emerald-400" />
+                  <div className="w-5 h-5 rounded-full bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/30 flex items-center justify-center shrink-0 mt-0.5">
+                    <Bot className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
                   </div>
                 )}
 
@@ -197,28 +151,28 @@ export const LisaChatWidget: React.FC = () => {
                   <div
                     className={`p-2.5 rounded-xl text-xs leading-relaxed ${
                       msg.sender === 'user'
-                        ? 'bg-emerald-500 text-neutral-950 font-medium'
-                        : 'bg-white/[0.05] border border-white/[0.08] text-neutral-200'
+                        ? 'bg-emerald-600 dark:bg-emerald-500 text-white dark:text-neutral-950 font-medium'
+                        : 'bg-white dark:bg-white/[0.05] border border-slate-200 dark:border-white/[0.08] text-slate-700 dark:text-neutral-200 shadow-sm dark:shadow-none'
                     }`}
                   >
                     {msg.text}
                   </div>
 
                   {msg.thoughtProcess && (
-                    <div className="p-1.5 rounded bg-black/40 border border-white/[0.04] text-[9px] font-mono text-neutral-500 space-y-0.5">
-                      <div className="text-emerald-400 font-semibold flex items-center gap-1">
-                        <Zap className="w-2.5 h-2.5 text-emerald-400" /> Grounded Verification:
+                    <div className="p-1.5 rounded bg-slate-100 dark:bg-black/40 border border-slate-200 dark:border-white/[0.04] text-[9px] font-mono text-slate-500 dark:text-neutral-500 space-y-0.5">
+                      <div className="text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-1">
+                        <Zap className="w-2.5 h-2.5 text-emerald-500 dark:text-emerald-400" /> Grounded Verification:
                       </div>
                       {msg.thoughtProcess.map((step, sIdx) => (
-                        <div key={sIdx} className="flex items-center gap-1 text-neutral-400">
-                          <CheckCircle2 className="w-2 h-2 text-emerald-400" />
+                        <div key={sIdx} className="flex items-center gap-1 text-slate-600 dark:text-neutral-400">
+                          <CheckCircle2 className="w-2 h-2 text-emerald-600 dark:text-emerald-400" />
                           {step}
                         </div>
                       ))}
                     </div>
                   )}
 
-                  <div className={`text-[9px] text-neutral-500 font-mono ${msg.sender === 'user' ? 'text-right' : 'text-left'}`}>
+                  <div className={`text-[9px] text-slate-400 dark:text-neutral-500 font-mono ${msg.sender === 'user' ? 'text-right' : 'text-left'}`}>
                     {msg.timestamp}
                   </div>
                 </div>
@@ -226,8 +180,8 @@ export const LisaChatWidget: React.FC = () => {
             ))}
 
             {isThinking && (
-              <div className="flex items-center gap-1.5 text-[11px] font-mono text-emerald-400 p-2 bg-emerald-500/[0.06] rounded-lg w-fit">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              <div className="flex items-center gap-1.5 text-[11px] font-mono text-emerald-600 dark:text-emerald-400 p-2 bg-emerald-50 dark:bg-emerald-500/[0.06] rounded-lg w-fit">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse"></span>
                 Lisa is thinking...
               </div>
             )}
@@ -239,19 +193,19 @@ export const LisaChatWidget: React.FC = () => {
               e.preventDefault();
               handleAsk(inputText);
             }}
-            className="p-2.5 bg-[#090D16] border-t border-white/[0.08] flex items-center gap-1.5"
+            className="p-2.5 bg-white dark:bg-[#090D16] border-t border-slate-200 dark:border-white/[0.08] flex items-center gap-1.5"
           >
             <input
               type="text"
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               placeholder="Ask Lisa anything about Abhinandan..."
-              className="flex-1 bg-white/[0.04] border border-white/[0.08] text-xs text-neutral-200 rounded-lg px-3 py-2 focus:outline-none focus:border-emerald-500 placeholder:text-neutral-500 font-sans"
+              className="flex-1 bg-slate-100 dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] text-xs text-slate-900 dark:text-neutral-200 rounded-lg px-3 py-2 focus:outline-none focus:border-emerald-500 placeholder:text-slate-400 dark:placeholder:text-neutral-500 font-sans"
             />
             <button
               type="submit"
               disabled={!inputText.trim() || isThinking}
-              className="p-2 bg-emerald-500 hover:bg-emerald-400 disabled:opacity-40 text-neutral-950 font-semibold rounded-lg transition-colors"
+              className="p-2 bg-emerald-600 dark:bg-emerald-500 hover:bg-emerald-500 dark:hover:bg-emerald-400 disabled:opacity-40 text-white dark:text-neutral-950 font-semibold rounded-lg transition-colors cursor-pointer"
               title="Send message"
             >
               <Send className="w-3.5 h-3.5" />
@@ -260,17 +214,14 @@ export const LisaChatWidget: React.FC = () => {
 
         </div>
       ) : (
-        /* Floating Trigger Launcher Button */
+        /* Floating Trigger Launcher Button (Remains clean & collapsed until clicked) */
         <button
-          onClick={() => {
-            setIsOpen(true);
-            setShowGreetingBubble(false);
-          }}
-          className="group px-4 py-3 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 text-neutral-950 font-semibold font-mono text-xs shadow-xl hover:shadow-emerald-500/25 flex items-center gap-2.5 transition-all hover:scale-105 active:scale-95 border border-emerald-400/50"
+          onClick={() => setIsOpen(true)}
+          className="group px-4 py-2.5 rounded-full bg-gradient-to-r from-emerald-600 to-teal-600 dark:from-emerald-500 dark:to-teal-500 text-white dark:text-neutral-950 font-semibold font-mono text-xs shadow-lg hover:shadow-emerald-500/25 flex items-center gap-2.5 transition-all hover:scale-105 active:scale-95 border border-emerald-400/30 cursor-pointer"
         >
           <div className="relative">
             <Bot className="w-4 h-4" />
-            <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-neutral-950 border border-emerald-400"></span>
+            <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-white dark:bg-neutral-950 border border-emerald-400"></span>
           </div>
           <span>Chat with Lisa</span>
         </button>

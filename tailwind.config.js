@@ -8,23 +8,22 @@ export default {
   theme: {
     extend: {
       colors: {
-        canvas: {
-          DEFAULT: '#090D16',
-          subtle: '#0E131F',
-          card: '#121826',
+        dark: {
+          bg: '#0B0F17',
+          surface: '#131B2A',
           border: 'rgba(255, 255, 255, 0.08)',
-          'border-hover': 'rgba(16, 185, 129, 0.35)',
+          heading: '#F1F5F9',
+          body: '#94A3B8',
+          accent: '#34D399',
         },
-        accent: {
-          DEFAULT: '#10B981', // Refined Emerald
-          hover: '#059669',
-          light: '#34D399',
-          muted: 'rgba(16, 185, 129, 0.12)',
+        light: {
+          bg: '#F8FAFC',
+          surface: '#FFFFFF',
+          border: '#E2E8F0',
+          heading: '#0F172A',
+          body: '#475569',
+          accent: '#059669',
         },
-        secondary: {
-          cyan: '#38BDF8',
-          indigo: '#818CF8',
-        }
       },
       fontFamily: {
         sans: ['Inter', 'Plus Jakarta Sans', 'system-ui', 'sans-serif'],

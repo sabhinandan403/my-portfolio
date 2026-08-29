@@ -162,18 +162,18 @@ export const ArchitectureShowcase: React.FC = () => {
   };
 
   return (
-    <section id="architectures" className="py-20 relative bg-dot-grid border-y border-white/[0.08]">
+    <section id="architectures" className="py-20 relative bg-dot-grid border-y border-slate-200 dark:border-white/[0.08]">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         
         {/* Section Header */}
         <div className="space-y-2">
-          <div className="text-xs font-mono text-emerald-400 uppercase tracking-wider">
+          <div className="text-xs font-mono text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">
             System Design &amp; Flow
           </div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+          <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-[#F1F5F9] tracking-tight">
             System Architecture Deep Dives
           </h2>
-          <p className="text-neutral-400 text-sm max-w-2xl">
+          <p className="text-slate-600 dark:text-[#94A3B8] text-sm max-w-2xl">
             Visual workflows showing how data flows continuously through each stage from input ingestion to delivered insights.
           </p>
         </div>
@@ -185,10 +185,10 @@ export const ArchitectureShowcase: React.FC = () => {
               setActiveArch('caching');
               setActivePulseStep(0);
             }}
-            className={`px-4 py-2.5 rounded-lg text-xs font-mono transition-all flex items-center gap-2 ${
+            className={`px-4 py-2.5 rounded-lg text-xs font-mono transition-all flex items-center gap-2 cursor-pointer ${
               activeArch === 'caching'
-                ? 'bg-emerald-500 text-neutral-950 font-semibold shadow-sm'
-                : 'bg-black/30 border border-white/[0.08] text-neutral-400 hover:text-white hover:border-white/[0.2]'
+                ? 'bg-emerald-600 dark:bg-emerald-500 text-white dark:text-neutral-950 font-semibold shadow-sm'
+                : 'bg-white dark:bg-black/30 border border-slate-200 dark:border-white/[0.08] text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white hover:border-slate-300 dark:hover:border-white/[0.2]'
             }`}
           >
             <Zap className="w-3.5 h-3.5" />
@@ -200,10 +200,10 @@ export const ArchitectureShowcase: React.FC = () => {
               setActiveArch('telemetry');
               setActivePulseStep(0);
             }}
-            className={`px-4 py-2.5 rounded-lg text-xs font-mono transition-all flex items-center gap-2 ${
+            className={`px-4 py-2.5 rounded-lg text-xs font-mono transition-all flex items-center gap-2 cursor-pointer ${
               activeArch === 'telemetry'
-                ? 'bg-emerald-500 text-neutral-950 font-semibold shadow-sm'
-                : 'bg-black/30 border border-white/[0.08] text-neutral-400 hover:text-white hover:border-white/[0.2]'
+                ? 'bg-emerald-600 dark:bg-emerald-500 text-white dark:text-neutral-950 font-semibold shadow-sm'
+                : 'bg-white dark:bg-black/30 border border-slate-200 dark:border-white/[0.08] text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white hover:border-slate-300 dark:hover:border-white/[0.2]'
             }`}
           >
             <Database className="w-3.5 h-3.5" />
@@ -215,10 +215,10 @@ export const ArchitectureShowcase: React.FC = () => {
               setActiveArch('aggregation');
               setActivePulseStep(0);
             }}
-            className={`px-4 py-2.5 rounded-lg text-xs font-mono transition-all flex items-center gap-2 ${
+            className={`px-4 py-2.5 rounded-lg text-xs font-mono transition-all flex items-center gap-2 cursor-pointer ${
               activeArch === 'aggregation'
-                ? 'bg-emerald-500 text-neutral-950 font-semibold shadow-sm'
-                : 'bg-black/30 border border-white/[0.08] text-neutral-400 hover:text-white hover:border-white/[0.2]'
+                ? 'bg-emerald-600 dark:bg-emerald-500 text-white dark:text-neutral-950 font-semibold shadow-sm'
+                : 'bg-white dark:bg-black/30 border border-slate-200 dark:border-white/[0.08] text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white hover:border-slate-300 dark:hover:border-white/[0.2]'
             }`}
           >
             <Activity className="w-3.5 h-3.5" />
@@ -230,19 +230,19 @@ export const ArchitectureShowcase: React.FC = () => {
         <div className="editorial-card rounded-2xl p-6 sm:p-8 min-h-[590px] flex flex-col justify-between transition-all duration-200">
           
           {/* Top Info Bar */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-white/[0.08]">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-slate-200 dark:border-white/[0.08]">
             <div>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-500/20">
                 {activeArch === 'caching' && 'VANTIVA INDIA • HOMESIGHT CARE'}
                 {activeArch === 'telemetry' && 'VANTIVA INDIA • SMART SPACES'}
                 {activeArch === 'aggregation' && 'VANTIVA INDIA • HOMESIGHT CARE'}
               </span>
-              <h3 className="text-lg font-bold text-white mt-1.5">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-white mt-1.5">
                 {activeArch === 'caching' && 'Kafka & In-Memory Cache Migration (7s → 40–50ms)'}
                 {activeArch === 'telemetry' && 'IoT Telemetry Lakehouse & Automated Wi-Fi SLA Engine'}
                 {activeArch === 'aggregation' && '15-Minute Interval Sensor Aggregation Engine'}
               </h3>
-              <p className="text-xs text-neutral-400 mt-0.5">
+              <p className="text-xs text-slate-600 dark:text-neutral-400 mt-0.5">
                 {activeArch === 'caching' && 'Decoupled heavy database reads by preloading memory indexes and syncing mutations via Kafka.'}
                 {activeArch === 'telemetry' && 'Processing 10,000+ daily IoT telemetry events with automated uptime SLA calculations.'}
                 {activeArch === 'aggregation' && 'Mathematical aggregation of sparse binary pulses into continuous 15-min intensity intervals.'}
@@ -251,40 +251,40 @@ export const ArchitectureShowcase: React.FC = () => {
 
             {/* Performance KPI Badge */}
             {activeArch === 'caching' && (
-              <div className="bg-black/40 rounded-xl p-3 border border-white/[0.06] flex items-center gap-4 shrink-0 font-mono">
+              <div className="bg-slate-100 dark:bg-black/40 rounded-xl p-3 border border-slate-200 dark:border-white/[0.06] flex items-center gap-4 shrink-0 font-mono">
                 <div>
-                  <div className="text-[9px] text-neutral-500">BEFORE (DIRECT DB)</div>
-                  <div className="text-sm font-bold text-red-400 line-through">~7,000 ms</div>
+                  <div className="text-[9px] text-slate-500 dark:text-neutral-500">BEFORE (DIRECT DB)</div>
+                  <div className="text-sm font-bold text-red-500 dark:text-red-400 line-through">~7,000 ms</div>
                 </div>
-                <ArrowRight className="w-4 h-4 text-emerald-400" />
+                <ArrowRight className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                 <div>
-                  <div className="text-[9px] text-emerald-400 font-semibold">AFTER (CACHED)</div>
-                  <div className="text-lg font-bold text-emerald-400">40–50 ms</div>
+                  <div className="text-[9px] text-emerald-700 dark:text-emerald-400 font-semibold">AFTER (CACHED)</div>
+                  <div className="text-lg font-bold text-emerald-700 dark:text-emerald-400">40–50 ms</div>
                 </div>
               </div>
             )}
 
             {activeArch === 'telemetry' && (
-              <div className="bg-black/40 rounded-xl p-3 border border-white/[0.06] flex items-center gap-4 shrink-0 font-mono text-xs">
+              <div className="bg-slate-100 dark:bg-black/40 rounded-xl p-3 border border-slate-200 dark:border-white/[0.06] flex items-center gap-4 shrink-0 font-mono text-xs">
                 <div>
-                  <div className="text-[9px] text-neutral-500">DAILY EVENTS</div>
-                  <div className="text-white font-bold">10,000+</div>
+                  <div className="text-[9px] text-slate-500 dark:text-neutral-500">DAILY EVENTS</div>
+                  <div className="text-slate-900 dark:text-white font-bold">10,000+</div>
                 </div>
                 <div>
-                  <div className="text-[9px] text-neutral-500">FACILITIES</div>
-                  <div className="text-white font-bold">50+</div>
+                  <div className="text-[9px] text-slate-500 dark:text-neutral-500">FACILITIES</div>
+                  <div className="text-slate-900 dark:text-white font-bold">50+</div>
                 </div>
                 <div>
-                  <div className="text-[9px] text-emerald-400 font-semibold">UPTIME SLA</div>
-                  <div className="text-emerald-400 font-bold">~99%</div>
+                  <div className="text-[9px] text-emerald-700 dark:text-emerald-400 font-semibold">UPTIME SLA</div>
+                  <div className="text-emerald-700 dark:text-emerald-400 font-bold">~99%</div>
                 </div>
               </div>
             )}
 
             {activeArch === 'aggregation' && (
-              <div className="bg-black/40 rounded-xl p-3 border border-white/[0.06] text-xs font-mono shrink-0">
-                <div className="text-[9px] text-neutral-500 uppercase">INTERVAL RESOLUTION</div>
-                <div className="text-emerald-400 font-bold">15-Min Buckets (96/day)</div>
+              <div className="bg-slate-100 dark:bg-black/40 rounded-xl p-3 border border-slate-200 dark:border-white/[0.06] text-xs font-mono shrink-0">
+                <div className="text-[9px] text-slate-500 dark:text-neutral-500 uppercase">INTERVAL RESOLUTION</div>
+                <div className="text-emerald-700 dark:text-emerald-400 font-bold">15-Min Buckets (96/day)</div>
               </div>
             )}
           </div>
@@ -292,10 +292,10 @@ export const ArchitectureShowcase: React.FC = () => {
           {/* Synchronized 4-Step Cards Flow */}
           <div className="space-y-4 my-2">
             
-            <div className="flex items-center justify-between text-[10px] font-mono text-neutral-500 uppercase tracking-wider">
+            <div className="flex items-center justify-between text-[10px] font-mono text-slate-500 dark:text-neutral-500 uppercase tracking-wider">
               <span>Data Movement &amp; Pipeline Execution (Click any node to inspect)</span>
-              <span className="text-emerald-400 flex items-center gap-1.5 font-semibold">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+              <span className="text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5 font-semibold">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-ping" />
                 Active Node: Step 0{activePulseStep + 1}
               </span>
             </div>
@@ -314,25 +314,25 @@ export const ArchitectureShowcase: React.FC = () => {
                       setIsAutoPlaying(false);
                       setTimeout(() => setIsAutoPlaying(true), 8000);
                     }}
-                    className={`bg-black/30 border rounded-xl p-4 min-h-[160px] flex flex-col justify-between transition-all duration-300 cursor-pointer relative ${
+                    className={`border rounded-xl p-4 min-h-[160px] flex flex-col justify-between transition-all duration-300 cursor-pointer relative ${
                       isCurrent
-                        ? 'border-emerald-400 bg-emerald-500/[0.06] shadow-lg shadow-emerald-500/10 scale-[1.02] ring-1 ring-emerald-400/50'
+                        ? 'border-emerald-500 dark:border-emerald-400 bg-emerald-50/60 dark:bg-emerald-500/[0.06] shadow-md shadow-emerald-500/10 scale-[1.02] ring-1 ring-emerald-500/40 dark:ring-emerald-400/50'
                         : isPast
-                          ? 'border-white/[0.12] bg-white/[0.02]'
-                          : 'border-white/[0.06] opacity-75 hover:opacity-100'
+                          ? 'border-slate-200 dark:border-white/[0.12] bg-slate-50 dark:bg-white/[0.02]'
+                          : 'border-slate-200 dark:border-white/[0.06] bg-white dark:bg-black/30 opacity-80 hover:opacity-100'
                     }`}
                   >
                     <div>
                       <div className="flex items-center justify-between mb-2">
-                        <span className={`text-xs font-mono font-bold ${isCurrent ? 'text-emerald-400' : 'text-neutral-400'}`}>
+                        <span className={`text-xs font-mono font-bold ${isCurrent ? 'text-emerald-700 dark:text-emerald-400' : 'text-slate-600 dark:text-neutral-400'}`}>
                           {s.step}
                         </span>
-                        <div className={`p-1 rounded ${isCurrent ? 'bg-emerald-500/20 text-emerald-300' : 'bg-white/[0.04] text-neutral-400'}`}>
+                        <div className={`p-1 rounded ${isCurrent ? 'bg-emerald-100 dark:bg-emerald-500/20 text-emerald-800 dark:text-emerald-300' : 'bg-slate-100 dark:bg-white/[0.04] text-slate-500 dark:text-neutral-400'}`}>
                           <Icon className="w-3.5 h-3.5" />
                         </div>
                       </div>
-                      <h4 className="text-xs font-semibold text-white">{s.title}</h4>
-                      <p className="text-[11px] text-neutral-400 mt-1 leading-relaxed">
+                      <h4 className="text-xs font-semibold text-slate-900 dark:text-white">{s.title}</h4>
+                      <p className="text-[11px] text-slate-600 dark:text-neutral-400 mt-1 leading-relaxed">
                         {s.description}
                       </p>
                     </div>
@@ -340,13 +340,13 @@ export const ArchitectureShowcase: React.FC = () => {
                     <div className="pt-2 flex items-center justify-between">
                       <span className={`text-[10px] font-mono px-2 py-0.5 rounded ${
                         s.badgeType === 'emerald' || isCurrent
-                          ? 'bg-emerald-500/15 text-emerald-300 font-semibold border border-emerald-500/30'
-                          : 'bg-white/[0.04] text-neutral-400 border border-white/[0.06]'
+                          ? 'bg-emerald-50 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 font-semibold border border-emerald-200 dark:border-emerald-500/30'
+                          : 'bg-slate-100 dark:bg-white/[0.04] text-slate-600 dark:text-neutral-400 border border-slate-200 dark:border-white/[0.06]'
                       }`}>
                         {s.badge}
                       </span>
                       {isCurrent && (
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse" />
                       )}
                     </div>
                   </div>
@@ -354,15 +354,15 @@ export const ArchitectureShowcase: React.FC = () => {
               })}
             </div>
 
-            {/* SYNCHRONIZED FLOW PROGRESS BEAM & LABELS (In 100% Lockstep with the 4 Cards) */}
+            {/* SYNCHRONIZED FLOW PROGRESS BEAM & LABELS */}
             <div className="pt-2 space-y-2">
               
               {/* Connected Track Line with 4 Stage Dots */}
-              <div className="relative h-2 bg-black/40 rounded-full border border-white/[0.06] overflow-hidden flex items-center">
+              <div className="relative h-2 bg-slate-200 dark:bg-black/40 rounded-full border border-slate-200 dark:border-white/[0.06] overflow-hidden flex items-center">
                 
                 {/* Flowing Progress Fill Beam */}
                 <div
-                  className="h-full bg-gradient-to-r from-emerald-500/40 via-emerald-400 to-emerald-300 rounded-full transition-all duration-300 relative shadow-sm shadow-emerald-500/50"
+                  className="h-full bg-gradient-to-r from-emerald-500/50 via-emerald-500 dark:via-emerald-400 to-emerald-400 dark:to-emerald-300 rounded-full transition-all duration-300 relative shadow-sm shadow-emerald-500/50"
                   style={{ width: `${getStepProgressPct() + 12.5}%` }}
                 >
                   {/* Leading edge pulsing particle */}
@@ -370,7 +370,7 @@ export const ArchitectureShowcase: React.FC = () => {
                 </div>
               </div>
 
-              {/* Synchronized Step Markers directly aligned below each card */}
+              {/* Synchronized Step Markers */}
               <div className="grid grid-cols-4 text-center font-mono text-[10px]">
                 {currentSteps.map((s, idx) => {
                   const isCurrent = activePulseStep === idx;
@@ -380,13 +380,13 @@ export const ArchitectureShowcase: React.FC = () => {
                       key={idx}
                       className={`transition-colors flex items-center justify-center gap-1 ${
                         isCurrent
-                          ? 'text-emerald-400 font-bold'
+                          ? 'text-emerald-700 dark:text-emerald-400 font-bold'
                           : isPast
-                            ? 'text-neutral-300'
-                            : 'text-neutral-600'
+                            ? 'text-slate-700 dark:text-neutral-300'
+                            : 'text-slate-400 dark:text-neutral-600'
                       }`}
                     >
-                      <span className={`w-1.5 h-1.5 rounded-full ${isCurrent ? 'bg-emerald-400 animate-ping' : isPast ? 'bg-emerald-500' : 'bg-neutral-700'}`} />
+                      <span className={`w-1.5 h-1.5 rounded-full ${isCurrent ? 'bg-emerald-500 dark:bg-emerald-400 animate-ping' : isPast ? 'bg-emerald-600 dark:bg-emerald-500' : 'bg-slate-300 dark:bg-neutral-700'}`} />
                       <span>{s.tag}</span>
                     </div>
                   );
@@ -394,21 +394,21 @@ export const ArchitectureShowcase: React.FC = () => {
               </div>
 
               {/* Flow Direction Text Indicator */}
-              <div className="flex items-center justify-between text-[11px] font-mono text-neutral-400 pt-1 px-1">
-                <span className="flex items-center gap-1.5 text-neutral-300">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <div className="flex items-center justify-between text-[11px] font-mono text-slate-500 dark:text-neutral-400 pt-1 px-1">
+                <span className="flex items-center gap-1.5 text-slate-700 dark:text-neutral-300">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse" />
                   {activeArch === 'caching' && 'Client Request Ingestion'}
                   {activeArch === 'telemetry' && '50+ Sites Stream In'}
                   {activeArch === 'aggregation' && 'Binary Sensor Emissions'}
                 </span>
 
-                <div className="flex items-center gap-1 text-emerald-400 text-xs">
+                <div className="flex items-center gap-1 text-emerald-700 dark:text-emerald-400 text-xs">
                   <span>Continuous Data Pipeline</span>
                   <ChevronRight className="w-3.5 h-3.5 animate-pulse" />
                   <ChevronRight className="w-3.5 h-3.5 -ml-2 text-emerald-500" />
                 </div>
 
-                <span className="flex items-center gap-1.5 text-emerald-400 font-semibold">
+                <span className="flex items-center gap-1.5 text-emerald-700 dark:text-emerald-400 font-semibold">
                   {activeArch === 'caching' && 'Sub-50ms Response Delivered'}
                   {activeArch === 'telemetry' && 'Automated SLA & Dashboards'}
                   {activeArch === 'aggregation' && 'Elderly Anomaly Alerts'}
@@ -420,55 +420,55 @@ export const ArchitectureShowcase: React.FC = () => {
 
           </div>
 
-          {/* Bottom Feature Cards (Consistent Across All Tabs) */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-3 border-t border-white/[0.06]">
+          {/* Bottom Feature Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-3 border-t border-slate-200 dark:border-white/[0.06]">
             {activeArch === 'caching' && (
               <>
-                <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] text-xs">
-                  <div className="font-semibold text-white">Server-Start Preload</div>
-                  <div className="text-neutral-400 text-[11px] mt-0.5">Preloads high-frequency topology into RAM at boot for zero-lag index hits.</div>
+                <div className="p-3 rounded-xl bg-slate-50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/[0.04] text-xs">
+                  <div className="font-semibold text-slate-900 dark:text-white">Server-Start Preload</div>
+                  <div className="text-slate-600 dark:text-neutral-400 text-[11px] mt-0.5">Preloads high-frequency topology into RAM at boot for zero-lag index hits.</div>
                 </div>
-                <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] text-xs">
-                  <div className="font-semibold text-white">RBAC / ABAC Integrated</div>
-                  <div className="text-neutral-400 text-[11px] mt-0.5">Role &amp; attribute security enforced directly at the cached routing layer.</div>
+                <div className="p-3 rounded-xl bg-slate-50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/[0.04] text-xs">
+                  <div className="font-semibold text-slate-900 dark:text-white">RBAC / ABAC Integrated</div>
+                  <div className="text-slate-600 dark:text-neutral-400 text-[11px] mt-0.5">Role &amp; attribute security enforced directly at the cached routing layer.</div>
                 </div>
-                <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] text-xs">
-                  <div className="font-semibold text-white">99% Latency Cut</div>
-                  <div className="text-neutral-400 text-[11px] mt-0.5">Validated and verified with senior architecture team before production release.</div>
+                <div className="p-3 rounded-xl bg-slate-50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/[0.04] text-xs">
+                  <div className="font-semibold text-slate-900 dark:text-white">99% Latency Cut</div>
+                  <div className="text-slate-600 dark:text-neutral-400 text-[11px] mt-0.5">Validated and verified with senior architecture team before production release.</div>
                 </div>
               </>
             )}
 
             {activeArch === 'telemetry' && (
               <>
-                <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] text-xs">
-                  <div className="font-semibold text-white">Automated SLA Monitoring</div>
-                  <div className="text-neutral-400 text-[11px] mt-0.5">Replaced manual router checks with automated calculations across 50+ facilities.</div>
+                <div className="p-3 rounded-xl bg-slate-50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/[0.04] text-xs">
+                  <div className="font-semibold text-slate-900 dark:text-white">Automated SLA Monitoring</div>
+                  <div className="text-slate-600 dark:text-neutral-400 text-[11px] mt-0.5">Replaced manual router checks with automated calculations across 50+ facilities.</div>
                 </div>
-                <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] text-xs">
-                  <div className="font-semibold text-white">AWS Lambda On-Demand</div>
-                  <div className="text-neutral-400 text-[11px] mt-0.5">Instant 24-hour and custom date-range performance reporting for engineering debugging.</div>
+                <div className="p-3 rounded-xl bg-slate-50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/[0.04] text-xs">
+                  <div className="font-semibold text-slate-900 dark:text-white">AWS Lambda On-Demand</div>
+                  <div className="text-slate-600 dark:text-neutral-400 text-[11px] mt-0.5">Instant 24-hour and custom date-range performance reporting for engineering debugging.</div>
                 </div>
-                <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] text-xs">
-                  <div className="font-semibold text-white">Real-Time Power BI</div>
-                  <div className="text-neutral-400 text-[11px] mt-0.5">Custom visual metrics monitoring mesh health, packet drops, and device latency.</div>
+                <div className="p-3 rounded-xl bg-slate-50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/[0.04] text-xs">
+                  <div className="font-semibold text-slate-900 dark:text-white">Real-Time Power BI</div>
+                  <div className="text-slate-600 dark:text-neutral-400 text-[11px] mt-0.5">Custom visual metrics monitoring mesh health, packet drops, and device latency.</div>
                 </div>
               </>
             )}
 
             {activeArch === 'aggregation' && (
               <>
-                <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] text-xs">
-                  <div className="font-semibold text-white">Reusable Engine Design</div>
-                  <div className="text-neutral-400 text-[11px] mt-0.5">Generalized module handles PIR motion, magnetic door contacts, and smart plugs.</div>
+                <div className="p-3 rounded-xl bg-slate-50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/[0.04] text-xs">
+                  <div className="font-semibold text-slate-900 dark:text-white">Reusable Engine Design</div>
+                  <div className="text-slate-600 dark:text-neutral-400 text-[11px] mt-0.5">Generalized module handles PIR motion, magnetic door contacts, and smart plugs.</div>
                 </div>
-                <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] text-xs">
-                  <div className="font-semibold text-white">15-Min Granularity</div>
-                  <div className="text-neutral-400 text-[11px] mt-0.5">Provides ideal balance between statistical precision and caregiver clarity.</div>
+                <div className="p-3 rounded-xl bg-slate-50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/[0.04] text-xs">
+                  <div className="font-semibold text-slate-900 dark:text-white">15-Min Granularity</div>
+                  <div className="text-slate-600 dark:text-neutral-400 text-[11px] mt-0.5">Provides ideal balance between statistical precision and caregiver clarity.</div>
                 </div>
-                <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] text-xs">
-                  <div className="font-semibold text-white">Anomaly Detection</div>
-                  <div className="text-neutral-400 text-[11px] mt-0.5">Flags unexpected gaps during habitual morning and evening active hours.</div>
+                <div className="p-3 rounded-xl bg-slate-50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/[0.04] text-xs">
+                  <div className="font-semibold text-slate-900 dark:text-white">Anomaly Detection</div>
+                  <div className="text-slate-600 dark:text-neutral-400 text-[11px] mt-0.5">Flags unexpected gaps during habitual morning and evening active hours.</div>
                 </div>
               </>
             )}
