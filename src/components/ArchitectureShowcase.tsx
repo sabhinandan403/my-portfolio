@@ -25,7 +25,7 @@ export const ArchitectureShowcase: React.FC = () => {
     return () => clearInterval(interval);
   }, [activeArch, isAutoPlaying]);
 
-  // Tab 1: In-Memory Startup Caching & Vertical Modular Monolith
+  // Tab 1: API Optimization & Modular Monolith
   const cachingSteps: StepNode[] = [
     {
       step: '01. LEGACY BOTTLENECK',
@@ -65,7 +65,7 @@ export const ArchitectureShowcase: React.FC = () => {
     }
   ];
 
-  // Tab 2: Cassandra IoT Telemetry & Databricks Medallion Lakehouse
+  // Tab 2: IoT Telemetry & Databricks Pipeline
   const telemetrySteps: StepNode[] = [
     {
       step: '01. CASSANDRA INGEST',
@@ -105,7 +105,7 @@ export const ArchitectureShowcase: React.FC = () => {
     }
   ];
 
-  // Tab 3: Timezone-Aware Dynamic 15-Minute Sensor Aggregation Engine
+  // Tab 3: Multi-Sensor Analytics & Heatmap Engine
   const aggregationSteps: StepNode[] = [
     {
       step: '01. CASSANDRA LOGS',
@@ -162,37 +162,37 @@ export const ArchitectureShowcase: React.FC = () => {
   };
 
   return (
-    <section id="architectures" className="py-20 relative border-y border-[#E8E2D5] dark:border-white/[0.08]">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+    <section id="architectures" className="py-16 md:py-20 relative border-y border-[#E8E2D5] dark:border-white/[0.08]">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         
-        {/* Section Header */}
-        <div className="space-y-2">
+        {/* Concise Section Header */}
+        <div className="space-y-1.5">
           <div className="text-xs font-mono text-[#5E6AD2] uppercase tracking-wider">
-            System Design &amp; Flow
+            System Design &amp; Case Studies
           </div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-stone-900 dark:text-[#EDEDEF] tracking-tight">
-            System Architecture Deep Dives
+          <h2 className="text-xl sm:text-2xl font-bold text-stone-900 dark:text-[#EDEDEF] tracking-tight">
+            Architectural Case Studies
           </h2>
-          <p className="text-stone-600 dark:text-[#8A8F98] text-sm max-w-2xl">
-            Visual workflows illustrating how real-world data engineering pipelines, caching layers, and aggregation engines operate end-to-end.
+          <p className="text-stone-600 dark:text-[#8A8F98] text-xs sm:text-sm max-w-xl">
+            Interactive workflows demonstrating low-latency caching, streaming lakehouses, and real-time analytics engines.
           </p>
         </div>
 
         {/* Tab Selection */}
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2 pt-2">
           <button
             onClick={() => {
               setActiveArch('caching');
               setActivePulseStep(0);
             }}
-            className={`px-4 py-2.5 rounded-lg text-xs font-mono transition-all flex items-center gap-2 cursor-pointer ${
+            className={`px-3.5 py-2 rounded-lg text-xs font-mono transition-all flex items-center gap-2 cursor-pointer ${
               activeArch === 'caching'
                 ? 'bg-[#5E6AD2] text-white dark:text-[#EDEDEF] font-semibold shadow-md shadow-[#5E6AD2]/20 border border-white/[0.1]'
                 : 'bg-white dark:bg-[#101114] border border-[#E8E2D5] dark:border-white/[0.08] hover:border-stone-400 dark:hover:border-white/[0.18] text-stone-600 dark:text-[#8A8F98] hover:text-stone-900 dark:hover:text-[#EDEDEF] shadow-xs dark:shadow-none'
             }`}
           >
             <Zap className="w-3.5 h-3.5" />
-            <span>In-Memory Caching &amp; Modular Monolith (7s → 40ms)</span>
+            <span>API Optimization &amp; Modular Monolith</span>
           </button>
 
           <button
@@ -200,14 +200,14 @@ export const ArchitectureShowcase: React.FC = () => {
               setActiveArch('telemetry');
               setActivePulseStep(0);
             }}
-            className={`px-4 py-2.5 rounded-lg text-xs font-mono transition-all flex items-center gap-2 cursor-pointer ${
+            className={`px-3.5 py-2 rounded-lg text-xs font-mono transition-all flex items-center gap-2 cursor-pointer ${
               activeArch === 'telemetry'
                 ? 'bg-[#5E6AD2] text-white dark:text-[#EDEDEF] font-semibold shadow-md shadow-[#5E6AD2]/20 border border-white/[0.1]'
                 : 'bg-white dark:bg-[#101114] border border-[#E8E2D5] dark:border-white/[0.08] hover:border-stone-400 dark:hover:border-white/[0.18] text-stone-600 dark:text-[#8A8F98] hover:text-stone-900 dark:hover:text-[#EDEDEF] shadow-xs dark:shadow-none'
             }`}
           >
             <Database className="w-3.5 h-3.5" />
-            <span>Cassandra IoT &amp; Databricks Medallion Lakehouse</span>
+            <span>IoT Telemetry &amp; Databricks Pipeline</span>
           </button>
 
           <button
@@ -215,32 +215,32 @@ export const ArchitectureShowcase: React.FC = () => {
               setActiveArch('aggregation');
               setActivePulseStep(0);
             }}
-            className={`px-4 py-2.5 rounded-lg text-xs font-mono transition-all flex items-center gap-2 cursor-pointer ${
+            className={`px-3.5 py-2 rounded-lg text-xs font-mono transition-all flex items-center gap-2 cursor-pointer ${
               activeArch === 'aggregation'
                 ? 'bg-[#5E6AD2] text-white dark:text-[#EDEDEF] font-semibold shadow-md shadow-[#5E6AD2]/20 border border-white/[0.1]'
                 : 'bg-white dark:bg-[#101114] border border-[#E8E2D5] dark:border-white/[0.08] hover:border-stone-400 dark:hover:border-white/[0.18] text-stone-600 dark:text-[#8A8F98] hover:text-stone-900 dark:hover:text-[#EDEDEF] shadow-xs dark:shadow-none'
             }`}
           >
             <Activity className="w-3.5 h-3.5" />
-            <span>Timezone-Aware 15-Min Sensor Aggregation Engine</span>
+            <span>Multi-Sensor Analytics &amp; Heatmap Engine</span>
           </button>
         </div>
 
         {/* Fixed Min-Height Architecture Panel */}
-        <div className="editorial-card rounded-xl p-6 sm:p-8 min-h-[590px] flex flex-col justify-between transition-all duration-200">
+        <div className="editorial-card rounded-xl p-5 sm:p-7 min-h-[570px] flex flex-col justify-between transition-all duration-200">
           
           {/* Top Info Bar */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-[#E8E2D5] dark:border-white/[0.08]">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#E8E2D5] dark:border-white/[0.08]">
             <div>
               <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#5E6AD2]/10 text-[#5E6AD2] border border-[#5E6AD2]/25 font-semibold">
                 {activeArch === 'caching' && 'VANTIVA INDIA • HOMESIGHT CARE'}
                 {activeArch === 'telemetry' && 'VANTIVA INDIA • SMART SPACES'}
                 {activeArch === 'aggregation' && 'VANTIVA INDIA • HOMESIGHT CARE'}
               </span>
-              <h3 className="text-lg font-bold text-stone-900 dark:text-[#EDEDEF] mt-1.5">
-                {activeArch === 'caching' && 'In-Memory Startup Caching & Vertical Modular Monolith (7s → 40–50ms)'}
-                {activeArch === 'telemetry' && 'Cassandra IoT Telemetry & Databricks Medallion Lakehouse'}
-                {activeArch === 'aggregation' && 'Timezone-Aware Dynamic 15-Minute Sensor Aggregation Engine'}
+              <h3 className="text-base sm:text-lg font-bold text-stone-900 dark:text-[#EDEDEF] mt-1">
+                {activeArch === 'caching' && 'API Optimization & Modular Monolith'}
+                {activeArch === 'telemetry' && 'IoT Telemetry & Databricks Pipeline'}
+                {activeArch === 'aggregation' && 'Multi-Sensor Analytics & Heatmap Engine'}
               </h3>
               <p className="text-xs text-stone-600 dark:text-[#8A8F98] mt-0.5">
                 {activeArch === 'caching' && 'Preloaded Users, HC200 gateway hubs, and Accounts into server RAM at boot, architecting a Vertical Modular Monolith.'}
@@ -251,51 +251,51 @@ export const ArchitectureShowcase: React.FC = () => {
 
             {/* Performance KPI Badge */}
             {activeArch === 'caching' && (
-              <div className="bg-[#FAF7F2] dark:bg-[#08090A] rounded-lg p-3 border border-[#E8E2D5] dark:border-white/[0.08] flex items-center gap-4 shrink-0 font-mono">
+              <div className="bg-[#FAF7F2] dark:bg-[#08090A] rounded-lg p-2.5 border border-[#E8E2D5] dark:border-white/[0.08] flex items-center gap-3 shrink-0 font-mono">
                 <div>
-                  <div className="text-[9px] text-stone-500 dark:text-[#62666D]">BEFORE (DIRECT DB)</div>
-                  <div className="text-sm font-bold text-red-500 dark:text-red-400 line-through">~7,000 ms</div>
+                  <div className="text-[9px] text-stone-500 dark:text-[#62666D]">BEFORE (DB)</div>
+                  <div className="text-xs font-bold text-red-500 dark:text-red-400 line-through">~7,000 ms</div>
                 </div>
-                <ArrowRight className="w-4 h-4 text-[#5E6AD2]" />
+                <ArrowRight className="w-3.5 h-3.5 text-[#5E6AD2]" />
                 <div>
-                  <div className="text-[9px] text-[#5E6AD2] font-semibold">AFTER (IN-MEMORY)</div>
-                  <div className="text-lg font-bold text-[#5E6AD2]">40–50 ms</div>
+                  <div className="text-[9px] text-[#5E6AD2] font-semibold">AFTER (CACHE)</div>
+                  <div className="text-base font-bold text-[#5E6AD2]">40–50 ms</div>
                 </div>
               </div>
             )}
 
             {activeArch === 'telemetry' && (
-              <div className="bg-[#FAF7F2] dark:bg-[#08090A] rounded-lg p-3 border border-[#E8E2D5] dark:border-white/[0.08] flex items-center gap-4 shrink-0 font-mono text-xs">
+              <div className="bg-[#FAF7F2] dark:bg-[#08090A] rounded-lg p-2.5 border border-[#E8E2D5] dark:border-white/[0.08] flex items-center gap-3 shrink-0 font-mono text-xs">
                 <div>
-                  <div className="text-[9px] text-stone-500 dark:text-[#62666D]">DAILY TELEMETRY</div>
-                  <div className="text-stone-900 dark:text-[#EDEDEF] font-bold">10,000+</div>
+                  <div className="text-[9px] text-stone-500 dark:text-[#62666D]">DAILY EVENTS</div>
+                  <div className="text-stone-900 dark:text-[#EDEDEF] font-bold text-xs">10,000+</div>
                 </div>
                 <div>
                   <div className="text-[9px] text-stone-500 dark:text-[#62666D]">FACILITIES</div>
-                  <div className="text-stone-900 dark:text-[#EDEDEF] font-bold">50+</div>
+                  <div className="text-stone-900 dark:text-[#EDEDEF] font-bold text-xs">50+</div>
                 </div>
                 <div>
-                  <div className="text-[9px] text-emerald-700 dark:text-[#4EBA6F] font-semibold">UPTIME SLA</div>
-                  <div className="text-emerald-700 dark:text-[#4EBA6F] font-bold">~99%</div>
+                  <div className="text-[9px] text-emerald-700 dark:text-[#4EBA6F] font-semibold">UPTIME</div>
+                  <div className="text-emerald-700 dark:text-[#4EBA6F] font-bold text-xs">~99%</div>
                 </div>
               </div>
             )}
 
             {activeArch === 'aggregation' && (
-              <div className="bg-[#FAF7F2] dark:bg-[#08090A] rounded-lg p-3 border border-[#E8E2D5] dark:border-white/[0.08] text-xs font-mono shrink-0">
-                <div className="text-[9px] text-stone-500 dark:text-[#62666D] uppercase">INTERVAL RESOLUTION</div>
-                <div className="text-[#5E6AD2] font-bold">96 Daily Buckets (15-Min)</div>
+              <div className="bg-[#FAF7F2] dark:bg-[#08090A] rounded-lg p-2.5 border border-[#E8E2D5] dark:border-white/[0.08] text-xs font-mono shrink-0">
+                <div className="text-[9px] text-stone-500 dark:text-[#62666D] uppercase">INTERVAL</div>
+                <div className="text-[#5E6AD2] font-bold text-xs">96 Buckets (15-Min)</div>
               </div>
             )}
           </div>
 
           {/* Synchronized 4-Step Cards Flow */}
-          <div className="space-y-4 my-2">
+          <div className="space-y-3.5 my-2">
             
             <div className="flex items-center justify-between text-[10px] font-mono text-stone-500 dark:text-[#62666D] uppercase tracking-wider">
-              <span>Data Movement &amp; Pipeline Execution (Click node to inspect)</span>
+              <span>Execution Pipeline Flow</span>
               <span className="text-[#5E6AD2] flex items-center gap-1.5 font-semibold">
-                <span className="w-2 h-2 rounded-full bg-[#5E6AD2] animate-ping" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#5E6AD2] animate-ping" />
                 Active Node: Step 0{activePulseStep + 1}
               </span>
             </div>
@@ -314,7 +314,7 @@ export const ArchitectureShowcase: React.FC = () => {
                       setIsAutoPlaying(false);
                       setTimeout(() => setIsAutoPlaying(true), 8000);
                     }}
-                    className={`border rounded-lg p-4 min-h-[160px] flex flex-col justify-between transition-all duration-300 cursor-pointer relative ${
+                    className={`border rounded-lg p-3.5 min-h-[155px] flex flex-col justify-between transition-all duration-300 cursor-pointer relative ${
                       isCurrent
                         ? 'border-[#5E6AD2] bg-indigo-50/70 dark:bg-[#16181D] shadow-md shadow-[#5E6AD2]/15 scale-[1.02] ring-1 ring-[#5E6AD2]/50'
                         : isPast
@@ -323,8 +323,8 @@ export const ArchitectureShowcase: React.FC = () => {
                     }`}
                   >
                     <div>
-                      <div className="flex items-center justify-between mb-2">
-                        <span className={`text-xs font-mono font-bold ${isCurrent ? 'text-[#5E6AD2]' : 'text-stone-600 dark:text-[#8A8F98]'}`}>
+                      <div className="flex items-center justify-between mb-1.5">
+                        <span className={`text-[11px] font-mono font-bold ${isCurrent ? 'text-[#5E6AD2]' : 'text-stone-600 dark:text-[#8A8F98]'}`}>
                           {s.step}
                         </span>
                         <div className={`p-1 rounded ${isCurrent ? 'bg-[#5E6AD2]/20 text-[#5E6AD2]' : 'bg-stone-100 dark:bg-white/[0.04] text-stone-500 dark:text-[#62666D]'}`}>
@@ -357,7 +357,7 @@ export const ArchitectureShowcase: React.FC = () => {
             </div>
 
             {/* SYNCHRONIZED FLOW PROGRESS BEAM & LABELS */}
-            <div className="pt-2 space-y-2">
+            <div className="pt-1.5 space-y-2">
               
               {/* Connected Track Line with 4 Stage Dots */}
               <div className="relative h-2 bg-[#E8E2D5] dark:bg-[#08090A] rounded-full border border-[#E8E2D5] dark:border-white/[0.08] overflow-hidden flex items-center">
@@ -404,7 +404,7 @@ export const ArchitectureShowcase: React.FC = () => {
                 </span>
 
                 <div className="flex items-center gap-1 text-[#5E6AD2] text-xs">
-                  <span>Continuous Pipeline Execution</span>
+                  <span>Continuous Pipeline</span>
                   <ChevronRight className="w-3.5 h-3.5 animate-pulse" />
                   <ChevronRight className="w-3.5 h-3.5 -ml-2 text-[#6875E3]" />
                 </div>
@@ -425,15 +425,15 @@ export const ArchitectureShowcase: React.FC = () => {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-3 border-t border-[#E8E2D5] dark:border-white/[0.08]">
             {activeArch === 'caching' && (
               <>
-                <div className="p-3 rounded-lg bg-[#FAF7F2] dark:bg-[#08090A] border border-[#E8E2D5] dark:border-white/[0.06] text-xs">
+                <div className="p-2.5 rounded-lg bg-[#FAF7F2] dark:bg-[#08090A] border border-[#E8E2D5] dark:border-white/[0.06] text-xs">
                   <div className="font-semibold text-stone-900 dark:text-[#EDEDEF]">Server-Startup In-Memory Cache</div>
                   <div className="text-stone-600 dark:text-[#8A8F98] text-[11px] mt-0.5">Preloads Users, HC200 hub metadata, and Accounts into server RAM at boot for zero-lag resolution.</div>
                 </div>
-                <div className="p-3 rounded-lg bg-[#FAF7F2] dark:bg-[#08090A] border border-[#E8E2D5] dark:border-white/[0.06] text-xs">
+                <div className="p-2.5 rounded-lg bg-[#FAF7F2] dark:bg-[#08090A] border border-[#E8E2D5] dark:border-white/[0.06] text-xs">
                   <div className="font-semibold text-stone-900 dark:text-[#EDEDEF]">Vertical Modular Monolith</div>
                   <div className="text-stone-600 dark:text-[#8A8F98] text-[11px] mt-0.5">Led Users &amp; AppRegistry backend modules + AppRegistry UI, solving tight coupling cleanly.</div>
                 </div>
-                <div className="p-3 rounded-lg bg-[#FAF7F2] dark:bg-[#08090A] border border-[#E8E2D5] dark:border-white/[0.06] text-xs">
+                <div className="p-2.5 rounded-lg bg-[#FAF7F2] dark:bg-[#08090A] border border-[#E8E2D5] dark:border-white/[0.06] text-xs">
                   <div className="font-semibold text-stone-900 dark:text-[#EDEDEF]">99% Latency Reduction</div>
                   <div className="text-stone-600 dark:text-[#8A8F98] text-[11px] mt-0.5">Response times plummeted from ~7,000ms down to 40–50ms on critical high-traffic endpoints.</div>
                 </div>
@@ -442,15 +442,15 @@ export const ArchitectureShowcase: React.FC = () => {
 
             {activeArch === 'telemetry' && (
               <>
-                <div className="p-3 rounded-lg bg-[#FAF7F2] dark:bg-[#08090A] border border-[#E8E2D5] dark:border-white/[0.06] text-xs">
+                <div className="p-2.5 rounded-lg bg-[#FAF7F2] dark:bg-[#08090A] border border-[#E8E2D5] dark:border-white/[0.06] text-xs">
                   <div className="font-semibold text-stone-900 dark:text-[#EDEDEF]">Cassandra IoT Extraction</div>
                   <div className="text-stone-600 dark:text-[#8A8F98] text-[11px] mt-0.5">Extracts and cleans high-velocity mesh Wi-Fi &amp; sensor telemetry across 50+ facilities into Databricks.</div>
                 </div>
-                <div className="p-3 rounded-lg bg-[#FAF7F2] dark:bg-[#08090A] border border-[#E8E2D5] dark:border-white/[0.06] text-xs">
+                <div className="p-2.5 rounded-lg bg-[#FAF7F2] dark:bg-[#08090A] border border-[#E8E2D5] dark:border-white/[0.06] text-xs">
                   <div className="font-semibold text-stone-900 dark:text-[#EDEDEF]">Automated Daily Gold Layer</div>
                   <div className="text-stone-600 dark:text-[#8A8F98] text-[11px] mt-0.5">Daily scheduled pipeline computes device health and ~99% uptime SLA tables automatically.</div>
                 </div>
-                <div className="p-3 rounded-lg bg-[#FAF7F2] dark:bg-[#08090A] border border-[#E8E2D5] dark:border-white/[0.06] text-xs">
+                <div className="p-2.5 rounded-lg bg-[#FAF7F2] dark:bg-[#08090A] border border-[#E8E2D5] dark:border-white/[0.06] text-xs">
                   <div className="font-semibold text-stone-900 dark:text-[#EDEDEF]">Power BI &amp; AWS Lambda Reports</div>
                   <div className="text-stone-600 dark:text-[#8A8F98] text-[11px] mt-0.5">Live executive Power BI dashboards for Architects &amp; Clients + on-demand custom Excel reports via Lambda.</div>
                 </div>
@@ -459,15 +459,15 @@ export const ArchitectureShowcase: React.FC = () => {
 
             {activeArch === 'aggregation' && (
               <>
-                <div className="p-3 rounded-lg bg-[#FAF7F2] dark:bg-[#08090A] border border-[#E8E2D5] dark:border-white/[0.06] text-xs">
+                <div className="p-2.5 rounded-lg bg-[#FAF7F2] dark:bg-[#08090A] border border-[#E8E2D5] dark:border-white/[0.06] text-xs">
                   <div className="font-semibold text-stone-900 dark:text-[#EDEDEF]">HC200 Timezone Normalizer</div>
                   <div className="text-stone-600 dark:text-[#8A8F98] text-[11px] mt-0.5">Converts UTC Cassandra sensor timestamps to the physical local timezone of the user's HC200 hub.</div>
                 </div>
-                <div className="p-3 rounded-lg bg-[#FAF7F2] dark:bg-[#08090A] border border-[#E8E2D5] dark:border-white/[0.06] text-xs">
+                <div className="p-2.5 rounded-lg bg-[#FAF7F2] dark:bg-[#08090A] border border-[#E8E2D5] dark:border-white/[0.06] text-xs">
                   <div className="font-semibold text-stone-900 dark:text-[#EDEDEF]">Generalized Dynamic Aggregation</div>
                   <div className="text-stone-600 dark:text-[#8A8F98] text-[11px] mt-0.5">Slices 24 hours into 96 buckets, dynamically computing count, sum, avg, mode, or median on-the-fly.</div>
                 </div>
-                <div className="p-3 rounded-lg bg-[#FAF7F2] dark:bg-[#08090A] border border-[#E8E2D5] dark:border-white/[0.06] text-xs">
+                <div className="p-2.5 rounded-lg bg-[#FAF7F2] dark:bg-[#08090A] border border-[#E8E2D5] dark:border-white/[0.06] text-xs">
                   <div className="font-semibold text-stone-900 dark:text-[#EDEDEF]">24-Hour Caregiver Heatmap</div>
                   <div className="text-stone-600 dark:text-[#8A8F98] text-[11px] mt-0.5">Interactive React grid visualizing daily mobility intensity and flagging elderly inactivity anomalies.</div>
                 </div>
