@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
+import { JourneyNavRail } from './components/JourneyNavRail';
 import { ArchitectureShowcase } from './components/ArchitectureShowcase';
 import { Experience } from './components/Experience';
 import { Projects } from './components/Projects';
-import { AgentChatPreview } from './components/AgentChatPreview';
 import { SkillsMatrix } from './components/SkillsMatrix';
 import { Certifications } from './components/Certifications';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 import { ResumeModal } from './components/ResumeModal';
+import { LisaChatWidget } from './components/LisaChatWidget';
 
 export function App() {
   const [isResumeOpen, setIsResumeOpen] = useState(false);
@@ -17,54 +18,45 @@ export function App() {
   return (
     <div className="min-h-screen bg-[#090D16] text-neutral-200 selection:bg-emerald-500/20 selection:text-emerald-300 relative">
       
-      {/* Navigation */}
+      {/* Top Navbar */}
       <Navbar onOpenResume={() => setIsResumeOpen(true)} />
 
-      {/* Main Content */}
-      <main>
-        {/* Hero Section */}
-        <Hero onOpenResume={() => setIsResumeOpen(true)} />
+      {/* Interactive Vertical Journey Rail (Walking Timeline Indicator) */}
+      <JourneyNavRail />
 
-        {/* System Architecture & Case Studies (Replaces live simulator) */}
+      {/* Main Content Layout with XL left offset for Journey Rail */}
+      <main className="xl:pl-28">
+        {/* Profile / Hero Section */}
+        <section id="hero">
+          <Hero onOpenResume={() => setIsResumeOpen(true)} />
+        </section>
+
+        {/* System Design & Case Studies */}
         <ArchitectureShowcase />
 
         {/* Experience Chronology */}
         <Experience />
 
-        {/* AI Resume Assistant */}
-        <section id="ai-assistant" className="py-20 relative bg-dot-grid">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-            <div className="space-y-2">
-              <div className="text-xs font-mono text-emerald-400 uppercase tracking-wider">
-                Natural Language Exploration
-              </div>
-              <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
-                AI Resume Assistant
-              </h2>
-              <p className="text-neutral-400 text-sm max-w-2xl">
-                Ask questions about Abhinandan's engineering accomplishments, low-latency API migrations, and tech stack in natural language.
-              </p>
-            </div>
-
-            <AgentChatPreview />
-          </div>
-        </section>
-
         {/* Projects Showcase */}
         <Projects />
 
-        {/* Skills Architecture */}
+        {/* Skills & Capabilities Architecture */}
         <SkillsMatrix />
 
         {/* Credentials & Academics */}
         <Certifications />
 
-        {/* Contact Form & Google Drive Download Section */}
+        {/* Contact Form & Google Drive Sync */}
         <Contact onOpenResume={() => setIsResumeOpen(true)} />
       </main>
 
       {/* Footer */}
-      <Footer onOpenResume={() => setIsResumeOpen(true)} />
+      <div className="xl:pl-28">
+        <Footer onOpenResume={() => setIsResumeOpen(true)} />
+      </div>
+
+      {/* Floating Interactive AI Assistant: Lisa */}
+      <LisaChatWidget />
 
       {/* Resume Modal */}
       <ResumeModal
