@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ThemeProvider } from './context/ThemeContext';
 import { Navbar } from './components/Navbar';
+import { JourneyNavRail } from './components/JourneyNavRail';
 import { Hero } from './components/Hero';
 import { ArchitectureShowcase } from './components/ArchitectureShowcase';
 import { Experience } from './components/Experience';
@@ -21,8 +22,11 @@ export function AppContent() {
       {/* Top Floating Glassmorphic Navbar with Integrated Theme Toggle & Anchor Links */}
       <Navbar onOpenResume={() => setIsResumeOpen(true)} />
 
-      {/* Main Content Layout (Centered with Smooth Ergonomic Breathing Room) */}
-      <main>
+      {/* Interactive Vertical Journey Rail (Walking Timeline Indicator) */}
+      <JourneyNavRail />
+
+      {/* Main Content Layout with XL left offset for Journey Rail */}
+      <main className="xl:pl-28">
         {/* Profile / Hero Section */}
         <section id="hero">
           <Hero onOpenResume={() => setIsResumeOpen(true)} />
@@ -48,7 +52,9 @@ export function AppContent() {
       </main>
 
       {/* Footer */}
-      <Footer onOpenResume={() => setIsResumeOpen(true)} />
+      <div className="xl:pl-28">
+        <Footer onOpenResume={() => setIsResumeOpen(true)} />
+      </div>
 
       {/* Floating Interactive AI Assistant: Lisa (Remains Collapsed Until Clicked) */}
       <LisaChatWidget />
