@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { PORTFOLIO_DATA } from '../data/portfolioData';
-import { FileText, Menu, X, ArrowUpRight, Sparkles } from 'lucide-react';
+import { FileText, Menu, X, ArrowUpRight } from 'lucide-react';
 
 interface NavbarProps {
   onOpenResume: () => void;
@@ -16,13 +16,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
 
-      // Scroll progress
       const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
       const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
       const scrolledPct = height > 0 ? (winScroll / height) * 100 : 0;
       setScrollProgress(scrolledPct);
 
-      // Active section detection
       const sections = ['hero', 'architectures', 'experience', 'projects', 'skills', 'credentials', 'contact'];
       const scrollPosition = window.scrollY + 200;
 
@@ -53,35 +51,37 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
     <header className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 lg:px-8 pt-3 pb-2 transition-all duration-300">
       <div className={`max-w-6xl mx-auto rounded-2xl transition-all duration-300 relative ${
         scrolled 
-          ? 'bg-[#0B0F17]/85 backdrop-blur-xl border border-white/[0.1] shadow-2xl shadow-black/50' 
-          : 'bg-[#0B0F17]/40 backdrop-blur-md border border-white/[0.06]'
+          ? 'bg-[#0B0F17]/90 backdrop-blur-xl border border-white/[0.1] shadow-2xl shadow-black/50' 
+          : 'bg-[#0B0F17]/60 backdrop-blur-md border border-white/[0.08]'
       }`}>
         
-        {/* Subtle 1px Scroll Progress Line at top of Navbar */}
+        {/* Scroll Progress Micro-line */}
         <div
-          className="absolute top-0 left-4 right-4 h-[1px] bg-gradient-to-r from-emerald-500/0 via-emerald-400 to-emerald-500/0 transition-all duration-150 rounded-full"
+          className="absolute top-0 left-4 right-4 h-[1.5px] bg-gradient-to-r from-emerald-500/0 via-emerald-400 to-emerald-500/0 transition-all duration-150 rounded-full"
           style={{ width: `${scrollProgress}%` }}
         />
 
-        <div className="flex items-center justify-between h-14 sm:h-16 px-4 sm:px-6">
+        <div className="flex items-center justify-between h-14 sm:h-16 px-4 sm:px-6 gap-4">
           
-          {/* Logo & Brand Identity (Removed Backslash) */}
-          <a href="#" className="flex items-center gap-2.5 group shrink-0">
-            <div className="w-7 h-7 rounded-lg bg-neutral-900 border border-white/[0.12] flex items-center justify-center font-mono font-bold text-xs text-white group-hover:border-emerald-500/60 group-hover:text-emerald-400 transition-colors">
-              AK
-            </div>
-            <div className="flex items-center gap-1.5">
-              <span className="font-semibold text-white text-xs sm:text-sm tracking-tight group-hover:text-emerald-300 transition-colors">
+          {/* Brand Identity: Separate logo link from static subtitle (No whole-block hover bug) */}
+          <div className="flex items-center gap-3 shrink-0">
+            <a href="#" className="flex items-center gap-2 text-white hover:text-emerald-400 transition-colors">
+              <div className="w-7 h-7 rounded-lg bg-neutral-900 border border-white/[0.12] flex items-center justify-center font-mono font-bold text-xs text-white hover:border-emerald-500/60 transition-colors">
+                AK
+              </div>
+              <span className="font-semibold text-xs sm:text-sm tracking-tight text-white hover:text-emerald-400 transition-colors">
                 {PORTFOLIO_DATA.personal.name}
               </span>
-              <span className="hidden md:inline-block text-[11px] font-mono text-neutral-400">
-                &bull; Data &amp; Systems
-              </span>
-            </div>
-          </a>
+            </a>
 
-          {/* Unified Desktop Navigation Links with Consistent Spacing & Hover Spotlight */}
-          <nav className="hidden lg:flex items-center gap-1 xl:gap-2">
+            {/* Static descriptive role badge with clean border separator */}
+            <span className="hidden xl:inline-flex text-[11px] font-mono text-neutral-400 pl-2.5 border-l border-white/[0.1] select-none">
+              Data &amp; Systems
+            </span>
+          </div>
+
+          {/* Unified Navigation: Even, Consistent Spacing Across All Links */}
+          <nav className="hidden lg:flex items-center justify-center gap-1 xl:gap-1.5 flex-1 max-w-2xl">
             {navLinks.map((link) => {
               const isActive = activeSection === link.id;
               return (
@@ -102,7 +102,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
               );
             })}
 
-            {/* Seamless Resume Link (No Box, Uniform with Nav Links) */}
+            {/* Resume Link (Uniform with nav links) */}
             <button
               onClick={onOpenResume}
               className="px-3 py-1.5 rounded-lg text-xs font-mono text-neutral-400 hover:text-emerald-300 hover:bg-white/[0.04] transition-all flex items-center gap-1.5 cursor-pointer"
@@ -112,8 +112,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
             </button>
           </nav>
 
-          {/* Right Action: Clean Interactive CTA */}
-          <div className="hidden sm:flex items-center gap-3 shrink-0">
+          {/* Right Action: Clean Connect CTA */}
+          <div className="hidden sm:flex items-center gap-2 shrink-0">
             <a
               href="#contact"
               className="px-3.5 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-neutral-950 font-semibold text-xs font-mono transition-all flex items-center gap-1 shadow-sm hover:shadow-emerald-500/20 active:scale-95"
