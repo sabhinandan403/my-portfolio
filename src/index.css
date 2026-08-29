@@ -3,78 +3,75 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    background-color: #08090A;
+  }
+
   body {
-    @apply bg-[#0B0F17] text-[#94A3B8] antialiased selection:bg-emerald-500/20 selection:text-emerald-300 font-sans transition-colors duration-300;
+    background-color: #08090A;
+    color: #8A8F98;
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     letter-spacing: -0.01em;
   }
 
-  .dark body {
-    @apply bg-[#0B0F17] text-[#94A3B8];
-  }
-
-  body:not(.dark) {
-    @apply bg-[#F8FAFC] text-[#475569] selection:bg-emerald-500/20 selection:text-emerald-700;
+  ::selection {
+    background-color: rgba(94, 106, 210, 0.3);
+    color: #EDEDEF;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply tracking-tight font-semibold transition-colors duration-300;
-  }
-
-  .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
-    @apply text-[#F1F5F9];
-  }
-
-  html:not(.dark) h1, html:not(.dark) h2, html:not(.dark) h3, html:not(.dark) h4, html:not(.dark) h5, html:not(.dark) h6 {
-    @apply text-[#0F172A];
+    color: #EDEDEF;
+    letter-spacing: -0.02em;
+    font-weight: 600;
   }
 }
 
-/* Subtle 4% dot grid background (Soothing, eye-friendly) */
-.bg-dot-grid {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-  background-size: 24px 24px;
+/* Linear-style Ambient Lighting (Top Subtle Indigo Glow) */
+.ambient-glow {
+  background-image: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(94, 106, 210, 0.15), transparent 70%);
+  background-repeat: no-repeat;
 }
 
-html:not(.dark) .bg-dot-grid {
-  background-image: radial-gradient(rgba(15, 23, 42, 0.04) 1px, transparent 1px);
-  background-size: 24px 24px;
-}
-
-/* Minimalist Editorial Card */
-.editorial-card {
-  background: #131B2A;
+/* Linear Sleek Obsidian Card */
+.editorial-card, .linear-card {
+  background-color: #101114;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 0.75rem; /* rounded-xl */
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.editorial-card:hover {
-  border-color: rgba(255, 255, 255, 0.16);
+.editorial-card:hover, .linear-card:hover {
+  background-color: #16181D;
+  border-color: rgba(255, 255, 255, 0.18);
   transform: translateY(-1px);
 }
 
-html:not(.dark) .editorial-card {
-  background: #FFFFFF;
-  border: 1px solid #E2E8F0;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
+/* Linear Glow Pill */
+.linear-pill {
+  background-color: rgba(94, 106, 210, 0.1);
+  border: 1px solid rgba(94, 106, 210, 0.25);
+  color: #5E6AD2;
 }
 
-html:not(.dark) .editorial-card:hover {
-  border-color: #CBD5E1;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.06), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+.linear-pill:hover {
+  background-color: rgba(94, 106, 210, 0.18);
+  border-color: rgba(94, 106, 210, 0.4);
 }
 
-/* Custom minimal scrollbar */
+/* Minimal Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: #08090A;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.25);
+  background: rgba(255, 255, 255, 0.12);
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #34D399;
+  background: #5E6AD2;
 }

@@ -8,29 +8,36 @@ export default {
   theme: {
     extend: {
       colors: {
-        dark: {
-          bg: '#0B0F17',
-          surface: '#131B2A',
+        obsidian: {
+          DEFAULT: '#08090A',
+          canvas: '#08090A',
+          surface: '#101114',
+          'surface-hover': '#16181D',
           border: 'rgba(255, 255, 255, 0.08)',
-          heading: '#F1F5F9',
-          body: '#94A3B8',
-          accent: '#34D399',
+          'border-hover': 'rgba(255, 255, 255, 0.18)',
         },
-        light: {
-          bg: '#F8FAFC',
-          surface: '#FFFFFF',
-          border: '#E2E8F0',
-          heading: '#0F172A',
-          body: '#475569',
-          accent: '#059669',
+        linear: {
+          indigo: '#5E6AD2',
+          'indigo-glow': 'rgba(94, 106, 210, 0.15)',
+          'indigo-hover': '#6875E3',
+          green: '#4EBA6F',
         },
+        txt: {
+          primary: '#EDEDEF',
+          muted: '#8A8F98',
+          tertiary: '#62666D',
+        }
       },
       fontFamily: {
         sans: ['Inter', 'Plus Jakarta Sans', 'system-ui', 'sans-serif'],
         mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
       },
+      borderRadius: {
+        'card': '0.75rem', // rounded-xl
+        'btn': '0.5rem',   // rounded-lg
+      },
       transitionTimingFunction: {
-        'editorial': 'cubic-bezier(0.16, 1, 0.3, 1)',
+        'linear': 'cubic-bezier(0.16, 1, 0.3, 1)',
       }
     },
   },

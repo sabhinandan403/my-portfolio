@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { ThemeProvider } from './context/ThemeContext';
 import { Navbar } from './components/Navbar';
 import { JourneyNavRail } from './components/JourneyNavRail';
 import { Hero } from './components/Hero';
@@ -13,19 +12,19 @@ import { Footer } from './components/Footer';
 import { ResumeModal } from './components/ResumeModal';
 import { LisaChatWidget } from './components/LisaChatWidget';
 
-export function AppContent() {
+export function App() {
   const [isResumeOpen, setIsResumeOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] dark:bg-[#0B0F17] text-slate-600 dark:text-[#94A3B8] selection:bg-emerald-500/20 selection:text-emerald-700 dark:selection:text-emerald-300 relative transition-colors duration-300">
+    <div className="min-h-screen bg-[#08090A] text-[#8A8F98] selection:bg-[#5E6AD2]/30 selection:text-[#EDEDEF] relative">
       
-      {/* Top Floating Glassmorphic Navbar with Integrated Theme Toggle & Anchor Links */}
+      {/* Top Floating Glassmorphic Navbar */}
       <Navbar onOpenResume={() => setIsResumeOpen(true)} />
 
-      {/* Interactive Vertical Journey Rail (Walking Timeline Indicator) */}
+      {/* Interactive Left-Side Journey Rail */}
       <JourneyNavRail />
 
-      {/* Main Content Layout with XL left offset for Journey Rail */}
+      {/* Main Content Layout with XL left offset */}
       <main className="xl:pl-28">
         {/* Profile / Hero Section */}
         <section id="hero">
@@ -56,7 +55,7 @@ export function AppContent() {
         <Footer onOpenResume={() => setIsResumeOpen(true)} />
       </div>
 
-      {/* Floating Interactive AI Assistant: Lisa (Remains Collapsed Until Clicked) */}
+      {/* Floating Interactive AI Assistant: Lisa */}
       <LisaChatWidget />
 
       {/* Resume Modal */}
@@ -66,14 +65,6 @@ export function AppContent() {
       />
 
     </div>
-  );
-}
-
-export function App() {
-  return (
-    <ThemeProvider>
-      <AppContent />
-    </ThemeProvider>
   );
 }
 

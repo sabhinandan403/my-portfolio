@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { PORTFOLIO_DATA } from '../data/portfolioData';
-import { Mail, Phone, ExternalLink, Send, Check, Copy, FileText, ArrowUpRight } from 'lucide-react';
+import { ExternalLink, Send, Check, Copy, FileText } from 'lucide-react';
 import { LinkedinIcon, GithubIcon } from './Icons';
 
 interface ContactProps {
@@ -37,13 +37,13 @@ export const Contact: React.FC<ContactProps> = ({ onOpenResume }) => {
         
         {/* Section Header */}
         <div className="space-y-2">
-          <div className="text-xs font-mono text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">
+          <div className="text-xs font-mono text-[#5E6AD2] uppercase tracking-wider">
             Initiate Conversation
           </div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-[#F1F5F9] tracking-tight">
+          <h2 className="text-2xl sm:text-3xl font-bold text-[#EDEDEF] tracking-tight">
             Get In Touch
           </h2>
-          <p className="text-slate-600 dark:text-[#94A3B8] text-sm max-w-xl">
+          <p className="text-[#8A8F98] text-sm max-w-xl">
             Whether you want to discuss low-latency architectures, data engineering pipelines, or Gen AI agent systems — I'd love to connect.
           </p>
         </div>
@@ -55,23 +55,23 @@ export const Contact: React.FC<ContactProps> = ({ onOpenResume }) => {
           <div className="md:col-span-5 space-y-4">
             
             {/* 1-Click Email Copy Card */}
-            <div className="editorial-card rounded-2xl p-6 space-y-3">
-              <div className="text-xs font-mono uppercase text-slate-500 dark:text-neutral-400">Direct Email</div>
-              <div className="text-sm font-semibold text-slate-900 dark:text-white font-mono break-all">
+            <div className="editorial-card rounded-xl p-6 space-y-3">
+              <div className="text-xs font-mono uppercase text-[#62666D]">Direct Email</div>
+              <div className="text-sm font-semibold text-[#EDEDEF] font-mono break-all">
                 {PORTFOLIO_DATA.personal.email}
               </div>
               <button
                 onClick={handleCopyEmail}
-                className="w-full py-2.5 rounded-lg bg-slate-100 dark:bg-white/[0.04] hover:bg-slate-200 dark:hover:bg-white/[0.08] border border-slate-200 dark:border-white/[0.08] text-xs font-mono text-slate-700 dark:text-neutral-200 transition-colors flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full py-2.5 rounded-lg bg-[#08090A] hover:bg-[#16181D] border border-white/[0.08] text-xs font-mono text-[#EDEDEF] transition-colors flex items-center justify-center gap-2 cursor-pointer"
               >
                 {copied ? (
                   <>
-                    <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                    <Check className="w-3.5 h-3.5 text-[#4EBA6F]" />
                     <span>Email Copied to Clipboard</span>
                   </>
                 ) : (
                   <>
-                    <Copy className="w-3.5 h-3.5 text-slate-500 dark:text-neutral-400" />
+                    <Copy className="w-3.5 h-3.5 text-[#8A8F98]" />
                     <span>Copy Email Address</span>
                   </>
                 )}
@@ -79,16 +79,16 @@ export const Contact: React.FC<ContactProps> = ({ onOpenResume }) => {
             </div>
 
             {/* Google Drive Latest Resume Card */}
-            <div className="editorial-card rounded-2xl p-6 space-y-3 border-emerald-500/30">
+            <div className="editorial-card rounded-xl p-6 space-y-3 border-[#5E6AD2]/30">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-mono uppercase text-emerald-700 dark:text-emerald-400 font-semibold flex items-center gap-1.5">
+                <span className="text-xs font-mono uppercase text-[#5E6AD2] font-semibold flex items-center gap-1.5">
                   <FileText className="w-3.5 h-3.5" /> Latest Resume
                 </span>
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-500/20">
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#4EBA6F]/10 text-[#4EBA6F] border border-[#4EBA6F]/20">
                   Drive Synced
                 </span>
               </div>
-              <p className="text-xs text-slate-600 dark:text-[#94A3B8] leading-relaxed">
+              <p className="text-xs text-[#8A8F98] leading-relaxed">
                 Access the verified PDF copy directly from Google Drive or open the interactive reader.
               </p>
               <div className="flex items-center gap-2 pt-1">
@@ -96,17 +96,17 @@ export const Contact: React.FC<ContactProps> = ({ onOpenResume }) => {
                   href={PORTFOLIO_DATA.personal.googleDriveResumeUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex-1 py-2.5 rounded-lg bg-emerald-600 dark:bg-emerald-500 hover:bg-emerald-500 dark:hover:bg-emerald-400 text-white dark:text-neutral-950 font-semibold text-xs font-mono transition-colors flex items-center justify-center gap-1.5 shadow-sm"
+                  className="flex-1 py-2.5 rounded-lg bg-[#5E6AD2] hover:bg-[#6875E3] text-[#EDEDEF] font-semibold text-xs font-mono transition-colors flex items-center justify-center gap-1.5 shadow-md shadow-[#5E6AD2]/25"
                 >
                   <ExternalLink className="w-3.5 h-3.5" />
                   <span>Open in Google Drive</span>
                 </a>
                 <button
                   onClick={onOpenResume}
-                  className="p-2.5 rounded-lg bg-slate-100 dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] hover:bg-slate-200 dark:hover:bg-white/[0.08] text-slate-600 dark:text-neutral-300 text-xs font-mono transition-colors cursor-pointer"
+                  className="p-2.5 rounded-lg bg-[#08090A] border border-white/[0.08] hover:bg-[#16181D] text-[#EDEDEF] text-xs font-mono transition-colors cursor-pointer"
                   title="Quick View"
                 >
-                  <FileText className="w-4 h-4" />
+                  <FileText className="w-4 h-4 text-[#5E6AD2]" />
                 </button>
               </div>
             </div>
@@ -117,16 +117,16 @@ export const Contact: React.FC<ContactProps> = ({ onOpenResume }) => {
                 href={PORTFOLIO_DATA.personal.linkedin}
                 target="_blank"
                 rel="noreferrer"
-                className="flex-1 py-2.5 rounded-xl editorial-card flex items-center justify-center gap-2 text-xs font-mono text-slate-700 dark:text-neutral-300 hover:text-slate-900 dark:hover:text-white"
+                className="flex-1 py-2.5 rounded-lg editorial-card flex items-center justify-center gap-2 text-xs font-mono text-[#8A8F98] hover:text-[#EDEDEF]"
               >
-                <LinkedinIcon className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                <LinkedinIcon className="w-4 h-4 text-blue-400" />
                 <span>LinkedIn</span>
               </a>
               <a
                 href={PORTFOLIO_DATA.personal.github}
                 target="_blank"
                 rel="noreferrer"
-                className="flex-1 py-2.5 rounded-xl editorial-card flex items-center justify-center gap-2 text-xs font-mono text-slate-700 dark:text-neutral-300 hover:text-slate-900 dark:hover:text-white"
+                className="flex-1 py-2.5 rounded-lg editorial-card flex items-center justify-center gap-2 text-xs font-mono text-[#8A8F98] hover:text-[#EDEDEF]"
               >
                 <GithubIcon className="w-4 h-4" />
                 <span>GitHub</span>
@@ -136,16 +136,16 @@ export const Contact: React.FC<ContactProps> = ({ onOpenResume }) => {
           </div>
 
           {/* Right Column: Message Form */}
-          <div className="md:col-span-7 editorial-card rounded-2xl p-6 sm:p-8">
-            <h3 className="text-lg font-bold text-slate-900 dark:text-[#F1F5F9] mb-4">
+          <div className="md:col-span-7 editorial-card rounded-xl p-6 sm:p-8">
+            <h3 className="text-lg font-bold text-[#EDEDEF] mb-4">
               Send a Direct Message
             </h3>
 
             {formSubmitted ? (
-              <div className="p-6 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/30 text-center space-y-2">
-                <Check className="w-8 h-8 text-emerald-600 dark:text-emerald-400 mx-auto" />
-                <h4 className="text-sm font-semibold text-slate-900 dark:text-white">Message Sent Successfully!</h4>
-                <p className="text-xs text-slate-600 dark:text-[#94A3B8]">
+              <div className="p-6 rounded-xl bg-[#4EBA6F]/10 border border-[#4EBA6F]/30 text-center space-y-2">
+                <Check className="w-8 h-8 text-[#4EBA6F] mx-auto" />
+                <h4 className="text-sm font-semibold text-[#EDEDEF]">Message Sent Successfully!</h4>
+                <p className="text-xs text-[#8A8F98]">
                   Thank you for reaching out. I'll get back to you promptly at {formData.email || 'your email'}.
                 </p>
               </div>
@@ -153,45 +153,45 @@ export const Contact: React.FC<ContactProps> = ({ onOpenResume }) => {
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-1.5">
-                    <label className="text-xs font-mono text-slate-500 dark:text-neutral-400">Your Name</label>
+                    <label className="text-xs font-mono text-[#62666D]">Your Name</label>
                     <input
                       type="text"
                       required
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="e.g. Alex Smith"
-                      className="w-full bg-slate-50 dark:bg-black/20 border border-slate-200 dark:border-white/[0.08] text-xs text-slate-900 dark:text-neutral-200 rounded-lg px-3.5 py-2.5 focus:outline-none focus:border-emerald-500 placeholder:text-slate-400 dark:placeholder:text-neutral-600 font-sans"
+                      className="w-full bg-[#08090A] border border-white/[0.08] text-xs text-[#EDEDEF] rounded-lg px-3.5 py-2.5 focus:outline-none focus:border-[#5E6AD2] placeholder:text-[#62666D] font-sans"
                     />
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="text-xs font-mono text-slate-500 dark:text-neutral-400">Your Email</label>
+                    <label className="text-xs font-mono text-[#62666D]">Your Email</label>
                     <input
                       type="email"
                       required
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       placeholder="alex@company.com"
-                      className="w-full bg-slate-50 dark:bg-black/20 border border-slate-200 dark:border-white/[0.08] text-xs text-slate-900 dark:text-neutral-200 rounded-lg px-3.5 py-2.5 focus:outline-none focus:border-emerald-500 placeholder:text-slate-400 dark:placeholder:text-neutral-600 font-sans"
+                      className="w-full bg-[#08090A] border border-white/[0.08] text-xs text-[#EDEDEF] rounded-lg px-3.5 py-2.5 focus:outline-none focus:border-[#5E6AD2] placeholder:text-[#62666D] font-sans"
                     />
                   </div>
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-xs font-mono text-slate-500 dark:text-neutral-400">Message / Inquiries</label>
+                  <label className="text-xs font-mono text-[#62666D]">Message / Inquiries</label>
                   <textarea
                     rows={4}
                     required
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     placeholder="Tell me about your project, data architecture, or role requirements..."
-                    className="w-full bg-slate-50 dark:bg-black/20 border border-slate-200 dark:border-white/[0.08] text-xs text-slate-900 dark:text-neutral-200 rounded-lg px-3.5 py-2.5 focus:outline-none focus:border-emerald-500 placeholder:text-slate-400 dark:placeholder:text-neutral-600 font-sans resize-none"
+                    className="w-full bg-[#08090A] border border-white/[0.08] text-xs text-[#EDEDEF] rounded-lg px-3.5 py-2.5 focus:outline-none focus:border-[#5E6AD2] placeholder:text-[#62666D] font-sans resize-none"
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full py-3 rounded-lg bg-emerald-600 dark:bg-emerald-500 hover:bg-emerald-500 dark:hover:bg-emerald-400 text-white dark:text-neutral-950 font-semibold text-xs font-mono transition-all flex items-center justify-center gap-2 shadow-sm cursor-pointer"
+                  className="w-full py-3 rounded-lg bg-[#5E6AD2] hover:bg-[#6875E3] text-[#EDEDEF] font-semibold text-xs font-mono transition-all flex items-center justify-center gap-2 shadow-lg shadow-[#5E6AD2]/25 cursor-pointer"
                 >
                   <Send className="w-3.5 h-3.5" />
                   <span>Transmit Message</span>
