@@ -23,26 +23,27 @@ export const Footer: React.FC<FooterProps> = ({ onOpenResume }) => {
             </div>
             <div>
               <div className="font-semibold text-white text-xs">{PORTFOLIO_DATA.personal.name}</div>
-              <div className="text-[10px] text-neutral-500 font-mono">Full Stack Data &amp; AI Engineer</div>
+              <div className="text-[10px] text-neutral-500 font-mono">Data &amp; AI Engineer</div>
             </div>
           </div>
 
-          {/* Quick Nav */}
-          <div className="flex flex-wrap items-center justify-center gap-5 text-xs font-mono text-neutral-400">
-            <a href="#showcase" className="hover:text-white transition-colors">Showcase</a>
+          {/* Quick Nav (Synchronized in 100% lockstep with Top Nav) */}
+          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-5 text-xs font-mono text-neutral-400">
+            <a href="#architectures" className="hover:text-emerald-400 transition-colors">System Design</a>
             <a href="#experience" className="hover:text-white transition-colors">Experience</a>
             <a href="#projects" className="hover:text-white transition-colors">Projects</a>
             <a href="#skills" className="hover:text-white transition-colors">Skills</a>
-            <button onClick={onOpenResume} className="hover:text-emerald-400 transition-colors flex items-center gap-1">
-              <FileText className="w-3 h-3" /> Resume (Drive)
+            <a href="#credentials" className="hover:text-white transition-colors">Credentials</a>
+            <button onClick={onOpenResume} className="hover:text-emerald-400 transition-colors flex items-center gap-1 cursor-pointer">
+              <FileText className="w-3 h-3 text-emerald-400" /> Resume (Drive)
             </button>
-            <a href="#contact" className="hover:text-white transition-colors">Contact</a>
+            <a href="#contact" className="hover:text-emerald-400 transition-colors">Contact</a>
           </div>
 
           {/* Scroll to top */}
           <button
             onClick={scrollToTop}
-            className="p-2 rounded-lg bg-white/[0.04] border border-white/[0.08] hover:border-white/[0.2] text-neutral-400 hover:text-white transition-colors text-xs flex items-center gap-1 font-mono"
+            className="p-2 rounded-lg bg-white/[0.04] border border-white/[0.08] hover:border-white/[0.2] text-neutral-400 hover:text-white transition-colors text-xs flex items-center gap-1 font-mono cursor-pointer"
             title="Scroll to Top"
           >
             <ArrowUp className="w-3.5 h-3.5" />
