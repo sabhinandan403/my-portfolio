@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Bot, Send, X, CheckCircle2, Zap, Minimize2, Sparkles } from 'lucide-react';
+import React, { useState } from 'react';
+import { Bot, Send, X, CheckCircle2, Zap, Minimize2 } from 'lucide-react';
 
 interface ChatMessage {
   id: string;
@@ -11,8 +11,6 @@ interface ChatMessage {
 
 export const LisaChatWidget: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [showTeaser, setShowTeaser] = useState<boolean>(false);
-  const [hasUserInteracted, setHasUserInteracted] = useState<boolean>(false);
 
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
@@ -25,15 +23,6 @@ export const LisaChatWidget: React.FC = () => {
   const [inputText, setInputText] = useState('');
   const [isThinking, setIsThinking] = useState(false);
 
-  // Auto-open upon landing after 1.2 seconds to immediately engage visitors
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsOpen(true);
-    }, 1200);
-
-    return () => clearTimeout(timer);
-  }, []);
-
   const samplePrompts = [
     "How did he cut API response times from 7s to 40ms?",
     "What is his experience with Cassandra & Databricks Lakehouse?",
@@ -43,7 +32,6 @@ export const LisaChatWidget: React.FC = () => {
 
   const handleAsk = (query: string) => {
     if (!query.trim()) return;
-    setHasUserInteracted(true);
 
     const userMsg: ChatMessage = {
       id: 'usr-' + Date.now(),
@@ -89,14 +77,6 @@ export const LisaChatWidget: React.FC = () => {
     }, 600);
   };
 
-  const handleMinimize = () => {
-    setIsOpen(false);
-    if (!hasUserInteracted) {
-      setShowTeaser(true);
-      setTimeout(() => setShowTeaser(false), 6000);
-    }
-  };
-
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
       
@@ -124,7 +104,7 @@ export const LisaChatWidget: React.FC = () => {
 
             <div className="flex items-center gap-1">
               <button
-                onClick={handleMinimize}
+                onClick={() => setIsOpen(false)}
                 className="p-1.5 rounded-lg text-stone-400 dark:text-[#8A8F98] hover:text-stone-900 dark:hover:text-[#EDEDEF] hover:bg-stone-200/60 dark:hover:bg-white/[0.06] transition-colors cursor-pointer"
                 title="Minimize chat"
                 aria-label="Minimize"
@@ -132,7 +112,7 @@ export const LisaChatWidget: React.FC = () => {
                 <Minimize2 className="w-3.5 h-3.5" />
               </button>
               <button
-                onClick={handleMinimize}
+                onClick={() => setIsOpen(false)}
                 className="p-1.5 rounded-lg text-stone-400 dark:text-[#8A8F98] hover:text-stone-900 dark:hover:text-[#EDEDEF] hover:bg-stone-200/60 dark:hover:bg-white/[0.06] transition-colors cursor-pointer"
                 title="Close chat"
                 aria-label="Close"
@@ -235,37 +215,17 @@ export const LisaChatWidget: React.FC = () => {
 
         </div>
       ) : (
-        /* Floating Trigger Launcher Button with optional teaser */
-        <div className="flex flex-col items-end gap-2">
-          {showTeaser && (
-            <div className="bg-white dark:bg-[#101114] border border-[#E8E2D5] dark:border-white/[0.12] p-3 rounded-xl shadow-xl text-xs text-stone-700 dark:text-[#EDEDEF] max-w-[260px] animate-fadeIn flex items-start gap-2">
-              <Sparkles className="w-4 h-4 text-[#5E6AD2] shrink-0 mt-0.5" />
-              <div className="space-y-1">
-                <p className="leading-snug">Click anytime to chat with <strong>Lisa</strong> about Abhinandan's work!</p>
-                <button
-                  onClick={() => setShowTeaser(false)}
-                  className="text-[10px] text-stone-400 hover:text-stone-600 dark:hover:text-white underline cursor-pointer"
-                >
-                  Dismiss
-                </button>
-              </div>
-            </div>
-          )}
-
-          <button
-            onClick={() => {
-              setIsOpen(true);
-              setShowTeaser(false);
-            }}
-            className="group px-4 py-2.5 rounded-full bg-white dark:bg-[#101114] border border-[#E8E2D5] dark:border-white/[0.12] hover:border-[#5E6AD2]/50 text-stone-900 dark:text-[#EDEDEF] font-semibold font-mono text-xs shadow-xl shadow-stone-900/10 dark:shadow-black/80 flex items-center gap-2.5 transition-all hover:scale-105 active:scale-95 cursor-pointer ring-2 ring-[#5E6AD2]/20 hover:ring-[#5E6AD2]/40"
-          >
-            <div className="relative">
-              <Bot className="w-4 h-4 text-[#5E6AD2]" />
-              <span className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 rounded-full bg-emerald-600 dark:bg-[#4EBA6F] animate-pulse"></span>
-            </div>
-            <span>Chat with Lisa</span>
-          </button>
-        </div>
+        /* Floating Trigger Launcher Button (Clean & Minimized) */
+        <button
+          onClick={() => setIsOpen(true)}
+          className="group px-4 py-2.5 rounded-full bg-white dark:bg-[#101114] border border-[#E8E2D5] dark:border-white/[0.12] hover:border-[#5E6AD2]/50 text-stone-900 dark:text-[#EDEDEF] font-semibold font-mono text-xs shadow-xl shadow-stone-900/10 dark:shadow-black/80 flex items-center gap-2.5 transition-all hover:scale-105 active:scale-95 cursor-pointer ring-2 ring-[#5E6AD2]/20 hover:ring-[#5E6AD2]/40"
+        >
+          <div className="relative">
+            <Bot className="w-4 h-4 text-[#5E6AD2]" />
+            <span className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 rounded-full bg-emerald-600 dark:bg-[#4EBA6F] animate-pulse"></span>
+          </div>
+          <span>Chat with Lisa</span>
+        </button>
       )}
 
     </div>
