@@ -48,10 +48,10 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
             </button>
 
             <a
-              href="#showcase"
+              href="#architectures"
               className="px-4 py-2.5 rounded-lg bg-white/[0.03] hover:bg-white/[0.08] text-neutral-200 border border-white/[0.1] text-xs font-mono transition-all flex items-center gap-1.5 active:scale-98"
             >
-              <span>Explore Interactive Demos</span>
+              <span>Explore System Architectures</span>
               <ArrowRight className="w-3 h-3" />
             </a>
 

@@ -19,8 +19,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
   }, []);
 
   const navLinks = [
-    { label: 'Showcase & Demos', href: '#showcase' },
+    { label: 'System Design', href: '#architectures' },
     { label: 'Experience', href: '#experience' },
+    { label: 'AI Assistant', href: '#ai-assistant' },
     { label: 'Projects', href: '#projects' },
     { label: 'Skills', href: '#skills' },
     { label: 'Credentials', href: '#credentials' },
@@ -32,7 +33,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
         ? 'bg-[#090D16]/90 backdrop-blur-md border-b border-white/[0.08] shadow-sm' 
         : 'bg-transparent border-b border-transparent'
     }`}>
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20">
           
           {/* Logo & Brand Identity */}
@@ -45,7 +46,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
                 {PORTFOLIO_DATA.personal.name}
               </span>
               <span className="hidden sm:inline-block text-xs font-mono text-neutral-500">
-                / Data & Systems
+                / Data &amp; Systems
               </span>
             </div>
           </a>

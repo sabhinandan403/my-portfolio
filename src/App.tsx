@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
-import { PipelineSimulator } from './components/PipelineSimulator';
-import { MotionHeatmapDemo } from './components/MotionHeatmapDemo';
+import { ArchitectureShowcase } from './components/ArchitectureShowcase';
 import { Experience } from './components/Experience';
 import { Projects } from './components/Projects';
 import { AgentChatPreview } from './components/AgentChatPreview';
@@ -26,39 +25,30 @@ export function App() {
         {/* Hero Section */}
         <Hero onOpenResume={() => setIsResumeOpen(true)} />
 
-        {/* Interactive Architecture & Showcase Bento Grid */}
-        <section id="showcase" className="py-20 relative bg-dot-grid border-y border-white/[0.08]">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-            
-            {/* Section Header */}
-            <div className="space-y-2">
-              <div className="text-xs font-mono text-emerald-400 uppercase tracking-wider">
-                Live Interactive Demos
-              </div>
-              <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
-                Architecture &amp; Systems Showcase
-              </h2>
-              <p className="text-neutral-400 text-sm max-w-2xl">
-                Experience the live engines engineered in production: high-frequency IoT streaming and 15-minute sensor bucket aggregation.
-              </p>
-            </div>
-
-            {/* Bento Grid Item 1: IoT Pipeline Stream Simulator */}
-            <PipelineSimulator />
-
-            {/* Bento Grid Item 2: Sensor Motion Aggregation Heatmap Matrix */}
-            <MotionHeatmapDemo />
-
-            {/* Bento Grid Item 3: AI Resume Agent Sandbox */}
-            <div className="pt-6">
-              <AgentChatPreview />
-            </div>
-
-          </div>
-        </section>
+        {/* System Architecture & Case Studies (Replaces live simulator) */}
+        <ArchitectureShowcase />
 
         {/* Experience Chronology */}
         <Experience />
+
+        {/* AI Resume Assistant */}
+        <section id="ai-assistant" className="py-20 relative bg-dot-grid">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+            <div className="space-y-2">
+              <div className="text-xs font-mono text-emerald-400 uppercase tracking-wider">
+                Natural Language Exploration
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+                AI Resume Assistant
+              </h2>
+              <p className="text-neutral-400 text-sm max-w-2xl">
+                Ask questions about Abhinandan's engineering accomplishments, low-latency API migrations, and tech stack in natural language.
+              </p>
+            </div>
+
+            <AgentChatPreview />
+          </div>
+        </section>
 
         {/* Projects Showcase */}
         <Projects />

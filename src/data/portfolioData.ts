@@ -37,11 +37,10 @@ export const PORTFOLIO_DATA = {
     name: "Abhinandan Kumar",
     title: "Full Stack Data Engineer & AI Developer",
     location: "India",
-    email: "abhinandankumar.dev@gmail.com", // updateable
+    email: "sabhinandan403@gmail.com",
     phone: "+91-9817750262",
     linkedin: "https://linkedin.com/in/abhinandankumar",
-    github: "https://github.com/abhinandankumar",
-    // Google Drive direct access URL or shareable link
+    github: "https://github.com/sabhinandan403",
     googleDriveResumeUrl: "https://drive.google.com/drive/folders/latest-resume?usp=sharing",
     summary: `Full Stack Data Engineer with 2+ years of experience architecting IoT data pipelines and scalable full-stack applications that convert high-velocity telemetry data into business-ready insights. Proven track record of building PySpark/Databricks pipelines handling 10,000+ daily events, migrating API layers to Kafka-backed caches (reducing response times from 7s to 40-50ms), and delivering custom React sensor aggregation heatmaps.`
   },
@@ -118,7 +117,7 @@ export const PORTFOLIO_DATA = {
       metrics: ["10k+ daily events", "<50ms processing lag", "99% SLA adherence"],
       technologies: ["PySpark", "Databricks", "Delta Lake", "Kafka", "Python", "AWS S3"],
       featured: true,
-      githubUrl: "https://github.com/abhinandankumar",
+      githubUrl: "https://github.com/sabhinandan403",
       date: "2024"
     },
     {
@@ -131,7 +130,7 @@ export const PORTFOLIO_DATA = {
       metrics: ["94% SQL Accuracy", "Auto self-correction on syntax errors", "Zero SQL injection"],
       technologies: ["Python", "Gemini API", "LangGraph", "FastAPI", "PostgreSQL", "Pydantic"],
       featured: true,
-      githubUrl: "https://github.com/abhinandankumar",
+      githubUrl: "https://github.com/sabhinandan403",
       date: "2024"
     },
     {
@@ -144,7 +143,7 @@ export const PORTFOLIO_DATA = {
       metrics: ["40ms cached lookups", "15-min granular time buckets", "Multi-sensor support"],
       technologies: ["React", "Node.js", "Tailwind CSS", "Redis / In-Memory", "Jest"],
       featured: true,
-      githubUrl: "https://github.com/abhinandankumar",
+      githubUrl: "https://github.com/sabhinandan403",
       date: "2024"
     },
     {
@@ -157,7 +156,7 @@ export const PORTFOLIO_DATA = {
       metrics: ["7 asynchronous phases", "Sub-minute chunk processing", "Multi-language sync"],
       technologies: ["Python", "Apache Kafka", "AWS S3", "FastAPI", "Docker"],
       featured: false,
-      githubUrl: "https://github.com/abhinandankumar",
+      githubUrl: "https://github.com/sabhinandan403",
       date: "2024"
     },
     {
