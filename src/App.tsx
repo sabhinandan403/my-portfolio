@@ -17,7 +17,7 @@ export function AppContent() {
   const [isResumeOpen, setIsResumeOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] dark:bg-[#08090A] text-slate-600 dark:text-[#8A8F98] selection:bg-[#5E6AD2]/25 selection:text-[#5E6AD2] relative transition-colors duration-200">
+    <div className="min-h-screen bg-[#FAF7F2] dark:bg-[#08090A] text-stone-600 dark:text-[#8A8F98] selection:bg-[#5E6AD2]/25 selection:text-[#5E6AD2] relative transition-colors duration-300">
       
       {/* Top Floating Glassmorphic Navbar with Sun/Moon Theme Toggle */}
       <Navbar onOpenResume={() => setIsResumeOpen(true)} />

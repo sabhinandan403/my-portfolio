@@ -53,8 +53,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
     <header className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 lg:px-8 pt-3 pb-2 transition-all duration-300">
       <div className={`max-w-6xl mx-auto rounded-xl transition-all duration-300 relative ${
         scrolled 
-          ? 'bg-white/90 dark:bg-[#101114]/90 backdrop-blur-xl border border-slate-200 dark:border-white/[0.12] shadow-lg dark:shadow-2xl dark:shadow-black/80' 
-          : 'bg-white/70 dark:bg-[#101114]/60 backdrop-blur-md border border-slate-200 dark:border-white/[0.08]'
+          ? 'bg-[#FAF7F2]/90 dark:bg-[#101114]/90 backdrop-blur-xl border border-[#E8E2D5] dark:border-white/[0.12] shadow-lg shadow-stone-900/5 dark:shadow-2xl dark:shadow-black/80' 
+          : 'bg-[#FAF7F2]/75 dark:bg-[#101114]/60 backdrop-blur-md border border-[#E8E2D5] dark:border-white/[0.08]'
       }`}>
         
         {/* Linear Indigo Micro Progress Line at top of Navbar */}
@@ -67,8 +67,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
           
           {/* Brand Identity */}
           <div className="flex items-center gap-3 shrink-0">
-            <a href="#" className="flex items-center gap-2.5 text-slate-900 dark:text-[#EDEDEF] hover:text-[#5E6AD2] transition-colors group">
-              <div className="w-7 h-7 rounded-lg bg-slate-100 dark:bg-[#16181D] border border-slate-200 dark:border-white/[0.12] flex items-center justify-center font-mono font-bold text-xs text-slate-900 dark:text-[#EDEDEF] group-hover:border-[#5E6AD2]/60 transition-colors">
+            <a href="#" className="flex items-center gap-2.5 text-stone-900 dark:text-[#EDEDEF] hover:text-[#5E6AD2] transition-colors group">
+              <div className="w-7 h-7 rounded-lg bg-white dark:bg-[#16181D] border border-[#E8E2D5] dark:border-white/[0.12] flex items-center justify-center font-mono font-bold text-xs text-stone-900 dark:text-[#EDEDEF] group-hover:border-[#5E6AD2]/60 transition-colors shadow-xs dark:shadow-none">
                 AK
               </div>
               <span className="font-semibold text-xs sm:text-sm tracking-tight">
@@ -76,7 +76,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
               </span>
             </a>
 
-            <span className="hidden xl:inline-flex text-[11px] font-mono text-slate-500 dark:text-[#62666D] pl-2.5 border-l border-slate-200 dark:border-white/[0.08] select-none">
+            <span className="hidden xl:inline-flex text-[11px] font-mono text-stone-500 dark:text-[#62666D] pl-2.5 border-l border-[#E8E2D5] dark:border-white/[0.08] select-none">
               Data &amp; AI Engineer
             </span>
           </div>
@@ -92,7 +92,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
                   className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all duration-150 relative ${
                     isActive
                       ? 'text-[#5E6AD2] dark:text-[#EDEDEF] bg-[#5E6AD2]/10 dark:bg-white/[0.06] font-semibold'
-                      : 'text-slate-600 dark:text-[#8A8F98] hover:text-slate-900 dark:hover:text-[#EDEDEF] hover:bg-slate-100 dark:hover:bg-white/[0.03]'
+                      : 'text-stone-600 dark:text-[#8A8F98] hover:text-stone-900 dark:hover:text-[#EDEDEF] hover:bg-stone-200/50 dark:hover:bg-white/[0.03]'
                   }`}
                 >
                   {link.label}
@@ -106,7 +106,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
             {/* Resume Link */}
             <button
               onClick={onOpenResume}
-              className="px-3 py-1.5 rounded-lg text-xs font-mono text-slate-600 dark:text-[#8A8F98] hover:text-[#5E6AD2] hover:bg-slate-100 dark:hover:bg-white/[0.03] transition-all flex items-center gap-1.5 cursor-pointer"
+              className="px-3 py-1.5 rounded-lg text-xs font-mono text-stone-600 dark:text-[#8A8F98] hover:text-[#5E6AD2] hover:bg-stone-200/50 dark:hover:bg-white/[0.03] transition-all flex items-center gap-1.5 cursor-pointer"
             >
               <FileText className="w-3.5 h-3.5 text-[#5E6AD2]" />
               <span>Resume (Drive)</span>
@@ -119,14 +119,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
             {/* Theme Toggle Button */}
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-lg bg-slate-100 dark:bg-[#16181D] border border-slate-200 dark:border-white/[0.08] text-slate-600 dark:text-[#8A8F98] hover:text-slate-900 dark:hover:text-[#EDEDEF] hover:border-slate-300 dark:hover:border-white/[0.18] transition-colors cursor-pointer"
-              title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+              className="p-2 rounded-lg bg-white dark:bg-[#16181D] border border-[#E8E2D5] dark:border-white/[0.08] text-stone-600 dark:text-[#8A8F98] hover:text-stone-900 dark:hover:text-[#EDEDEF] hover:border-stone-400 dark:hover:border-white/[0.18] transition-colors cursor-pointer shadow-xs dark:shadow-none"
+              title={theme === 'dark' ? 'Switch to Warm Light Mode' : 'Switch to Dark Mode'}
               aria-label="Toggle theme"
             >
               {theme === 'dark' ? (
                 <Sun className="w-4 h-4 text-amber-400" />
               ) : (
-                <Moon className="w-4 h-4 text-slate-700" />
+                <Moon className="w-4 h-4 text-stone-700" />
               )}
             </button>
 
@@ -142,14 +142,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
             <div className="flex lg:hidden items-center gap-1">
               <button
                 onClick={onOpenResume}
-                className="p-1.5 rounded-lg bg-slate-100 dark:bg-white/[0.04] text-slate-600 dark:text-[#8A8F98] text-xs font-mono flex items-center gap-1"
+                className="p-1.5 rounded-lg bg-white dark:bg-white/[0.04] text-stone-600 dark:text-[#8A8F98] text-xs font-mono flex items-center gap-1 border border-[#E8E2D5] dark:border-transparent"
                 title="Resume"
               >
                 <FileText className="w-3.5 h-3.5 text-[#5E6AD2]" />
               </button>
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-2 rounded-lg text-slate-600 dark:text-[#8A8F98] hover:text-slate-900 dark:hover:text-[#EDEDEF]"
+                className="p-2 rounded-lg text-stone-600 dark:text-[#8A8F98] hover:text-stone-900 dark:hover:text-[#EDEDEF]"
                 aria-label="Toggle menu"
               >
                 {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -162,13 +162,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
 
         {/* Mobile Navigation Drawer */}
         {mobileMenuOpen && (
-          <div className="lg:hidden border-t border-slate-200 dark:border-white/[0.08] px-4 pt-3 pb-5 space-y-2 bg-white/98 dark:bg-[#101114]/98 rounded-b-xl">
+          <div className="lg:hidden border-t border-[#E8E2D5] dark:border-white/[0.08] px-4 pt-3 pb-5 space-y-2 bg-[#FAF7F2]/98 dark:bg-[#101114]/98 rounded-b-xl">
             {navLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="block px-3 py-2 rounded-lg text-xs font-mono text-slate-600 dark:text-[#8A8F98] hover:text-[#5E6AD2] dark:hover:text-[#EDEDEF] hover:bg-slate-100 dark:hover:bg-white/[0.04]"
+                className="block px-3 py-2 rounded-lg text-xs font-mono text-stone-600 dark:text-[#8A8F98] hover:text-[#5E6AD2] dark:hover:text-[#EDEDEF] hover:bg-stone-200/50 dark:hover:bg-white/[0.04]"
               >
                 {link.label}
               </a>
@@ -178,7 +178,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
                 setMobileMenuOpen(false);
                 onOpenResume();
               }}
-              className="w-full text-left px-3 py-2 rounded-lg text-xs font-mono text-[#5E6AD2] hover:bg-slate-100 dark:hover:bg-white/[0.04] flex items-center gap-2 cursor-pointer"
+              className="w-full text-left px-3 py-2 rounded-lg text-xs font-mono text-[#5E6AD2] hover:bg-stone-200/50 dark:hover:bg-white/[0.04] flex items-center gap-2 cursor-pointer"
             >
               <FileText className="w-3.5 h-3.5" /> View Resume (Google Drive)
             </button>

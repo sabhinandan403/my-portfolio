@@ -16,6 +16,16 @@ export default {
           border: 'rgba(255, 255, 255, 0.08)',
           'border-hover': 'rgba(255, 255, 255, 0.18)',
         },
+        warm: {
+          canvas: '#FAF7F2',     // Soothing warm beige canvas
+          surface: '#FFFFFF',    // Crisp warm white card
+          'surface-hover': '#F5F1E8',
+          border: '#E8E2D5',
+          'border-hover': '#D8D0BF',
+          heading: '#1C1917',    // Deep warm slate/charcoal
+          body: '#57534E',       // Warm stone text
+          muted: '#8C857B',
+        },
         linear: {
           indigo: '#5E6AD2',
           'indigo-glow': 'rgba(94, 106, 210, 0.15)',

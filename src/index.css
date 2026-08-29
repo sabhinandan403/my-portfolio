@@ -4,7 +4,7 @@
 
 @layer base {
   html {
-    @apply transition-colors duration-200;
+    transition: background-color 0.25s ease, color 0.25s ease;
   }
 
   html.dark {
@@ -13,8 +13,8 @@
   }
 
   html:not(.dark) {
-    background-color: #F8FAFC;
-    color: #475569;
+    background-color: #FAF7F2;
+    color: #57534E;
   }
 
   body {
@@ -22,7 +22,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     letter-spacing: -0.01em;
-    @apply transition-colors duration-200;
+    transition: background-color 0.25s ease, color 0.25s ease;
   }
 
   html.dark body {
@@ -31,8 +31,8 @@
   }
 
   html:not(.dark) body {
-    background-color: #F8FAFC;
-    color: #475569;
+    background-color: #FAF7F2;
+    color: #57534E;
   }
 
   ::selection {
@@ -47,7 +47,7 @@
   }
 
   html:not(.dark) h1, html:not(.dark) h2, html:not(.dark) h3, html:not(.dark) h4, html:not(.dark) h5, html:not(.dark) h6 {
-    color: #0F172A;
+    color: #1C1917;
     letter-spacing: -0.02em;
     font-weight: 600;
   }
@@ -60,11 +60,11 @@
 }
 
 html:not(.dark) .ambient-glow {
-  background-image: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(94, 106, 210, 0.08), transparent 70%);
+  background-image: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(94, 106, 210, 0.06), transparent 70%);
   background-repeat: no-repeat;
 }
 
-/* Linear Sleek Obsidian / Clean Light Card */
+/* Linear Sleek Obsidian (Dark) & Warm Beige Card (Light) */
 .editorial-card, .linear-card {
   border-radius: 0.75rem; /* rounded-xl */
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
@@ -83,14 +83,14 @@ html.dark .editorial-card:hover, html.dark .linear-card:hover {
 
 html:not(.dark) .editorial-card, html:not(.dark) .linear-card {
   background-color: #FFFFFF;
-  border: 1px solid #E2E8F0;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
+  border: 1px solid #E8E2D5;
+  box-shadow: 0 1px 3px 0 rgba(28, 25, 23, 0.04), 0 1px 2px -1px rgba(28, 25, 23, 0.04);
 }
 
 html:not(.dark) .editorial-card:hover, html:not(.dark) .linear-card:hover {
-  background-color: #F8FAFC;
-  border-color: #CBD5E1;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.06), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+  background-color: #FEFCF9;
+  border-color: #D8D0BF;
+  box-shadow: 0 4px 8px -2px rgba(28, 25, 23, 0.06), 0 2px 4px -2px rgba(28, 25, 23, 0.04);
   transform: translateY(-1px);
 }
 
@@ -103,10 +103,10 @@ html.dark ::-webkit-scrollbar-track {
   background: #08090A;
 }
 html:not(.dark) ::-webkit-scrollbar-track {
-  background: #F8FAFC;
+  background: #FAF7F2;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.25);
+  background: rgba(140, 133, 123, 0.3);
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {

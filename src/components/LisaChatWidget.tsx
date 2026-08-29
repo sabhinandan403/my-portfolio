@@ -102,30 +102,30 @@ export const LisaChatWidget: React.FC = () => {
       
       {/* Expanded Chat Window */}
       {isOpen ? (
-        <div className="w-[90vw] sm:w-[380px] h-[520px] bg-white dark:bg-[#101114] border border-slate-200 dark:border-white/[0.12] rounded-xl shadow-2xl flex flex-col overflow-hidden animate-fadeIn transition-all">
+        <div className="w-[90vw] sm:w-[380px] h-[520px] bg-white dark:bg-[#101114] border border-[#E8E2D5] dark:border-white/[0.12] rounded-xl shadow-2xl flex flex-col overflow-hidden animate-fadeIn transition-all">
           
           {/* Header */}
-          <div className="px-4 py-3 bg-slate-50 dark:bg-[#08090A] border-b border-slate-200 dark:border-white/[0.08] flex items-center justify-between">
+          <div className="px-4 py-3 bg-[#FAF7F2] dark:bg-[#08090A] border-b border-[#E8E2D5] dark:border-white/[0.08] flex items-center justify-between">
             <div className="flex items-center gap-2.5">
               <div className="w-8 h-8 rounded-full bg-[#5E6AD2]/10 dark:bg-[#5E6AD2]/20 border border-[#5E6AD2]/30 dark:border-[#5E6AD2]/40 flex items-center justify-center">
                 <Bot className="w-4 h-4 text-[#5E6AD2]" />
               </div>
               <div>
                 <div className="flex items-center gap-1.5">
-                  <span className="font-semibold text-slate-900 dark:text-[#EDEDEF] text-xs">Lisa</span>
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 dark:bg-[#4EBA6F] animate-pulse" />
-                  <span className="text-[9px] font-mono px-1.5 py-0.2 rounded bg-emerald-500/10 dark:bg-[#4EBA6F]/10 text-emerald-700 dark:text-[#4EBA6F] border border-emerald-500/20 dark:border-[#4EBA6F]/20 font-semibold">
+                  <span className="font-semibold text-stone-900 dark:text-[#EDEDEF] text-xs">Lisa</span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 dark:bg-[#4EBA6F] animate-pulse" />
+                  <span className="text-[9px] font-mono px-1.5 py-0.2 rounded bg-emerald-600/10 dark:bg-[#4EBA6F]/10 text-emerald-800 dark:text-[#4EBA6F] border border-emerald-600/20 dark:border-[#4EBA6F]/20 font-semibold">
                     Online
                   </span>
                 </div>
-                <div className="text-[10px] text-slate-500 dark:text-[#8A8F98] font-mono">Abhinandan's AI Assistant</div>
+                <div className="text-[10px] text-stone-500 dark:text-[#8A8F98] font-mono">Abhinandan's AI Assistant</div>
               </div>
             </div>
 
             <div className="flex items-center gap-1">
               <button
                 onClick={handleMinimize}
-                className="p-1.5 rounded-lg text-slate-400 dark:text-[#8A8F98] hover:text-slate-900 dark:hover:text-[#EDEDEF] hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-colors cursor-pointer"
+                className="p-1.5 rounded-lg text-stone-400 dark:text-[#8A8F98] hover:text-stone-900 dark:hover:text-[#EDEDEF] hover:bg-stone-200/60 dark:hover:bg-white/[0.06] transition-colors cursor-pointer"
                 title="Minimize chat"
                 aria-label="Minimize"
               >
@@ -133,7 +133,7 @@ export const LisaChatWidget: React.FC = () => {
               </button>
               <button
                 onClick={handleMinimize}
-                className="p-1.5 rounded-lg text-slate-400 dark:text-[#8A8F98] hover:text-slate-900 dark:hover:text-[#EDEDEF] hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-colors cursor-pointer"
+                className="p-1.5 rounded-lg text-stone-400 dark:text-[#8A8F98] hover:text-stone-900 dark:hover:text-[#EDEDEF] hover:bg-stone-200/60 dark:hover:bg-white/[0.06] transition-colors cursor-pointer"
                 title="Close chat"
                 aria-label="Close"
               >
@@ -143,12 +143,12 @@ export const LisaChatWidget: React.FC = () => {
           </div>
 
           {/* Quick Questions Pill Carousel */}
-          <div className="px-3 py-2 bg-slate-50/70 dark:bg-[#08090A]/60 border-b border-slate-200 dark:border-white/[0.04] overflow-x-auto whitespace-nowrap flex gap-1.5 scrollbar-none">
+          <div className="px-3 py-2 bg-[#FAF7F2]/80 dark:bg-[#08090A]/60 border-b border-[#E8E2D5]/70 dark:border-white/[0.04] overflow-x-auto whitespace-nowrap flex gap-1.5 scrollbar-none">
             {samplePrompts.map((prompt, idx) => (
               <button
                 key={idx}
                 onClick={() => handleAsk(prompt)}
-                className="text-[10px] font-mono px-2.5 py-1 rounded-full bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] text-slate-600 dark:text-[#8A8F98] hover:text-slate-900 dark:hover:text-[#EDEDEF] hover:border-[#5E6AD2]/40 transition-colors shrink-0 cursor-pointer"
+                className="text-[10px] font-mono px-2.5 py-1 rounded-full bg-white dark:bg-white/[0.04] border border-[#E8E2D5] dark:border-white/[0.08] text-stone-600 dark:text-[#8A8F98] hover:text-stone-900 dark:hover:text-[#EDEDEF] hover:border-[#5E6AD2]/40 transition-colors shrink-0 cursor-pointer shadow-2xs"
               >
                 {prompt}
               </button>
@@ -156,7 +156,7 @@ export const LisaChatWidget: React.FC = () => {
           </div>
 
           {/* Messages Container */}
-          <div className="flex-1 p-3.5 overflow-y-auto space-y-3 bg-slate-50/40 dark:bg-[#08090A]/40">
+          <div className="flex-1 p-3.5 overflow-y-auto space-y-3 bg-[#FAF7F2]/40 dark:bg-[#08090A]/40">
             {messages.map((msg) => (
               <div
                 key={msg.id}
@@ -172,28 +172,28 @@ export const LisaChatWidget: React.FC = () => {
                   <div
                     className={`p-2.5 rounded-xl text-xs leading-relaxed ${
                       msg.sender === 'user'
-                        ? 'bg-[#5E6AD2] text-white dark:text-[#EDEDEF] font-medium'
-                        : 'bg-white dark:bg-[#16181D] border border-slate-200 dark:border-white/[0.08] text-slate-800 dark:text-[#EDEDEF] shadow-sm dark:shadow-none'
+                        ? 'bg-[#5E6AD2] text-white dark:text-[#EDEDEF] font-medium shadow-xs'
+                        : 'bg-white dark:bg-[#16181D] border border-[#E8E2D5] dark:border-white/[0.08] text-stone-800 dark:text-[#EDEDEF] shadow-xs dark:shadow-none'
                     }`}
                   >
                     {msg.text}
                   </div>
 
                   {msg.thoughtProcess && (
-                    <div className="p-1.5 rounded bg-slate-100 dark:bg-[#08090A] border border-slate-200 dark:border-white/[0.04] text-[9px] font-mono text-slate-500 dark:text-[#62666D] space-y-0.5">
+                    <div className="p-1.5 rounded bg-white dark:bg-[#08090A] border border-[#E8E2D5] dark:border-white/[0.04] text-[9px] font-mono text-stone-500 dark:text-[#62666D] space-y-0.5">
                       <div className="text-[#5E6AD2] font-semibold flex items-center gap-1">
                         <Zap className="w-2.5 h-2.5 text-[#5E6AD2]" /> Grounded Verification:
                       </div>
                       {msg.thoughtProcess.map((step, sIdx) => (
-                        <div key={sIdx} className="flex items-center gap-1 text-slate-600 dark:text-[#8A8F98]">
-                          <CheckCircle2 className="w-2 h-2 text-emerald-600 dark:text-[#4EBA6F]" />
+                        <div key={sIdx} className="flex items-center gap-1 text-stone-600 dark:text-[#8A8F98]">
+                          <CheckCircle2 className="w-2 h-2 text-emerald-700 dark:text-[#4EBA6F]" />
                           {step}
                         </div>
                       ))}
                     </div>
                   )}
 
-                  <div className={`text-[9px] text-slate-400 dark:text-[#62666D] font-mono ${msg.sender === 'user' ? 'text-right' : 'text-left'}`}>
+                  <div className={`text-[9px] text-stone-400 dark:text-[#62666D] font-mono ${msg.sender === 'user' ? 'text-right' : 'text-left'}`}>
                     {msg.timestamp}
                   </div>
                 </div>
@@ -214,14 +214,14 @@ export const LisaChatWidget: React.FC = () => {
               e.preventDefault();
               handleAsk(inputText);
             }}
-            className="p-2.5 bg-slate-50 dark:bg-[#08090A] border-t border-slate-200 dark:border-white/[0.08] flex items-center gap-1.5"
+            className="p-2.5 bg-[#FAF7F2] dark:bg-[#08090A] border-t border-[#E8E2D5] dark:border-white/[0.08] flex items-center gap-1.5"
           >
             <input
               type="text"
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               placeholder="Ask Lisa anything about Abhinandan..."
-              className="flex-1 bg-white dark:bg-[#101114] border border-slate-200 dark:border-white/[0.08] text-xs text-slate-900 dark:text-[#EDEDEF] rounded-lg px-3 py-2 focus:outline-none focus:border-[#5E6AD2] placeholder:text-slate-400 dark:placeholder:text-[#62666D] font-sans"
+              className="flex-1 bg-white dark:bg-[#101114] border border-[#E8E2D5] dark:border-white/[0.08] text-xs text-stone-900 dark:text-[#EDEDEF] rounded-lg px-3 py-2 focus:outline-none focus:border-[#5E6AD2] placeholder:text-stone-400 dark:placeholder:text-[#62666D] font-sans shadow-2xs"
             />
             <button
               type="submit"
@@ -238,13 +238,13 @@ export const LisaChatWidget: React.FC = () => {
         /* Floating Trigger Launcher Button with optional teaser */
         <div className="flex flex-col items-end gap-2">
           {showTeaser && (
-            <div className="bg-white dark:bg-[#101114] border border-slate-200 dark:border-white/[0.12] p-3 rounded-xl shadow-xl text-xs text-slate-700 dark:text-[#EDEDEF] max-w-[260px] animate-fadeIn flex items-start gap-2">
+            <div className="bg-white dark:bg-[#101114] border border-[#E8E2D5] dark:border-white/[0.12] p-3 rounded-xl shadow-xl text-xs text-stone-700 dark:text-[#EDEDEF] max-w-[260px] animate-fadeIn flex items-start gap-2">
               <Sparkles className="w-4 h-4 text-[#5E6AD2] shrink-0 mt-0.5" />
               <div className="space-y-1">
                 <p className="leading-snug">Click anytime to chat with <strong>Lisa</strong> about Abhinandan's work!</p>
                 <button
                   onClick={() => setShowTeaser(false)}
-                  className="text-[10px] text-slate-400 hover:text-slate-600 dark:hover:text-white underline cursor-pointer"
+                  className="text-[10px] text-stone-400 hover:text-stone-600 dark:hover:text-white underline cursor-pointer"
                 >
                   Dismiss
                 </button>
@@ -257,11 +257,11 @@ export const LisaChatWidget: React.FC = () => {
               setIsOpen(true);
               setShowTeaser(false);
             }}
-            className="group px-4 py-2.5 rounded-full bg-white dark:bg-[#101114] border border-slate-200 dark:border-white/[0.12] hover:border-[#5E6AD2]/50 text-slate-900 dark:text-[#EDEDEF] font-semibold font-mono text-xs shadow-xl shadow-black/10 dark:shadow-black/80 flex items-center gap-2.5 transition-all hover:scale-105 active:scale-95 cursor-pointer ring-2 ring-[#5E6AD2]/20 hover:ring-[#5E6AD2]/40"
+            className="group px-4 py-2.5 rounded-full bg-white dark:bg-[#101114] border border-[#E8E2D5] dark:border-white/[0.12] hover:border-[#5E6AD2]/50 text-stone-900 dark:text-[#EDEDEF] font-semibold font-mono text-xs shadow-xl shadow-stone-900/10 dark:shadow-black/80 flex items-center gap-2.5 transition-all hover:scale-105 active:scale-95 cursor-pointer ring-2 ring-[#5E6AD2]/20 hover:ring-[#5E6AD2]/40"
           >
             <div className="relative">
               <Bot className="w-4 h-4 text-[#5E6AD2]" />
-              <span className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 rounded-full bg-emerald-500 dark:bg-[#4EBA6F] animate-pulse"></span>
+              <span className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 rounded-full bg-emerald-600 dark:bg-[#4EBA6F] animate-pulse"></span>
             </div>
             <span>Chat with Lisa</span>
           </button>
