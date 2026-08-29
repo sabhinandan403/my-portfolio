@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { PORTFOLIO_DATA } from '../data/portfolioData';
-import { FileText, Menu, X, ArrowUpRight, Sun, Moon } from 'lucide-react';
+import { FileText, Sun, Moon, ArrowUpRight, Menu, X } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 
 interface NavbarProps {
@@ -10,27 +10,29 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
   const { theme, toggleTheme } = useTheme();
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('hero');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState<string>('hero');
-  const [scrollProgress, setScrollProgress] = useState<number>(0);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      const isScrolled = window.scrollY > 20;
+      setScrolled(isScrolled);
 
-      const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
-      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrolledPct = height > 0 ? (winScroll / height) * 100 : 0;
-      setScrollProgress(scrolledPct);
+      // Calculate scroll progress percentage
+      const totalScroll = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      if (totalScroll > 0) {
+        setScrollProgress(Math.min(100, Math.max(0, (window.scrollY / totalScroll) * 100)));
+      }
 
+      // Detect active section
       const sections = ['hero', 'architectures', 'experience', 'projects', 'skills', 'credentials', 'contact'];
-      const scrollPosition = window.scrollY + 200;
+      const scrollPos = window.scrollY + 140;
 
       for (let i = sections.length - 1; i >= 0; i--) {
-        const s = sections[i];
-        const el = document.getElementById(s);
-        if (el && scrollPosition >= el.offsetTop) {
-          setActiveSection(s);
+        const el = document.getElementById(sections[i]);
+        if (el && el.offsetTop <= scrollPos) {
+          setActiveSection(sections[i]);
           break;
         }
       }
@@ -50,20 +52,20 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 lg:px-8 pt-3 pb-2 transition-all duration-300">
-      <div className={`max-w-6xl mx-auto rounded-xl transition-all duration-300 relative ${
-        scrolled 
-          ? 'bg-[#FAF7F2]/90 dark:bg-[#101114]/90 backdrop-blur-xl border border-[#E8E2D5] dark:border-white/[0.12] shadow-lg shadow-stone-900/5 dark:shadow-2xl dark:shadow-black/80' 
-          : 'bg-[#FAF7F2]/75 dark:bg-[#101114]/60 backdrop-blur-md border border-[#E8E2D5] dark:border-white/[0.08]'
-      }`}>
-        
-        {/* Linear Indigo Micro Progress Line at top of Navbar */}
-        <div
-          className="absolute top-0 left-4 right-4 h-[1.5px] bg-gradient-to-r from-transparent via-[#5E6AD2] to-transparent transition-all duration-150 rounded-full"
-          style={{ width: `${scrollProgress}%` }}
-        />
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      scrolled 
+        ? 'bg-[#FAF7F2]/95 dark:bg-[#08090A]/95 backdrop-blur-xl border-b border-[#E8E2D5] dark:border-white/[0.08] shadow-md shadow-stone-900/5 dark:shadow-2xl dark:shadow-black/80' 
+        : 'bg-[#FAF7F2]/80 dark:bg-[#08090A]/70 backdrop-blur-md border-b border-[#E8E2D5]/60 dark:border-white/[0.04]'
+    }`}>
+      
+      {/* Linear Indigo Micro Progress Line at top of Navbar */}
+      <div
+        className="absolute top-0 left-0 h-[2px] bg-gradient-to-r from-[#5E6AD2]/40 via-[#5E6AD2] to-[#6875E3] transition-all duration-150"
+        style={{ width: `${scrollProgress}%` }}
+      />
 
-        <div className="flex items-center justify-between h-14 sm:h-16 px-4 sm:px-6 gap-4">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-14 sm:h-16 gap-4">
           
           {/* Brand Identity */}
           <div className="flex items-center gap-3 shrink-0">
@@ -162,7 +164,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
 
         {/* Mobile Navigation Drawer */}
         {mobileMenuOpen && (
-          <div className="lg:hidden border-t border-[#E8E2D5] dark:border-white/[0.08] px-4 pt-3 pb-5 space-y-2 bg-[#FAF7F2]/98 dark:bg-[#101114]/98 rounded-b-xl">
+          <div className="lg:hidden border-t border-[#E8E2D5] dark:border-white/[0.08] px-2 pt-3 pb-5 space-y-2 bg-[#FAF7F2] dark:bg-[#08090A]">
             {navLinks.map((link) => (
               <a
                 key={link.label}
