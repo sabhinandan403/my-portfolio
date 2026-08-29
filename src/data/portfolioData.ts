@@ -42,14 +42,14 @@ export const PORTFOLIO_DATA = {
     linkedin: "https://linkedin.com/in/abhinandankumar",
     github: "https://github.com/sabhinandan403",
     googleDriveResumeUrl: "https://drive.google.com/drive/folders/latest-resume?usp=sharing",
-    summary: `Full Stack Data Engineer with 2+ years of experience architecting IoT data pipelines and scalable full-stack applications that convert high-velocity telemetry data into business-ready insights. Proven track record of building PySpark/Databricks pipelines handling 10,000+ daily events, migrating API layers to Kafka-backed caches (reducing response times from 7s to 40-50ms), and delivering custom React sensor aggregation heatmaps.`
+    summary: `Full Stack Data Engineer with 2+ years of experience architecting IoT data pipelines and low-latency systems that convert raw telemetry into business-critical insights. Proven track record of designing Databricks Medallion Lakehouses ingesting from Cassandra DB for 10,000+ daily events, architecting Vertical Modular Monolith in-memory caches (slashing API response times from 7s to 40–50ms), and delivering timezone-normalized 15-minute sensor aggregation engines.`
   },
   
   metrics: [
-    { label: "Daily Telemetry Events", value: "10,000+", subtext: "Automated Wi-Fi mesh uptime" },
-    { label: "API Latency Reduction", value: "7s → 40ms", subtext: "In-memory & Kafka caching" },
-    { label: "Facility Sites Monitored", value: "50+", subtext: "LoRa & Zigbee sensor SLAs" },
-    { label: "System Uptime SLA", value: "~99%", subtext: "Real-time Power BI & alarms" }
+    { label: "Daily Telemetry Events", value: "10,000+", subtext: "Cassandra → Databricks Lakehouse" },
+    { label: "API Latency Reduction", value: "7s → 40ms", subtext: "In-memory Startup Caching" },
+    { label: "Facility Sites Monitored", value: "50+", subtext: "Automated Wi-Fi & Sensor SLAs" },
+    { label: "System Uptime SLA", value: "~99%", subtext: "Power BI & Lambda Reports" }
   ],
 
   experiences: [
@@ -60,18 +60,18 @@ export const PORTFOLIO_DATA = {
       period: "Jun 2024 – Present",
       location: "India",
       projectGroup: "Smart Spaces & HomeSight Care",
-      summary: "Leading end-to-end data pipelines and low-latency API layers for IoT telemetry monitoring and smart home/elderly care ecosystems.",
+      summary: "Architecting end-to-end Lakehouse data pipelines, low-latency in-memory API caching layers, and real-time IoT sensor aggregation engines.",
       highlights: [
-        "Built ETL pipelines using PySpark and Databricks to ingest and process 10,000+ daily telemetry data points from IoT devices, automatically calculating Wi-Fi mesh uptime and replacing manual router-by-router checks.",
-        "Engineered an AWS Lambda-powered on-demand reporting system for Smart Spaces, enabling 50+ storage facility managers and engineering teams to generate 24-hour and custom telemetry reports for rapid site debugging.",
-        "Diagnosed connectivity and missing packet anomalies across LoRa and Zigbee sensors and routers, successfully maintaining ~99% uptime SLA.",
-        "Built executive and operational Power BI real-time dashboards for sales teams, senior leadership, and clients to monitor device health.",
-        "Migrated core Node.js APIs to an asynchronous caching-based architecture backed by Kafka and in-memory indexes with automatic database fallback, slashing high-traffic response times from ~7 seconds to 40–50ms.",
-        "Architected and enforced RBAC/ABAC permission models across all migrated user-module endpoints, securing personal data and hub configuration APIs.",
-        "Engineered a custom React motion-activity heat map for HomeSight Care elderly monitoring, building a backend aggregation engine (count, sum, average, mode, median) over 15-minute sensor buckets.",
-        "Delivered 10+ frontend features and resolved 30+ system bugs, significantly boosting platform stability and user retention."
+        "Architected a Vertical Modular Monolithic backend to eliminate multi-API serial bottlenecks and heavy direct DB roundtrips, preloading high-frequency entities (Users, HC200 hub details, Accounts) into server RAM at boot.",
+        "Slashed core dashboard and account API response latency from ~7 seconds down to 40–50ms (99% reduction), taking direct ownership of the Users and AppRegistry backend modules plus AppRegistry frontend interface.",
+        "Engineered Databricks ETL pipelines using Medallion Architecture (Bronze → Silver → Gold) to ingest and clean 10,000+ daily IoT telemetry data points from Cassandra DB across 50+ facilities.",
+        "Curated daily production Gold tables powering executive Power BI dashboards for Senior Architects, Sales leadership, and Enterprise Clients to monitor device connectivity and automated SLA uptime (~99%).",
+        "Developed serverless on-demand reporting features using AWS Lambda, allowing engineering and operations teams to generate custom date-range Excel diagnostic reports.",
+        "Built a generalized dynamic sensor aggregation backend engine for HomeSight Care, mathematically aggregating Cassandra sensor pulses (motion, door/window contacts) into 96 discrete 15-minute buckets per day.",
+        "Engineered timezone-normalization logic to shift UTC sensor event timestamps to match the local physical timezone of the principal user's HC200 gateway.",
+        "Delivered a responsive 24-hour visual motion-activity heatmap on React, enabling caregivers to track mobility trends and detect critical inactivity anomalies."
       ],
-      technologies: ["PySpark", "Databricks", "Node.js", "React", "Kafka", "AWS Lambda", "Power BI", "SQL", "Python", "LoRa/Zigbee"],
+      technologies: ["PySpark", "Databricks", "Cassandra DB", "Node.js", "React", "AWS Lambda", "Power BI", "In-Memory Caching", "Modular Monolith", "TypeScript", "SQL"],
       badgeColor: "from-cyan-500 to-blue-600"
     },
     {
@@ -109,13 +109,13 @@ export const PORTFOLIO_DATA = {
   projects: [
     {
       id: "telemetry-lakehouse",
-      title: "IoT Telemetry Lakehouse & Live Pipeline",
+      title: "Cassandra IoT Telemetry & Databricks Medallion Lakehouse",
       category: "Data Engineering",
       tagline: "High-throughput Medallion architecture for real-time Wi-Fi & sensor health",
-      description: "A complete end-to-end data pipeline simulating the 10,000+ daily IoT telemetry processing engine. Ingests raw sensor streams through Kafka into Databricks Delta Lake, computing automated uptime SLAs and anomaly alerts with 99% uptime target.",
-      architecture: ["IoT Gateway", "Kafka Ingestion", "PySpark Streaming", "Delta Lake (Bronze/Silver/Gold)", "Power BI API"],
-      metrics: ["10k+ daily events", "<50ms processing lag", "99% SLA adherence"],
-      technologies: ["PySpark", "Databricks", "Delta Lake", "Kafka", "Python", "AWS S3"],
+      description: "A production-grade lakehouse pipeline ingesting raw high-velocity Cassandra DB telemetry through PySpark on Databricks. Structured across Bronze, Silver, and Gold layers to publish daily uptime SLA tables powering Power BI dashboards and on-demand AWS Lambda Excel reports.",
+      architecture: ["Cassandra DB Ingestion", "Databricks PySpark", "Medallion Delta Lake (Bronze/Silver/Gold)", "Power BI & AWS Lambda Reports"],
+      metrics: ["10,000+ daily events", "99% SLA adherence", "50+ facility sites"],
+      technologies: ["PySpark", "Databricks", "Cassandra DB", "Delta Lake", "AWS Lambda", "Power BI"],
       featured: true,
       githubUrl: "https://github.com/sabhinandan403",
       date: "2024"
@@ -135,13 +135,13 @@ export const PORTFOLIO_DATA = {
     },
     {
       id: "homesight-motion-engine",
-      title: "Elderly Care Motion-Activity Aggregation Engine",
+      title: "Timezone-Aware Dynamic 15-Minute Sensor Aggregation Engine",
       category: "Full Stack",
       tagline: "15-minute dynamic time-bucket heatmap with multi-sensor aggregation",
-      description: "Interactive visual analytics dashboard and backend aggregation engine that turns sparse binary motion and door/window sensor triggers into 15-minute continuous intensity scores (count, sum, avg, mode, median) with real-time alerts for elderly care.",
-      architecture: ["Fast Node.js Aggregator", "In-Memory Sliding Window", "React 24h Heatmap Grid", "RBAC/ABAC Gatekeeper"],
-      metrics: ["40ms cached lookups", "15-min granular time buckets", "Multi-sensor support"],
-      technologies: ["React", "Node.js", "Tailwind CSS", "Redis / In-Memory", "Jest"],
+      description: "A generalized backend aggregation engine and interactive React heatmap that ingests raw Cassandra sensor events (motion, door/window contacts), normalizes timestamps to the user's local HC200 timezone, and computes 96 discrete 15-minute intervals for elderly care monitoring.",
+      architecture: ["Fast Node.js Aggregator", "HC200 Timezone Normalizer", "Dynamic Formula Dispatcher", "React 24h Heatmap Grid"],
+      metrics: ["40ms cached lookups", "15-min granular time buckets", "Timezone normalized"],
+      technologies: ["React", "Node.js", "Cassandra DB", "In-Memory Cache", "TypeScript"],
       featured: true,
       githubUrl: "https://github.com/sabhinandan403",
       date: "2024"
@@ -169,7 +169,7 @@ export const PORTFOLIO_DATA = {
       metrics: ["Adopted by 30+ engineers", "100% automated status visibility", "Zero review drop-offs"],
       technologies: ["React", "Node.js", "Hasura GraphQL", "PostgreSQL", "RabbitMQ"],
       featured: false,
-      githubUrl: "https://github.com/abhinandankumar",
+      githubUrl: "https://github.com/sabhinandan403",
       date: "2023 - 2024"
     }
   ] as Project[],
@@ -181,9 +181,9 @@ export const PORTFOLIO_DATA = {
       skills: [
         { name: "PySpark", level: 90, tags: ["Transformations", "DataFrames", "UDFs"] },
         { name: "Databricks & Delta Lake", level: 90, tags: ["Medallion Architecture", "Unity Catalog", "DLT"] },
+        { name: "Cassandra DB", level: 85, tags: ["IoT Telemetry", "Time-Series", "CQL"] },
         { name: "Apache Kafka", level: 85, tags: ["Message Queuing", "Partitions", "Event Streams"] },
-        { name: "RabbitMQ", level: 80, tags: ["Pub/Sub", "Exchange Routing", "Async Workers"] },
-        { name: "ETL / ELT Pipelines", level: 92, tags: ["Batch", "Streaming", "Data Cleaning"] },
+        { name: "ETL / ELT Pipelines", level: 92, tags: ["Medallion Lakehouse", "Batch", "Data Cleaning"] },
         { name: "SQL & Query Tuning", level: 95, tags: ["Window Functions", "Partitioning", "Execution Plans"] }
       ]
     },
@@ -202,12 +202,12 @@ export const PORTFOLIO_DATA = {
       title: "Backend & Low-Latency APIs",
       icon: "Server",
       skills: [
+        { name: "Vertical Modular Monolith", level: 90, tags: ["Domain Boundaries", "High Cohesion", "Clean Arch"] },
+        { name: "In-Memory Startup Caching", level: 92, tags: ["Sub-50ms Response", "RAM Preload", "Zero-Lag"] },
         { name: "Python", level: 92, tags: ["AsyncIO", "OOP", "Data Structures"] },
         { name: "FastAPI", level: 88, tags: ["REST", "Pydantic", "Swagger Docs"] },
         { name: "Node.js & Express.js", level: 85, tags: ["Event Loop", "Microservices", "JWT/Auth"] },
-        { name: "In-Memory Caching (Redis/Memory)", level: 90, tags: ["Sub-50ms Response", "Cache Invalidation"] },
-        { name: "GraphQL & Hasura", level: 82, tags: ["Subscriptions", "Mutations", "Resolvers"] },
-        { name: "Security (RBAC / ABAC)", level: 85, tags: ["Role-Based Access", "Endpoint Auditing"] }
+        { name: "GraphQL & Hasura", level: 82, tags: ["Subscriptions", "Mutations", "Resolvers"] }
       ]
     },
     {
@@ -225,9 +225,9 @@ export const PORTFOLIO_DATA = {
       icon: "Cloud",
       skills: [
         { name: "PostgreSQL & PL/SQL", level: 90, tags: ["Complex Queries", "Indexes", "Cursors"] },
+        { name: "Cassandra DB", level: 85, tags: ["Wide-Column", "Time-Series Storage"] },
+        { name: "AWS (Lambda, S3)", level: 85, tags: ["Serverless Reports", "Event Triggers"] },
         { name: "MongoDB", level: 80, tags: ["Aggregation Pipelines", "Documents"] },
-        { name: "AWS (Lambda, S3)", level: 85, tags: ["Serverless", "Event Triggers", "Storage"] },
-        { name: "Azure (CI/CD & DevOps)", level: 78, tags: ["Pipelines", "IaC (In-Progress)"] },
         { name: "Git & Developer Tools", level: 90, tags: ["Branching", "Code Review", "TOAD"] }
       ]
     }
@@ -261,24 +261,5 @@ export const PORTFOLIO_DATA = {
     duration: "2019 – 2023",
     gpa: "8.02 / 10",
     highlights: ["Focus on Distributed Computing, Database Management Systems, and Object-Oriented Software Design."]
-  },
-
-  aiAssistantPrompts: [
-    {
-      question: "What is Abhinandan's experience with PySpark & Databricks?",
-      answer: "At Vantiva India, Abhinandan built automated PySpark and Databricks ETL pipelines to ingest and process 10,000+ daily IoT telemetry data points, automatically calculating Wi-Fi mesh uptime and eliminating manual router checks. He also holds the official Databricks Data Engineering Professional accreditation."
-    },
-    {
-      question: "How did he cut API response times from 7s to 40-50ms?",
-      answer: "In the HomeSight Care project at Vantiva, Abhinandan decoupled heavy database reads by migrating core APIs to a Kafka-driven in-memory cache preloaded at server startup with instant index lookups and automatic DB fallbacks. This cut response latency by ~99% on high-traffic endpoints."
-    },
-    {
-      question: "What did he build for the elderly care project (HomeSight Care)?",
-      answer: "He created a custom React-based motion-activity heat map driven by a reusable backend aggregation engine that buckets sensor events into 15-minute intervals with intensity scoring (count, sum, average, mode, median) for motion and door/window sensors."
-    },
-    {
-      question: "What is his background with Gen AI and AI Agents?",
-      answer: "Abhinandan combines his strong data engineering background with modern Gen AI systems: building Autonomous Data Analyst agents with self-correcting Text-to-SQL loops, tool-calling with Gemini APIs, vector search RAG pipelines, and multi-agent coordination frameworks."
-    }
-  ]
+  }
 };

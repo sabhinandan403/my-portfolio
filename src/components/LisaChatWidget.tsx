@@ -18,7 +18,7 @@ export const LisaChatWidget: React.FC = () => {
     {
       id: 'msg-1',
       sender: 'agent',
-      text: `Hi! I'm Lisa, Abhinandan's AI assistant. Ask me anything about his PySpark & Databricks pipelines, sub-50ms API caching architectures, or his Gen AI agent systems!`,
+      text: `Hi! I'm Lisa, Abhinandan's AI assistant. Ask me anything about his Cassandra & Databricks Lakehouse pipelines, 40ms in-memory caching & Modular Monolith architecture, or his Gen AI agent systems!`,
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     }
   ]);
@@ -35,9 +35,9 @@ export const LisaChatWidget: React.FC = () => {
   }, []);
 
   const samplePrompts = [
-    "What is his experience with PySpark & Databricks?",
     "How did he cut API response times from 7s to 40ms?",
-    "Tell me about the HomeSight Care elderly care project.",
+    "What is his experience with Cassandra & Databricks Lakehouse?",
+    "How does the timezone-aware 15-min sensor heatmap engine work?",
     "What is his background with Gen AI and AI Agents?"
   ];
 
@@ -60,16 +60,16 @@ export const LisaChatWidget: React.FC = () => {
       let matchedAnswer = "";
       const lower = query.toLowerCase();
 
-      if (lower.includes('pyspark') || lower.includes('databricks') || lower.includes('telemetry')) {
-        matchedAnswer = "At Vantiva India, Abhinandan engineered automated PySpark & Databricks ETL pipelines processing 10,000+ daily IoT telemetry data points, automatically calculating Wi-Fi mesh uptime and maintaining ~99% SLAs across 50+ sites. He is also a Databricks Certified Data Engineer Professional.";
-      } else if (lower.includes('latency') || lower.includes('40ms') || lower.includes('cache') || lower.includes('7s')) {
-        matchedAnswer = "In the HomeSight Care project at Vantiva, Abhinandan migrated core Node.js APIs to a Kafka-driven in-memory cache preloaded at server startup with instant index lookups and automatic DB fallbacks, cutting response time from ~7s down to 40–50ms on high-traffic endpoints.";
-      } else if (lower.includes('elderly') || lower.includes('homesight') || lower.includes('heatmap') || lower.includes('sensor')) {
-        matchedAnswer = "For HomeSight Care, Abhinandan built a custom React motion-activity heat map driven by a reusable backend aggregation engine that buckets sensor events into 15-minute intervals with intensity scoring (count, sum, average, mode, median).";
+      if (lower.includes('cassandra') || lower.includes('databricks') || lower.includes('telemetry') || lower.includes('lakehouse') || lower.includes('medallion')) {
+        matchedAnswer = "At Vantiva India (Smart Spaces), Abhinandan engineered automated PySpark & Databricks ETL pipelines using Medallion Architecture (Bronze → Silver → Gold) to ingest 10,000+ daily IoT telemetry data points from Cassandra DB across 50+ facilities. He curated daily Gold tables powering executive Power BI dashboards for Senior Architects & Clients, and built on-demand Excel reports via AWS Lambda.";
+      } else if (lower.includes('latency') || lower.includes('40ms') || lower.includes('cache') || lower.includes('7s') || lower.includes('monolith')) {
+        matchedAnswer = "In the HomeSight Care project at Vantiva, Abhinandan migrated legacy multi-query database endpoints to a Vertical Modular Monolith architecture, preloading Users, HC200 gateway hubs, and Accounts into server RAM at boot. This eliminated chained database lookups, slashing response time from ~7s down to 40–50ms (99% reduction). He led the Users & AppRegistry backend modules + AppRegistry frontend UI.";
+      } else if (lower.includes('elderly') || lower.includes('homesight') || lower.includes('heatmap') || lower.includes('sensor') || lower.includes('timezone') || lower.includes('15-min')) {
+        matchedAnswer = "For HomeSight Care, Abhinandan built a generalized dynamic sensor aggregation backend engine. It pulls raw Cassandra motion and door/window contact events, normalizes UTC timestamps to the local physical timezone of the user's HC200 hub, and computes 96 discrete 15-minute buckets (count, sum, avg, mode, median) powering an interactive 24-hour caregiver activity heatmap on React.";
       } else if (lower.includes('gen ai') || lower.includes('agent') || lower.includes('llm') || lower.includes('rag')) {
-        matchedAnswer = "Abhinandan designs and builds autonomous AI agents using Gemini API, LangGraph, function calling, and RAG architectures — including self-correcting Text-to-SQL data analyst agents with sandboxed Python execution and structured guardrails.";
+        matchedAnswer = "Abhinandan designs and builds autonomous AI agents using Gemini API, LangGraph, tool calling, and RAG architectures — including self-correcting Text-to-SQL data analyst agents with sandboxed Python execution and structured guardrails.";
       } else {
-        matchedAnswer = `Abhinandan Kumar is a Full Stack Data Engineer & AI Developer skilled in PySpark, Databricks, Kafka, Node.js, React, and AI agents. He has delivered telemetry pipelines processing 10k+ daily events and cut API latencies by 99%.`;
+        matchedAnswer = `Abhinandan Kumar is a Full Stack Data Engineer & AI Developer experienced in Cassandra DB, Databricks Medallion Lakehouses, in-memory caching & Vertical Modular Monoliths (7s → 40ms), and Gen AI agent architectures.`;
       }
 
       const agentMsg: ChatMessage = {
@@ -78,9 +78,9 @@ export const LisaChatWidget: React.FC = () => {
         text: matchedAnswer,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         thoughtProcess: [
-          "Retrieved verified resume embeddings",
-          "Calculated architectural context and quantified metrics",
-          "Synthesized response for user inquiry"
+          "Retrieved verified engineering architecture context",
+          "Mapped technical decisions: Vertical Modular Monolith, HC200 timezone normalization, Cassandra Lakehouse",
+          "Synthesized external-facing response"
         ]
       };
 

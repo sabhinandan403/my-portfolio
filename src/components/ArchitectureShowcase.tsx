@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Database, Server, Cpu, ArrowRight, Zap, CheckCircle2, Activity, Wifi, BarChart3, Layers, ChevronRight } from 'lucide-react';
+import { Database, Server, Cpu, ArrowRight, Zap, Activity, Wifi, BarChart3, Layers, ChevronRight, Clock, ShieldCheck } from 'lucide-react';
 
 interface StepNode {
   step: string;
@@ -21,126 +21,126 @@ export const ArchitectureShowcase: React.FC = () => {
     if (!isAutoPlaying) return;
     const interval = setInterval(() => {
       setActivePulseStep(prev => (prev + 1) % 4);
-    }, 2000);
+    }, 2200);
     return () => clearInterval(interval);
   }, [activeArch, isAutoPlaying]);
 
-  // Tab 1: Caching Migration steps
+  // Tab 1: In-Memory Startup Caching & Vertical Modular Monolith
   const cachingSteps: StepNode[] = [
     {
-      step: '01. INGESTION',
-      tag: 'CLIENT REQ',
-      title: 'Client API Request',
-      description: 'Encrypted request hits the Node.js API gateway layer.',
-      badge: 'RBAC / ABAC Guard',
+      step: '01. LEGACY BOTTLENECK',
+      tag: 'CHAINED DB CALLS',
+      title: 'Legacy Multi-DB Calls',
+      description: 'Account page triggered multiple serial API calls & heavy direct DB queries.',
+      badge: 'Legacy Latency: ~7,000ms',
       badgeType: 'neutral',
       icon: Server
     },
     {
-      step: '02. CACHE HIT',
-      tag: 'FAST LOOKUP',
-      title: 'In-Memory Index',
-      description: 'Lookups resolve instantly from preloaded RAM index at boot.',
-      badge: 'Response: 40–50ms',
+      step: '02. STARTUP PRELOAD',
+      tag: 'IN-MEMORY RAM',
+      title: 'Server-Startup Cache',
+      description: 'Preloads high-frequency Users, HC200 gateway hubs & Accounts metadata into RAM.',
+      badge: 'RAM Preload at Boot',
       badgeType: 'indigo',
       icon: Zap
     },
     {
-      step: '03. ASYNC SYNC',
-      tag: 'EVENT BUS',
-      title: 'Kafka Event Bus',
-      description: 'Mutations broadcast across topics to sync and invalidate caches.',
-      badge: 'Non-blocking Pub/Sub',
+      step: '03. MODULAR ISOLATION',
+      tag: 'MODULAR MONOLITH',
+      title: 'Vertical Modular Routing',
+      description: 'Users and AppRegistry modules resolve domain logic in-memory without DB roundtrips.',
+      badge: 'Users & AppRegistry Modules',
       badgeType: 'neutral',
-      icon: Activity
+      icon: Layers
     },
     {
-      step: '04. RESILIENCE',
-      tag: 'DB SAFEGUARD',
-      title: 'Database Fallback',
-      description: 'On rare cache miss, request falls back safely to PostgreSQL.',
-      badge: 'Zero Data Loss',
-      badgeType: 'neutral',
-      icon: Database
+      step: '04. SUB-50ms SERVING',
+      tag: 'INSTANT RESPONSE',
+      title: 'Sub-50ms Delivery',
+      description: 'Delivers cached payloads to frontend in 40–50ms with live AppRegistry UI updates.',
+      badge: 'Response: 40–50ms (99% cut)',
+      badgeType: 'green',
+      icon: ShieldCheck
     }
   ];
 
-  // Tab 2: IoT Telemetry Lakehouse steps
+  // Tab 2: Cassandra IoT Telemetry & Databricks Medallion Lakehouse
   const telemetrySteps: StepNode[] = [
     {
-      step: '01. EDGE EMISSION',
+      step: '01. CASSANDRA INGEST',
       tag: '50+ SITES',
-      title: 'Facility Sensors',
-      description: 'LoRa, Zigbee & Wi-Fi mesh routers transmitting telemetry.',
-      badge: 'Multi-site Ingestion',
-      badgeType: 'neutral',
-      icon: Wifi
-    },
-    {
-      step: '02. STREAM BUS',
-      tag: 'HIGH VELOCITY',
-      title: 'Kafka Message Bus',
-      description: 'Real-time event partitioning & distributed queue ingestion.',
+      title: 'Cassandra Ingestion',
+      description: 'Ingesting high-velocity Wi-Fi mesh and sensor telemetry from Cassandra DB into Databricks.',
       badge: '10,000+ Daily Events',
-      badgeType: 'indigo',
-      icon: Activity
+      badgeType: 'neutral',
+      icon: Database
     },
     {
-      step: '03. LAKEHOUSE',
-      tag: 'MEDALLION',
-      title: 'PySpark & Databricks',
-      description: 'Delta Lake pipeline calculating automated uptime SLAs.',
-      badge: 'Automated Uptime Engine',
-      badgeType: 'neutral',
+      step: '02. MEDALLION PIPELINE',
+      tag: 'BRONZE → SILVER',
+      title: 'PySpark Medallion Cleaning',
+      description: 'Deduplicates, validates schemas, and standardizes semi-structured telemetry data.',
+      badge: 'PySpark & Delta Lake',
+      badgeType: 'indigo',
       icon: Cpu
     },
     {
-      step: '04. INSIGHTS',
-      tag: 'EXECUTIVE BI',
-      title: 'Power BI & Lambda',
-      description: 'On-demand debugging reports & real-time operational views.',
-      badge: '~99% SLA Maintained',
+      step: '03. GOLD AGGREGATIONS',
+      tag: 'GOLD LAYER',
+      title: 'Daily Automated Pipeline',
+      description: 'Runs daily scheduled pipelines computing automated uptime SLAs and facility health.',
+      badge: '~99% SLA Calculated',
       badgeType: 'green',
+      icon: Activity
+    },
+    {
+      step: '04. SERVING & LAMBDA',
+      tag: 'BI & LAMBDA',
+      title: 'Power BI & AWS Lambda',
+      description: 'Powers live dashboards for Architects & Clients + on-demand Excel reports via AWS Lambda.',
+      badge: 'Power BI & Serverless Reports',
+      badgeType: 'neutral',
       icon: BarChart3
     }
   ];
 
-  // Tab 3: 15-Min Sensor Aggregation steps
+  // Tab 3: Timezone-Aware Dynamic 15-Minute Sensor Aggregation Engine
   const aggregationSteps: StepNode[] = [
     {
-      step: '01. RAW TICKS',
-      tag: 'BINARY EVENTS',
-      title: 'Sensor Triggers',
-      description: 'PIR motion, door & window sensors emit timestamped pulses.',
-      badge: 'Asynchronous Stream',
+      step: '01. CASSANDRA LOGS',
+      tag: 'RAW PULSES',
+      title: 'Multi-Sensor Ingestion',
+      description: 'Pulls raw timestamped event logs for PIR motion, door, and window sensors from Cassandra.',
+      badge: 'Cassandra Sensor Streams',
       badgeType: 'neutral',
-      icon: Activity
+      icon: Wifi
     },
     {
-      step: '02. BUCKETING',
-      tag: 'TIME SLICING',
-      title: '15-Min Windows',
-      description: 'Partitions 24-hour cycles into 96 discrete interval buckets.',
-      badge: '96 Daily Buckets',
+      step: '02. TIMEZONE NORMALIZATION',
+      tag: 'HC200 LOCATION',
+      title: 'HC200 Timezone Sync',
+      description: 'Dynamically shifts UTC sensor timestamps to match the local physical timezone of the HC200 hub.',
+      badge: 'Principal User Timezone',
       badgeType: 'indigo',
-      icon: Layers
+      icon: Clock
     },
     {
-      step: '03. MATH ENGINE',
-      tag: 'INTENSITY',
-      title: 'Aggregation Engine',
-      description: 'Computes count, sum, average, mode, and median metrics.',
-      badge: 'Multi-formula Math',
+      step: '03. GENERALIZED ENGINE',
+      tag: 'DYNAMIC MATH',
+      title: 'Generalized Aggregator',
+      description: 'Slices the 24-hour cycle into 96 discrete 15-min buckets, executing requested math dynamically.',
+      badge: 'Count, Sum, Avg, Mode, Median',
       badgeType: 'neutral',
       icon: Cpu
     },
     {
-      step: '04. CARE ALERT',
-      tag: 'DELIVERY',
-      title: 'Heatmap & Alerts',
-      description: 'Flags unusual mobility drops to caregivers in real time.',
-      badge: 'Caregiver Visibility',
-      badgeType: 'neutral',
+      step: '04. HEATMAP DELIVERY',
+      tag: 'CAREGIVER UI',
+      title: 'Caregiver Heatmap UI',
+      description: 'Renders 24-hour visual intensity grid on React, flagging unusual mobility drops to caregivers.',
+      badge: 'Elderly Activity Monitoring',
+      badgeType: 'green',
       icon: BarChart3
     }
   ];
@@ -174,7 +174,7 @@ export const ArchitectureShowcase: React.FC = () => {
             System Architecture Deep Dives
           </h2>
           <p className="text-stone-600 dark:text-[#8A8F98] text-sm max-w-2xl">
-            Visual workflows showing how data flows continuously through each stage from input ingestion to delivered insights.
+            Visual workflows illustrating how real-world data engineering pipelines, caching layers, and aggregation engines operate end-to-end.
           </p>
         </div>
 
@@ -192,7 +192,7 @@ export const ArchitectureShowcase: React.FC = () => {
             }`}
           >
             <Zap className="w-3.5 h-3.5" />
-            <span>Low-Latency Cache (7s → 40ms)</span>
+            <span>In-Memory Caching &amp; Modular Monolith (7s → 40ms)</span>
           </button>
 
           <button
@@ -207,7 +207,7 @@ export const ArchitectureShowcase: React.FC = () => {
             }`}
           >
             <Database className="w-3.5 h-3.5" />
-            <span>IoT Streaming Lakehouse (10k+ Events)</span>
+            <span>Cassandra IoT &amp; Databricks Medallion Lakehouse</span>
           </button>
 
           <button
@@ -222,7 +222,7 @@ export const ArchitectureShowcase: React.FC = () => {
             }`}
           >
             <Activity className="w-3.5 h-3.5" />
-            <span>15-Min Sensor Aggregation Engine</span>
+            <span>Timezone-Aware 15-Min Sensor Aggregation Engine</span>
           </button>
         </div>
 
@@ -238,14 +238,14 @@ export const ArchitectureShowcase: React.FC = () => {
                 {activeArch === 'aggregation' && 'VANTIVA INDIA • HOMESIGHT CARE'}
               </span>
               <h3 className="text-lg font-bold text-stone-900 dark:text-[#EDEDEF] mt-1.5">
-                {activeArch === 'caching' && 'Kafka & In-Memory Cache Migration (7s → 40–50ms)'}
-                {activeArch === 'telemetry' && 'IoT Telemetry Lakehouse & Automated Wi-Fi SLA Engine'}
-                {activeArch === 'aggregation' && '15-Minute Interval Sensor Aggregation Engine'}
+                {activeArch === 'caching' && 'In-Memory Startup Caching & Vertical Modular Monolith (7s → 40–50ms)'}
+                {activeArch === 'telemetry' && 'Cassandra IoT Telemetry & Databricks Medallion Lakehouse'}
+                {activeArch === 'aggregation' && 'Timezone-Aware Dynamic 15-Minute Sensor Aggregation Engine'}
               </h3>
               <p className="text-xs text-stone-600 dark:text-[#8A8F98] mt-0.5">
-                {activeArch === 'caching' && 'Decoupled heavy database reads by preloading memory indexes and syncing mutations via Kafka.'}
-                {activeArch === 'telemetry' && 'Processing 10,000+ daily IoT telemetry events with automated uptime SLA calculations.'}
-                {activeArch === 'aggregation' && 'Mathematical aggregation of sparse binary pulses into continuous 15-min intensity intervals.'}
+                {activeArch === 'caching' && 'Preloaded Users, HC200 gateway hubs, and Accounts into server RAM at boot, architecting a Vertical Modular Monolith.'}
+                {activeArch === 'telemetry' && 'Ingesting Cassandra device telemetry across 50+ facilities into Databricks Delta Lake to curate daily Gold reporting tables.'}
+                {activeArch === 'aggregation' && 'Normalizing UTC sensor timestamps to local HC200 device timezones and computing 15-minute multi-sensor activity heatmaps.'}
               </p>
             </div>
 
@@ -258,7 +258,7 @@ export const ArchitectureShowcase: React.FC = () => {
                 </div>
                 <ArrowRight className="w-4 h-4 text-[#5E6AD2]" />
                 <div>
-                  <div className="text-[9px] text-[#5E6AD2] font-semibold">AFTER (CACHED)</div>
+                  <div className="text-[9px] text-[#5E6AD2] font-semibold">AFTER (IN-MEMORY)</div>
                   <div className="text-lg font-bold text-[#5E6AD2]">40–50 ms</div>
                 </div>
               </div>
@@ -267,7 +267,7 @@ export const ArchitectureShowcase: React.FC = () => {
             {activeArch === 'telemetry' && (
               <div className="bg-[#FAF7F2] dark:bg-[#08090A] rounded-lg p-3 border border-[#E8E2D5] dark:border-white/[0.08] flex items-center gap-4 shrink-0 font-mono text-xs">
                 <div>
-                  <div className="text-[9px] text-stone-500 dark:text-[#62666D]">DAILY EVENTS</div>
+                  <div className="text-[9px] text-stone-500 dark:text-[#62666D]">DAILY TELEMETRY</div>
                   <div className="text-stone-900 dark:text-[#EDEDEF] font-bold">10,000+</div>
                 </div>
                 <div>
@@ -284,7 +284,7 @@ export const ArchitectureShowcase: React.FC = () => {
             {activeArch === 'aggregation' && (
               <div className="bg-[#FAF7F2] dark:bg-[#08090A] rounded-lg p-3 border border-[#E8E2D5] dark:border-white/[0.08] text-xs font-mono shrink-0">
                 <div className="text-[9px] text-stone-500 dark:text-[#62666D] uppercase">INTERVAL RESOLUTION</div>
-                <div className="text-[#5E6AD2] font-bold">15-Min Buckets (96/day)</div>
+                <div className="text-[#5E6AD2] font-bold">96 Daily Buckets (15-Min)</div>
               </div>
             )}
           </div>
@@ -398,21 +398,21 @@ export const ArchitectureShowcase: React.FC = () => {
               <div className="flex items-center justify-between text-[11px] font-mono text-stone-500 dark:text-[#8A8F98] pt-1 px-1">
                 <span className="flex items-center gap-1.5 text-stone-800 dark:text-[#EDEDEF]">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#5E6AD2] animate-pulse" />
-                  {activeArch === 'caching' && 'Client Request Ingestion'}
-                  {activeArch === 'telemetry' && '50+ Sites Stream In'}
-                  {activeArch === 'aggregation' && 'Binary Sensor Emissions'}
+                  {activeArch === 'caching' && 'Legacy Multi-DB Calls'}
+                  {activeArch === 'telemetry' && 'Cassandra DB Ingestion'}
+                  {activeArch === 'aggregation' && 'Raw Sensor Ticks (Cassandra)'}
                 </span>
 
                 <div className="flex items-center gap-1 text-[#5E6AD2] text-xs">
-                  <span>Continuous Data Pipeline</span>
+                  <span>Continuous Pipeline Execution</span>
                   <ChevronRight className="w-3.5 h-3.5 animate-pulse" />
                   <ChevronRight className="w-3.5 h-3.5 -ml-2 text-[#6875E3]" />
                 </div>
 
                 <span className="flex items-center gap-1.5 text-[#5E6AD2] font-semibold">
-                  {activeArch === 'caching' && 'Sub-50ms Response Delivered'}
-                  {activeArch === 'telemetry' && 'Automated SLA & Dashboards'}
-                  {activeArch === 'aggregation' && 'Elderly Anomaly Alerts'}
+                  {activeArch === 'caching' && 'Sub-50ms Cached Delivery'}
+                  {activeArch === 'telemetry' && 'Gold Power BI & Lambda Reports'}
+                  {activeArch === 'aggregation' && 'Caregiver 24h Heatmap Rendered'}
                   <ArrowRight className="w-3.5 h-3.5" />
                 </span>
               </div>
@@ -426,16 +426,16 @@ export const ArchitectureShowcase: React.FC = () => {
             {activeArch === 'caching' && (
               <>
                 <div className="p-3 rounded-lg bg-[#FAF7F2] dark:bg-[#08090A] border border-[#E8E2D5] dark:border-white/[0.06] text-xs">
-                  <div className="font-semibold text-stone-900 dark:text-[#EDEDEF]">Server-Start Preload</div>
-                  <div className="text-stone-600 dark:text-[#8A8F98] text-[11px] mt-0.5">Preloads high-frequency topology into RAM at boot for zero-lag index hits.</div>
+                  <div className="font-semibold text-stone-900 dark:text-[#EDEDEF]">Server-Startup In-Memory Cache</div>
+                  <div className="text-stone-600 dark:text-[#8A8F98] text-[11px] mt-0.5">Preloads Users, HC200 hub metadata, and Accounts into server RAM at boot for zero-lag resolution.</div>
                 </div>
                 <div className="p-3 rounded-lg bg-[#FAF7F2] dark:bg-[#08090A] border border-[#E8E2D5] dark:border-white/[0.06] text-xs">
-                  <div className="font-semibold text-stone-900 dark:text-[#EDEDEF]">RBAC / ABAC Integrated</div>
-                  <div className="text-stone-600 dark:text-[#8A8F98] text-[11px] mt-0.5">Role &amp; attribute security enforced directly at the cached routing layer.</div>
+                  <div className="font-semibold text-stone-900 dark:text-[#EDEDEF]">Vertical Modular Monolith</div>
+                  <div className="text-stone-600 dark:text-[#8A8F98] text-[11px] mt-0.5">Led Users &amp; AppRegistry backend modules + AppRegistry UI, solving tight coupling cleanly.</div>
                 </div>
                 <div className="p-3 rounded-lg bg-[#FAF7F2] dark:bg-[#08090A] border border-[#E8E2D5] dark:border-white/[0.06] text-xs">
-                  <div className="font-semibold text-stone-900 dark:text-[#EDEDEF]">99% Latency Cut</div>
-                  <div className="text-stone-600 dark:text-[#8A8F98] text-[11px] mt-0.5">Validated and verified with senior architecture team before production release.</div>
+                  <div className="font-semibold text-stone-900 dark:text-[#EDEDEF]">99% Latency Reduction</div>
+                  <div className="text-stone-600 dark:text-[#8A8F98] text-[11px] mt-0.5">Response times plummeted from ~7,000ms down to 40–50ms on critical high-traffic endpoints.</div>
                 </div>
               </>
             )}
@@ -443,16 +443,16 @@ export const ArchitectureShowcase: React.FC = () => {
             {activeArch === 'telemetry' && (
               <>
                 <div className="p-3 rounded-lg bg-[#FAF7F2] dark:bg-[#08090A] border border-[#E8E2D5] dark:border-white/[0.06] text-xs">
-                  <div className="font-semibold text-stone-900 dark:text-[#EDEDEF]">Automated SLA Monitoring</div>
-                  <div className="text-stone-600 dark:text-[#8A8F98] text-[11px] mt-0.5">Replaced manual router checks with automated calculations across 50+ facilities.</div>
+                  <div className="font-semibold text-stone-900 dark:text-[#EDEDEF]">Cassandra IoT Extraction</div>
+                  <div className="text-stone-600 dark:text-[#8A8F98] text-[11px] mt-0.5">Extracts and cleans high-velocity mesh Wi-Fi &amp; sensor telemetry across 50+ facilities into Databricks.</div>
                 </div>
                 <div className="p-3 rounded-lg bg-[#FAF7F2] dark:bg-[#08090A] border border-[#E8E2D5] dark:border-white/[0.06] text-xs">
-                  <div className="font-semibold text-stone-900 dark:text-[#EDEDEF]">AWS Lambda On-Demand</div>
-                  <div className="text-stone-600 dark:text-[#8A8F98] text-[11px] mt-0.5">Instant 24-hour and custom date-range performance reporting for engineering debugging.</div>
+                  <div className="font-semibold text-stone-900 dark:text-[#EDEDEF]">Automated Daily Gold Layer</div>
+                  <div className="text-stone-600 dark:text-[#8A8F98] text-[11px] mt-0.5">Daily scheduled pipeline computes device health and ~99% uptime SLA tables automatically.</div>
                 </div>
                 <div className="p-3 rounded-lg bg-[#FAF7F2] dark:bg-[#08090A] border border-[#E8E2D5] dark:border-white/[0.06] text-xs">
-                  <div className="font-semibold text-stone-900 dark:text-[#EDEDEF]">Real-Time Power BI</div>
-                  <div className="text-stone-600 dark:text-[#8A8F98] text-[11px] mt-0.5">Custom visual metrics monitoring mesh health, packet drops, and device latency.</div>
+                  <div className="font-semibold text-stone-900 dark:text-[#EDEDEF]">Power BI &amp; AWS Lambda Reports</div>
+                  <div className="text-stone-600 dark:text-[#8A8F98] text-[11px] mt-0.5">Live executive Power BI dashboards for Architects &amp; Clients + on-demand custom Excel reports via Lambda.</div>
                 </div>
               </>
             )}
@@ -460,16 +460,16 @@ export const ArchitectureShowcase: React.FC = () => {
             {activeArch === 'aggregation' && (
               <>
                 <div className="p-3 rounded-lg bg-[#FAF7F2] dark:bg-[#08090A] border border-[#E8E2D5] dark:border-white/[0.06] text-xs">
-                  <div className="font-semibold text-stone-900 dark:text-[#EDEDEF]">Reusable Engine Design</div>
-                  <div className="text-stone-600 dark:text-[#8A8F98] text-[11px] mt-0.5">Generalized module handles PIR motion, magnetic door contacts, and smart plugs.</div>
+                  <div className="font-semibold text-stone-900 dark:text-[#EDEDEF]">HC200 Timezone Normalizer</div>
+                  <div className="text-stone-600 dark:text-[#8A8F98] text-[11px] mt-0.5">Converts UTC Cassandra sensor timestamps to the physical local timezone of the user's HC200 hub.</div>
                 </div>
                 <div className="p-3 rounded-lg bg-[#FAF7F2] dark:bg-[#08090A] border border-[#E8E2D5] dark:border-white/[0.06] text-xs">
-                  <div className="font-semibold text-stone-900 dark:text-[#EDEDEF]">15-Min Granularity</div>
-                  <div className="text-stone-600 dark:text-[#8A8F98] text-[11px] mt-0.5">Provides ideal balance between statistical precision and caregiver clarity.</div>
+                  <div className="font-semibold text-stone-900 dark:text-[#EDEDEF]">Generalized Dynamic Aggregation</div>
+                  <div className="text-stone-600 dark:text-[#8A8F98] text-[11px] mt-0.5">Slices 24 hours into 96 buckets, dynamically computing count, sum, avg, mode, or median on-the-fly.</div>
                 </div>
                 <div className="p-3 rounded-lg bg-[#FAF7F2] dark:bg-[#08090A] border border-[#E8E2D5] dark:border-white/[0.06] text-xs">
-                  <div className="font-semibold text-stone-900 dark:text-[#EDEDEF]">Anomaly Detection</div>
-                  <div className="text-stone-600 dark:text-[#8A8F98] text-[11px] mt-0.5">Flags unexpected gaps during habitual morning and evening active hours.</div>
+                  <div className="font-semibold text-stone-900 dark:text-[#EDEDEF]">24-Hour Caregiver Heatmap</div>
+                  <div className="text-stone-600 dark:text-[#8A8F98] text-[11px] mt-0.5">Interactive React grid visualizing daily mobility intensity and flagging elderly inactivity anomalies.</div>
                 </div>
               </>
             )}
