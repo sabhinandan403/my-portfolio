@@ -1,17 +1,165 @@
 import React, { useState, useEffect } from 'react';
-import { Database, Server, Cpu, ArrowRight, Zap, CheckCircle2, Activity, Wifi, BarChart3, Layers, ArrowDown } from 'lucide-react';
+import { Database, Server, Cpu, ArrowRight, Zap, CheckCircle2, Activity, Wifi, BarChart3, Layers, ChevronRight } from 'lucide-react';
+
+interface StepNode {
+  step: string;
+  tag: string;
+  title: string;
+  description: string;
+  badge: string;
+  badgeType: 'emerald' | 'neutral';
+  icon: React.ElementType;
+}
 
 export const ArchitectureShowcase: React.FC = () => {
   const [activeArch, setActiveArch] = useState<'caching' | 'telemetry' | 'aggregation'>('caching');
   const [activePulseStep, setActivePulseStep] = useState<number>(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState<boolean>(true);
 
-  // Cycle through pipeline steps to animate live data flow
+  // Synchronized step progression timer
   useEffect(() => {
+    if (!isAutoPlaying) return;
     const interval = setInterval(() => {
       setActivePulseStep(prev => (prev + 1) % 4);
-    }, 1800);
+    }, 2000);
     return () => clearInterval(interval);
-  }, [activeArch]);
+  }, [activeArch, isAutoPlaying]);
+
+  // Tab 1: Caching Migration steps
+  const cachingSteps: StepNode[] = [
+    {
+      step: '01. INGESTION',
+      tag: 'CLIENT REQ',
+      title: 'Client API Request',
+      description: 'Encrypted request hits the Node.js API gateway layer.',
+      badge: 'RBAC / ABAC Guard',
+      badgeType: 'neutral',
+      icon: Server
+    },
+    {
+      step: '02. CACHE HIT',
+      tag: 'FAST LOOKUP',
+      title: 'In-Memory Index',
+      description: 'Lookups resolve instantly from preloaded RAM index at boot.',
+      badge: 'Response: 40–50ms',
+      badgeType: 'emerald',
+      icon: Zap
+    },
+    {
+      step: '03. ASYNC SYNC',
+      tag: 'EVENT BUS',
+      title: 'Kafka Event Bus',
+      description: 'Mutations broadcast across topics to sync and invalidate caches.',
+      badge: 'Non-blocking Pub/Sub',
+      badgeType: 'neutral',
+      icon: Activity
+    },
+    {
+      step: '04. RESILIENCE',
+      tag: 'DB SAFEGUARD',
+      title: 'Database Fallback',
+      description: 'On rare cache miss, request falls back safely to PostgreSQL.',
+      badge: 'Zero Data Loss',
+      badgeType: 'neutral',
+      icon: Database
+    }
+  ];
+
+  // Tab 2: IoT Telemetry Lakehouse steps
+  const telemetrySteps: StepNode[] = [
+    {
+      step: '01. EDGE EMISSION',
+      tag: '50+ SITES',
+      title: 'Facility Sensors',
+      description: 'LoRa, Zigbee & Wi-Fi mesh routers transmitting telemetry.',
+      badge: 'Multi-site Ingestion',
+      badgeType: 'neutral',
+      icon: Wifi
+    },
+    {
+      step: '02. STREAM BUS',
+      tag: 'HIGH VELOCITY',
+      title: 'Kafka Message Bus',
+      description: 'Real-time event partitioning & distributed queue ingestion.',
+      badge: '10,000+ Daily Events',
+      badgeType: 'emerald',
+      icon: Activity
+    },
+    {
+      step: '03. LAKEHOUSE',
+      tag: 'MEDALLION',
+      title: 'PySpark & Databricks',
+      description: 'Delta Lake pipeline calculating automated uptime SLAs.',
+      badge: 'Automated Uptime Engine',
+      badgeType: 'neutral',
+      icon: Cpu
+    },
+    {
+      step: '04. INSIGHTS',
+      tag: 'EXECUTIVE BI',
+      title: 'Power BI & Lambda',
+      description: 'On-demand debugging reports & real-time operational views.',
+      badge: '~99% SLA Maintained',
+      badgeType: 'neutral',
+      icon: BarChart3
+    }
+  ];
+
+  // Tab 3: 15-Min Sensor Aggregation steps
+  const aggregationSteps: StepNode[] = [
+    {
+      step: '01. RAW TICKS',
+      tag: 'BINARY EVENTS',
+      title: 'Sensor Triggers',
+      description: 'PIR motion, door & window sensors emit timestamped pulses.',
+      badge: 'Asynchronous Stream',
+      badgeType: 'neutral',
+      icon: Activity
+    },
+    {
+      step: '02. BUCKETING',
+      tag: 'TIME SLICING',
+      title: '15-Min Windows',
+      description: 'Partitions 24-hour cycles into 96 discrete interval buckets.',
+      badge: '96 Daily Buckets',
+      badgeType: 'emerald',
+      icon: Layers
+    },
+    {
+      step: '03. MATH ENGINE',
+      tag: 'INTENSITY',
+      title: 'Aggregation Engine',
+      description: 'Computes count, sum, average, mode, and median metrics.',
+      badge: 'Multi-formula Math',
+      badgeType: 'neutral',
+      icon: Cpu
+    },
+    {
+      step: '04. CARE ALERT',
+      tag: 'DELIVERY',
+      title: 'Heatmap & Alerts',
+      description: 'Flags unusual mobility drops to caregivers in real time.',
+      badge: 'Caregiver Visibility',
+      badgeType: 'neutral',
+      icon: BarChart3
+    }
+  ];
+
+  const currentSteps = activeArch === 'caching' 
+    ? cachingSteps 
+    : activeArch === 'telemetry' 
+      ? telemetrySteps 
+      : aggregationSteps;
+
+  const getStepProgressPct = () => {
+    switch (activePulseStep) {
+      case 0: return 12.5;
+      case 1: return 37.5;
+      case 2: return 62.5;
+      case 3: return 87.5;
+      default: return 12.5;
+    }
+  };
 
   return (
     <section id="architectures" className="py-20 relative bg-dot-grid border-y border-white/[0.08]">
@@ -26,11 +174,11 @@ export const ArchitectureShowcase: React.FC = () => {
             System Architecture Deep Dives
           </h2>
           <p className="text-neutral-400 text-sm max-w-2xl">
-            Visual workflows showing how raw data flows from edge devices to low-latency caching and automated intelligence.
+            Visual workflows showing how data flows continuously through each stage from input ingestion to delivered insights.
           </p>
         </div>
 
-        {/* Tab Controls */}
+        {/* Tab Selection */}
         <div className="flex flex-wrap gap-2">
           <button
             onClick={() => {
@@ -78,481 +226,253 @@ export const ArchitectureShowcase: React.FC = () => {
           </button>
         </div>
 
-        {/* Fixed Min-Height Container: Eliminates Jitter & Box Size Shifting */}
-        <div className="editorial-card rounded-2xl p-6 sm:p-8 min-h-[580px] flex flex-col justify-between transition-all duration-200">
+        {/* Fixed Min-Height Architecture Panel */}
+        <div className="editorial-card rounded-2xl p-6 sm:p-8 min-h-[590px] flex flex-col justify-between transition-all duration-200">
           
-          {/* TAB 1: CACHING MIGRATION */}
-          {activeArch === 'caching' && (
-            <div className="space-y-6 flex-1 flex flex-col justify-between">
-              
-              {/* Header */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-white/[0.08]">
+          {/* Top Info Bar */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-white/[0.08]">
+            <div>
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                {activeArch === 'caching' && 'VANTIVA INDIA • HOMESIGHT CARE'}
+                {activeArch === 'telemetry' && 'VANTIVA INDIA • SMART SPACES'}
+                {activeArch === 'aggregation' && 'VANTIVA INDIA • HOMESIGHT CARE'}
+              </span>
+              <h3 className="text-lg font-bold text-white mt-1.5">
+                {activeArch === 'caching' && 'Kafka & In-Memory Cache Migration (7s → 40–50ms)'}
+                {activeArch === 'telemetry' && 'IoT Telemetry Lakehouse & Automated Wi-Fi SLA Engine'}
+                {activeArch === 'aggregation' && '15-Minute Interval Sensor Aggregation Engine'}
+              </h3>
+              <p className="text-xs text-neutral-400 mt-0.5">
+                {activeArch === 'caching' && 'Decoupled heavy database reads by preloading memory indexes and syncing mutations via Kafka.'}
+                {activeArch === 'telemetry' && 'Processing 10,000+ daily IoT telemetry events with automated uptime SLA calculations.'}
+                {activeArch === 'aggregation' && 'Mathematical aggregation of sparse binary pulses into continuous 15-min intensity intervals.'}
+              </p>
+            </div>
+
+            {/* Performance KPI Badge */}
+            {activeArch === 'caching' && (
+              <div className="bg-black/40 rounded-xl p-3 border border-white/[0.06] flex items-center gap-4 shrink-0 font-mono">
                 <div>
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                    VANTIVA INDIA &bull; HOMESIGHT CARE
-                  </span>
-                  <h3 className="text-lg font-bold text-white mt-1.5">
-                    Kafka &amp; In-Memory Cache Migration (7s → 40–50ms)
-                  </h3>
-                  <p className="text-xs text-neutral-400 mt-0.5">
-                    Decoupled heavy database reads by serving requests from a preloaded in-memory cache with async Kafka sync.
-                  </p>
+                  <div className="text-[9px] text-neutral-500">BEFORE (DIRECT DB)</div>
+                  <div className="text-sm font-bold text-red-400 line-through">~7,000 ms</div>
                 </div>
+                <ArrowRight className="w-4 h-4 text-emerald-400" />
+                <div>
+                  <div className="text-[9px] text-emerald-400 font-semibold">AFTER (CACHED)</div>
+                  <div className="text-lg font-bold text-emerald-400">40–50 ms</div>
+                </div>
+              </div>
+            )}
 
-                {/* Benchmark Pill */}
-                <div className="bg-black/40 rounded-xl p-3 border border-white/[0.06] flex items-center gap-4 shrink-0 font-mono">
-                  <div>
-                    <div className="text-[9px] text-neutral-500">BEFORE (DIRECT DB)</div>
-                    <div className="text-sm font-bold text-red-400 line-through">~7,000 ms</div>
+            {activeArch === 'telemetry' && (
+              <div className="bg-black/40 rounded-xl p-3 border border-white/[0.06] flex items-center gap-4 shrink-0 font-mono text-xs">
+                <div>
+                  <div className="text-[9px] text-neutral-500">DAILY EVENTS</div>
+                  <div className="text-white font-bold">10,000+</div>
+                </div>
+                <div>
+                  <div className="text-[9px] text-neutral-500">FACILITIES</div>
+                  <div className="text-white font-bold">50+</div>
+                </div>
+                <div>
+                  <div className="text-[9px] text-emerald-400 font-semibold">UPTIME SLA</div>
+                  <div className="text-emerald-400 font-bold">~99%</div>
+                </div>
+              </div>
+            )}
+
+            {activeArch === 'aggregation' && (
+              <div className="bg-black/40 rounded-xl p-3 border border-white/[0.06] text-xs font-mono shrink-0">
+                <div className="text-[9px] text-neutral-500 uppercase">INTERVAL RESOLUTION</div>
+                <div className="text-emerald-400 font-bold">15-Min Buckets (96/day)</div>
+              </div>
+            )}
+          </div>
+
+          {/* Synchronized 4-Step Cards Flow */}
+          <div className="space-y-4 my-2">
+            
+            <div className="flex items-center justify-between text-[10px] font-mono text-neutral-500 uppercase tracking-wider">
+              <span>Data Movement &amp; Pipeline Execution (Click any node to inspect)</span>
+              <span className="text-emerald-400 flex items-center gap-1.5 font-semibold">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+                Active Node: Step 0{activePulseStep + 1}
+              </span>
+            </div>
+
+            {/* The 4 Cards in Horizontal Alignment */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-3 relative">
+              {currentSteps.map((s, idx) => {
+                const Icon = s.icon;
+                const isCurrent = activePulseStep === idx;
+                const isPast = activePulseStep > idx;
+                return (
+                  <div
+                    key={s.step}
+                    onClick={() => {
+                      setActivePulseStep(idx);
+                      setIsAutoPlaying(false);
+                      setTimeout(() => setIsAutoPlaying(true), 8000);
+                    }}
+                    className={`bg-black/30 border rounded-xl p-4 min-h-[160px] flex flex-col justify-between transition-all duration-300 cursor-pointer relative ${
+                      isCurrent
+                        ? 'border-emerald-400 bg-emerald-500/[0.06] shadow-lg shadow-emerald-500/10 scale-[1.02] ring-1 ring-emerald-400/50'
+                        : isPast
+                          ? 'border-white/[0.12] bg-white/[0.02]'
+                          : 'border-white/[0.06] opacity-75 hover:opacity-100'
+                    }`}
+                  >
+                    <div>
+                      <div className="flex items-center justify-between mb-2">
+                        <span className={`text-xs font-mono font-bold ${isCurrent ? 'text-emerald-400' : 'text-neutral-400'}`}>
+                          {s.step}
+                        </span>
+                        <div className={`p-1 rounded ${isCurrent ? 'bg-emerald-500/20 text-emerald-300' : 'bg-white/[0.04] text-neutral-400'}`}>
+                          <Icon className="w-3.5 h-3.5" />
+                        </div>
+                      </div>
+                      <h4 className="text-xs font-semibold text-white">{s.title}</h4>
+                      <p className="text-[11px] text-neutral-400 mt-1 leading-relaxed">
+                        {s.description}
+                      </p>
+                    </div>
+
+                    <div className="pt-2 flex items-center justify-between">
+                      <span className={`text-[10px] font-mono px-2 py-0.5 rounded ${
+                        s.badgeType === 'emerald' || isCurrent
+                          ? 'bg-emerald-500/15 text-emerald-300 font-semibold border border-emerald-500/30'
+                          : 'bg-white/[0.04] text-neutral-400 border border-white/[0.06]'
+                      }`}>
+                        {s.badge}
+                      </span>
+                      {isCurrent && (
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      )}
+                    </div>
                   </div>
-                  <ArrowRight className="w-4 h-4 text-emerald-400" />
-                  <div>
-                    <div className="text-[9px] text-emerald-400 font-semibold">AFTER (CACHED)</div>
-                    <div className="text-lg font-bold text-emerald-400">40–50 ms</div>
-                  </div>
+                );
+              })}
+            </div>
+
+            {/* SYNCHRONIZED FLOW PROGRESS BEAM & LABELS (In 100% Lockstep with the 4 Cards) */}
+            <div className="pt-2 space-y-2">
+              
+              {/* Connected Track Line with 4 Stage Dots */}
+              <div className="relative h-2 bg-black/40 rounded-full border border-white/[0.06] overflow-hidden flex items-center">
+                
+                {/* Flowing Progress Fill Beam */}
+                <div
+                  className="h-full bg-gradient-to-r from-emerald-500/40 via-emerald-400 to-emerald-300 rounded-full transition-all duration-300 relative shadow-sm shadow-emerald-500/50"
+                  style={{ width: `${getStepProgressPct() + 12.5}%` }}
+                >
+                  {/* Leading edge pulsing particle */}
+                  <div className="absolute right-0 top-0 bottom-0 w-3 bg-white animate-pulse" />
                 </div>
               </div>
 
-              {/* Animated 4-Step Flow with Flowing Arrows */}
-              <div className="space-y-3">
-                <div className="flex items-center justify-between text-[10px] font-mono text-neutral-500 uppercase tracking-wider">
-                  <span>Data &amp; Request Flow (Live Flowing Architecture)</span>
-                  <span className="text-emerald-400 flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                    Step 0{activePulseStep + 1} Processing
-                  </span>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-3 relative">
-                  
-                  {/* Step 1 */}
-                  <div className={`bg-black/30 border rounded-xl p-4 min-h-[160px] flex flex-col justify-between transition-all duration-300 relative ${
-                    activePulseStep === 0 
-                      ? 'border-emerald-400 shadow-md shadow-emerald-500/10 bg-white/[0.04]' 
-                      : 'border-white/[0.06]'
-                  }`}>
-                    <div>
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-xs font-mono text-emerald-400 font-bold">01. INGESTION</span>
-                        <Server className="w-3.5 h-3.5 text-neutral-400" />
-                      </div>
-                      <h4 className="text-xs font-semibold text-white">Client API Request</h4>
-                      <p className="text-[11px] text-neutral-400 mt-1 leading-relaxed">
-                        Encrypted user request hits Node.js API layer.
-                      </p>
+              {/* Synchronized Step Markers directly aligned below each card */}
+              <div className="grid grid-cols-4 text-center font-mono text-[10px]">
+                {currentSteps.map((s, idx) => {
+                  const isCurrent = activePulseStep === idx;
+                  const isPast = activePulseStep >= idx;
+                  return (
+                    <div
+                      key={idx}
+                      className={`transition-colors flex items-center justify-center gap-1 ${
+                        isCurrent
+                          ? 'text-emerald-400 font-bold'
+                          : isPast
+                            ? 'text-neutral-300'
+                            : 'text-neutral-600'
+                      }`}
+                    >
+                      <span className={`w-1.5 h-1.5 rounded-full ${isCurrent ? 'bg-emerald-400 animate-ping' : isPast ? 'bg-emerald-500' : 'bg-neutral-700'}`} />
+                      <span>{s.tag}</span>
                     </div>
-                    <div className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-neutral-300 w-fit">
-                      RBAC / ABAC Guard
-                    </div>
-                  </div>
-
-                  {/* Step 2 */}
-                  <div className={`bg-black/30 border rounded-xl p-4 min-h-[160px] flex flex-col justify-between transition-all duration-300 relative ${
-                    activePulseStep === 1 
-                      ? 'border-emerald-400 shadow-md shadow-emerald-500/10 bg-white/[0.04]' 
-                      : 'border-white/[0.06]'
-                  }`}>
-                    <div>
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-xs font-mono text-emerald-400 font-bold">02. CACHE HIT</span>
-                        <Zap className="w-3.5 h-3.5 text-emerald-400" />
-                      </div>
-                      <h4 className="text-xs font-semibold text-white">In-Memory Index</h4>
-                      <p className="text-[11px] text-neutral-400 mt-1 leading-relaxed">
-                        Instant lookup from preloaded startup memory index.
-                      </p>
-                    </div>
-                    <div className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-bold w-fit">
-                      Response: 40–50ms
-                    </div>
-                  </div>
-
-                  {/* Step 3 */}
-                  <div className={`bg-black/30 border rounded-xl p-4 min-h-[160px] flex flex-col justify-between transition-all duration-300 relative ${
-                    activePulseStep === 2 
-                      ? 'border-emerald-400 shadow-md shadow-emerald-500/10 bg-white/[0.04]' 
-                      : 'border-white/[0.06]'
-                  }`}>
-                    <div>
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-xs font-mono text-neutral-400 font-bold">03. ASYNC SYNC</span>
-                        <Activity className="w-3.5 h-3.5 text-neutral-400" />
-                      </div>
-                      <h4 className="text-xs font-semibold text-white">Kafka Event Bus</h4>
-                      <p className="text-[11px] text-neutral-400 mt-1 leading-relaxed">
-                        Mutations broadcast to invalidate &amp; sync caches.
-                      </p>
-                    </div>
-                    <div className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-neutral-300 w-fit">
-                      Non-blocking Pub/Sub
-                    </div>
-                  </div>
-
-                  {/* Step 4 */}
-                  <div className={`bg-black/30 border rounded-xl p-4 min-h-[160px] flex flex-col justify-between transition-all duration-300 relative ${
-                    activePulseStep === 3 
-                      ? 'border-emerald-400 shadow-md shadow-emerald-500/10 bg-white/[0.04]' 
-                      : 'border-white/[0.06]'
-                  }`}>
-                    <div>
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-xs font-mono text-neutral-400 font-bold">04. RESILIENCE</span>
-                        <Database className="w-3.5 h-3.5 text-neutral-400" />
-                      </div>
-                      <h4 className="text-xs font-semibold text-white">Database Fallback</h4>
-                      <p className="text-[11px] text-neutral-400 mt-1 leading-relaxed">
-                        Automatic DB query fallback on cache miss.
-                      </p>
-                    </div>
-                    <div className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-neutral-300 w-fit">
-                      Zero Data Loss
-                    </div>
-                  </div>
-
-                </div>
-
-                {/* Animated Data Flow Direction Beam */}
-                <div className="hidden md:flex items-center justify-between px-8 pt-1 text-emerald-400 text-xs font-mono">
-                  <span className="flex items-center gap-1 text-[11px]">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
-                    Incoming Request
-                  </span>
-                  <div className="flex-1 mx-4 h-[1.5px] bg-gradient-to-r from-emerald-500/20 via-emerald-400 to-emerald-500/20 relative overflow-hidden">
-                    <div className="w-12 h-full bg-white animate-pulse" />
-                  </div>
-                  <span className="flex items-center gap-1 text-[11px]">
-                    Sub-50ms Response Delivered
-                    <ArrowRight className="w-3.5 h-3.5 text-emerald-400" />
-                  </span>
-                </div>
+                  );
+                })}
               </div>
 
-              {/* Bottom Highlights (Standardized Height) */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-                <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.04] text-xs">
+              {/* Flow Direction Text Indicator */}
+              <div className="flex items-center justify-between text-[11px] font-mono text-neutral-400 pt-1 px-1">
+                <span className="flex items-center gap-1.5 text-neutral-300">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  {activeArch === 'caching' && 'Client Request Ingestion'}
+                  {activeArch === 'telemetry' && '50+ Sites Stream In'}
+                  {activeArch === 'aggregation' && 'Binary Sensor Emissions'}
+                </span>
+
+                <div className="flex items-center gap-1 text-emerald-400 text-xs">
+                  <span>Continuous Data Pipeline</span>
+                  <ChevronRight className="w-3.5 h-3.5 animate-pulse" />
+                  <ChevronRight className="w-3.5 h-3.5 -ml-2 text-emerald-500" />
+                </div>
+
+                <span className="flex items-center gap-1.5 text-emerald-400 font-semibold">
+                  {activeArch === 'caching' && 'Sub-50ms Response Delivered'}
+                  {activeArch === 'telemetry' && 'Automated SLA & Dashboards'}
+                  {activeArch === 'aggregation' && 'Elderly Anomaly Alerts'}
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </span>
+              </div>
+
+            </div>
+
+          </div>
+
+          {/* Bottom Feature Cards (Consistent Across All Tabs) */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-3 border-t border-white/[0.06]">
+            {activeArch === 'caching' && (
+              <>
+                <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] text-xs">
                   <div className="font-semibold text-white">Server-Start Preload</div>
                   <div className="text-neutral-400 text-[11px] mt-0.5">Preloads high-frequency topology into RAM at boot for zero-lag index hits.</div>
                 </div>
-                <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.04] text-xs">
+                <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] text-xs">
                   <div className="font-semibold text-white">RBAC / ABAC Integrated</div>
                   <div className="text-neutral-400 text-[11px] mt-0.5">Role &amp; attribute security enforced directly at the cached routing layer.</div>
                 </div>
-                <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.04] text-xs">
+                <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] text-xs">
                   <div className="font-semibold text-white">99% Latency Cut</div>
                   <div className="text-neutral-400 text-[11px] mt-0.5">Validated and verified with senior architecture team before production release.</div>
                 </div>
-              </div>
+              </>
+            )}
 
-            </div>
-          )}
-
-          {/* TAB 2: STREAMING LAKEHOUSE */}
-          {activeArch === 'telemetry' && (
-            <div className="space-y-6 flex-1 flex flex-col justify-between">
-              
-              {/* Header */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-white/[0.08]">
-                <div>
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                    VANTIVA INDIA &bull; SMART SPACES
-                  </span>
-                  <h3 className="text-lg font-bold text-white mt-1.5">
-                    IoT Telemetry Lakehouse &amp; Automated Wi-Fi SLA Engine
-                  </h3>
-                  <p className="text-xs text-neutral-400 mt-0.5">
-                    Processing 10,000+ daily IoT telemetry data points across 50+ facility sites with automated uptime calculation.
-                  </p>
-                </div>
-
-                <div className="bg-black/40 rounded-xl p-3 border border-white/[0.06] flex items-center gap-4 shrink-0 font-mono text-xs">
-                  <div>
-                    <div className="text-[9px] text-neutral-500">DAILY EVENTS</div>
-                    <div className="text-white font-bold">10,000+</div>
-                  </div>
-                  <div>
-                    <div className="text-[9px] text-neutral-500">FACILITIES</div>
-                    <div className="text-white font-bold">50+</div>
-                  </div>
-                  <div>
-                    <div className="text-[9px] text-emerald-400 font-semibold">UPTIME SLA</div>
-                    <div className="text-emerald-400 font-bold">~99%</div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Animated 4-Step Lakehouse Flow */}
-              <div className="space-y-3">
-                <div className="flex items-center justify-between text-[10px] font-mono text-neutral-500 uppercase tracking-wider">
-                  <span>Pipeline Architecture (Flowing Sensor Stream)</span>
-                  <span className="text-emerald-400 flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                    Step 0{activePulseStep + 1} Processing
-                  </span>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-3 relative">
-                  
-                  {/* Step 1 */}
-                  <div className={`bg-black/30 border rounded-xl p-4 min-h-[160px] flex flex-col justify-between transition-all duration-300 ${
-                    activePulseStep === 0 ? 'border-emerald-400 shadow-md shadow-emerald-500/10 bg-white/[0.04]' : 'border-white/[0.06]'
-                  }`}>
-                    <div>
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-xs font-mono text-emerald-400 font-bold">01. EDGE EMISSION</span>
-                        <Wifi className="w-3.5 h-3.5 text-neutral-400" />
-                      </div>
-                      <h4 className="text-xs font-semibold text-white">50+ Facility Sites</h4>
-                      <p className="text-[11px] text-neutral-400 mt-1 leading-relaxed">
-                        LoRa, Zigbee &amp; Wi-Fi mesh routers transmitting uptime packets.
-                      </p>
-                    </div>
-                    <div className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-neutral-300 w-fit">
-                      Multi-site Ingestion
-                    </div>
-                  </div>
-
-                  {/* Step 2 */}
-                  <div className={`bg-black/30 border rounded-xl p-4 min-h-[160px] flex flex-col justify-between transition-all duration-300 ${
-                    activePulseStep === 1 ? 'border-emerald-400 shadow-md shadow-emerald-500/10 bg-white/[0.04]' : 'border-white/[0.06]'
-                  }`}>
-                    <div>
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-xs font-mono text-emerald-400 font-bold">02. STREAM BUS</span>
-                        <Activity className="w-3.5 h-3.5 text-emerald-400" />
-                      </div>
-                      <h4 className="text-xs font-semibold text-white">Kafka Message Bus</h4>
-                      <p className="text-[11px] text-neutral-400 mt-1 leading-relaxed">
-                        High-frequency event partitioning &amp; real-time queue ingestion.
-                      </p>
-                    </div>
-                    <div className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-bold w-fit">
-                      10,000+ Daily Events
-                    </div>
-                  </div>
-
-                  {/* Step 3 */}
-                  <div className={`bg-black/30 border rounded-xl p-4 min-h-[160px] flex flex-col justify-between transition-all duration-300 ${
-                    activePulseStep === 2 ? 'border-emerald-400 shadow-md shadow-emerald-500/10 bg-white/[0.04]' : 'border-white/[0.06]'
-                  }`}>
-                    <div>
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-xs font-mono text-neutral-400 font-bold">03. LAKEHOUSE</span>
-                        <Cpu className="w-3.5 h-3.5 text-neutral-400" />
-                      </div>
-                      <h4 className="text-xs font-semibold text-white">PySpark &amp; Databricks</h4>
-                      <p className="text-[11px] text-neutral-400 mt-1 leading-relaxed">
-                        Medallion Delta Lake processing with automated SLA calculations.
-                      </p>
-                    </div>
-                    <div className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-neutral-300 w-fit">
-                      Automated Uptime
-                    </div>
-                  </div>
-
-                  {/* Step 4 */}
-                  <div className={`bg-black/30 border rounded-xl p-4 min-h-[160px] flex flex-col justify-between transition-all duration-300 ${
-                    activePulseStep === 3 ? 'border-emerald-400 shadow-md shadow-emerald-500/10 bg-white/[0.04]' : 'border-white/[0.06]'
-                  }`}>
-                    <div>
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-xs font-mono text-neutral-400 font-bold">04. REPORTING</span>
-                        <BarChart3 className="w-3.5 h-3.5 text-neutral-400" />
-                      </div>
-                      <h4 className="text-xs font-semibold text-white">Power BI &amp; Lambda</h4>
-                      <p className="text-[11px] text-neutral-400 mt-1 leading-relaxed">
-                        Real-time dashboards &amp; on-demand Excel reports for site managers.
-                      </p>
-                    </div>
-                    <div className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-neutral-300 w-fit">
-                      99% SLA Maintained
-                    </div>
-                  </div>
-
-                </div>
-
-                {/* Animated Flow Beam */}
-                <div className="hidden md:flex items-center justify-between px-8 pt-1 text-emerald-400 text-xs font-mono">
-                  <span className="flex items-center gap-1 text-[11px]">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
-                    50+ Sites Stream In
-                  </span>
-                  <div className="flex-1 mx-4 h-[1.5px] bg-gradient-to-r from-emerald-500/20 via-emerald-400 to-emerald-500/20 relative overflow-hidden">
-                    <div className="w-12 h-full bg-white animate-pulse" />
-                  </div>
-                  <span className="flex items-center gap-1 text-[11px]">
-                    Executive Insights Delivered
-                    <ArrowRight className="w-3.5 h-3.5 text-emerald-400" />
-                  </span>
-                </div>
-              </div>
-
-              {/* Bottom Highlights (Standardized Height) */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-                <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.04] text-xs">
-                  <div className="font-semibold text-white">Automated SLA Uptime</div>
+            {activeArch === 'telemetry' && (
+              <>
+                <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] text-xs">
+                  <div className="font-semibold text-white">Automated SLA Monitoring</div>
                   <div className="text-neutral-400 text-[11px] mt-0.5">Replaced manual router checks with automated calculations across 50+ facilities.</div>
                 </div>
-                <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.04] text-xs">
-                  <div className="font-semibold text-white">On-Demand AWS Lambda</div>
+                <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] text-xs">
+                  <div className="font-semibold text-white">AWS Lambda On-Demand</div>
                   <div className="text-neutral-400 text-[11px] mt-0.5">Instant 24-hour and custom date-range performance reporting for engineering debugging.</div>
                 </div>
-                <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.04] text-xs">
+                <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] text-xs">
                   <div className="font-semibold text-white">Real-Time Power BI</div>
                   <div className="text-neutral-400 text-[11px] mt-0.5">Custom visual metrics monitoring mesh health, packet drops, and device latency.</div>
                 </div>
-              </div>
+              </>
+            )}
 
-            </div>
-          )}
-
-          {/* TAB 3: SENSOR AGGREGATION */}
-          {activeArch === 'aggregation' && (
-            <div className="space-y-6 flex-1 flex flex-col justify-between">
-              
-              {/* Header */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-white/[0.08]">
-                <div>
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                    VANTIVA INDIA &bull; HOMESIGHT CARE
-                  </span>
-                  <h3 className="text-lg font-bold text-white mt-1.5">
-                    15-Minute Sensor Aggregation Engine
-                  </h3>
-                  <p className="text-xs text-neutral-400 mt-0.5">
-                    Aggregating sparse binary sensor events into continuous 15-minute intensity interval scores for elderly care.
-                  </p>
-                </div>
-
-                <div className="bg-black/40 rounded-xl p-3 border border-white/[0.06] text-xs font-mono shrink-0">
-                  <div className="text-[9px] text-neutral-500 uppercase">INTERVAL RESOLUTION</div>
-                  <div className="text-emerald-400 font-bold">15-Min Intervals (96/day)</div>
-                </div>
-              </div>
-
-              {/* Animated 4-Step Workflow */}
-              <div className="space-y-3">
-                <div className="flex items-center justify-between text-[10px] font-mono text-neutral-500 uppercase tracking-wider">
-                  <span>Transformation Workflow (Sparse to Continuous)</span>
-                  <span className="text-emerald-400 flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                    Step 0{activePulseStep + 1} Processing
-                  </span>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-3 relative">
-                  
-                  {/* Step 1 */}
-                  <div className={`bg-black/30 border rounded-xl p-4 min-h-[160px] flex flex-col justify-between transition-all duration-300 ${
-                    activePulseStep === 0 ? 'border-emerald-400 shadow-md shadow-emerald-500/10 bg-white/[0.04]' : 'border-white/[0.06]'
-                  }`}>
-                    <div>
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-xs font-mono text-emerald-400 font-bold">01. RAW TICKS</span>
-                        <Activity className="w-3.5 h-3.5 text-neutral-400" />
-                      </div>
-                      <h4 className="text-xs font-semibold text-white">Binary Triggers</h4>
-                      <p className="text-[11px] text-neutral-400 mt-1 leading-relaxed">
-                        PIR motion, door &amp; window sensors emit timestamped 0/1 pulses.
-                      </p>
-                    </div>
-                    <div className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-neutral-300 w-fit">
-                      Asynchronous Stream
-                    </div>
-                  </div>
-
-                  {/* Step 2 */}
-                  <div className={`bg-black/30 border rounded-xl p-4 min-h-[160px] flex flex-col justify-between transition-all duration-300 ${
-                    activePulseStep === 1 ? 'border-emerald-400 shadow-md shadow-emerald-500/10 bg-white/[0.04]' : 'border-white/[0.06]'
-                  }`}>
-                    <div>
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-xs font-mono text-emerald-400 font-bold">02. BUCKETING</span>
-                        <Layers className="w-3.5 h-3.5 text-emerald-400" />
-                      </div>
-                      <h4 className="text-xs font-semibold text-white">15-Min Windows</h4>
-                      <p className="text-[11px] text-neutral-400 mt-1 leading-relaxed">
-                        Partitions 24 hours into 96 discrete 15-minute sliding intervals.
-                      </p>
-                    </div>
-                    <div className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-bold w-fit">
-                      96 Daily Windows
-                    </div>
-                  </div>
-
-                  {/* Step 3 */}
-                  <div className={`bg-black/30 border rounded-xl p-4 min-h-[160px] flex flex-col justify-between transition-all duration-300 ${
-                    activePulseStep === 2 ? 'border-emerald-400 shadow-md shadow-emerald-500/10 bg-white/[0.04]' : 'border-white/[0.06]'
-                  }`}>
-                    <div>
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-xs font-mono text-neutral-400 font-bold">03. AGGREGATION</span>
-                        <Cpu className="w-3.5 h-3.5 text-neutral-400" />
-                      </div>
-                      <h4 className="text-xs font-semibold text-white">Intensity Engine</h4>
-                      <p className="text-[11px] text-neutral-400 mt-1 leading-relaxed">
-                        Calculates count, sum, average, mode, and median metrics.
-                      </p>
-                    </div>
-                    <div className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-neutral-300 w-fit">
-                      Multi-formula Math
-                    </div>
-                  </div>
-
-                  {/* Step 4 */}
-                  <div className={`bg-black/30 border rounded-xl p-4 min-h-[160px] flex flex-col justify-between transition-all duration-300 ${
-                    activePulseStep === 3 ? 'border-emerald-400 shadow-md shadow-emerald-500/10 bg-white/[0.04]' : 'border-white/[0.06]'
-                  }`}>
-                    <div>
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-xs font-mono text-neutral-400 font-bold">04. ALERTING</span>
-                        <BarChart3 className="w-3.5 h-3.5 text-neutral-400" />
-                      </div>
-                      <h4 className="text-xs font-semibold text-white">Heatmap &amp; Alerts</h4>
-                      <p className="text-[11px] text-neutral-400 mt-1 leading-relaxed">
-                        Caregivers receive alerts when routine mobility drops significantly.
-                      </p>
-                    </div>
-                    <div className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-neutral-300 w-fit">
-                      Caregiver Visibility
-                    </div>
-                  </div>
-
-                </div>
-
-                {/* Animated Flow Beam */}
-                <div className="hidden md:flex items-center justify-between px-8 pt-1 text-emerald-400 text-xs font-mono">
-                  <span className="flex items-center gap-1 text-[11px]">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
-                    Binary Sensors Emit
-                  </span>
-                  <div className="flex-1 mx-4 h-[1.5px] bg-gradient-to-r from-emerald-500/20 via-emerald-400 to-emerald-500/20 relative overflow-hidden">
-                    <div className="w-12 h-full bg-white animate-pulse" />
-                  </div>
-                  <span className="flex items-center gap-1 text-[11px]">
-                    Elderly Care Alerts Triggered
-                    <ArrowRight className="w-3.5 h-3.5 text-emerald-400" />
-                  </span>
-                </div>
-              </div>
-
-              {/* Bottom Highlights (Standardized Height) */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-                <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.04] text-xs">
+            {activeArch === 'aggregation' && (
+              <>
+                <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] text-xs">
                   <div className="font-semibold text-white">Reusable Engine Design</div>
                   <div className="text-neutral-400 text-[11px] mt-0.5">Generalized module handles PIR motion, magnetic door contacts, and smart plugs.</div>
                 </div>
-                <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.04] text-xs">
+                <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] text-xs">
                   <div className="font-semibold text-white">15-Min Granularity</div>
                   <div className="text-neutral-400 text-[11px] mt-0.5">Provides ideal balance between statistical precision and caregiver clarity.</div>
                 </div>
-                <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.04] text-xs">
+                <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] text-xs">
                   <div className="font-semibold text-white">Anomaly Detection</div>
                   <div className="text-neutral-400 text-[11px] mt-0.5">Flags unexpected gaps during habitual morning and evening active hours.</div>
                 </div>
-              </div>
-
-            </div>
-          )}
+              </>
+            )}
+          </div>
 
         </div>
 
