@@ -1,56 +1,52 @@
 import React, { useState } from 'react';
 import { PORTFOLIO_DATA } from '../data/portfolioData';
-import { Briefcase, Calendar, MapPin, ChevronRight, CheckCircle, Layers, Zap } from 'lucide-react';
+import { Briefcase, Calendar, MapPin, ChevronRight, CheckCircle2 } from 'lucide-react';
 
 export const Experience: React.FC = () => {
   const [activeExp, setActiveExp] = useState<string>(PORTFOLIO_DATA.experiences[0].id);
 
   return (
     <section id="experience" className="py-20 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-xs font-mono text-cyan-400">
-            <Briefcase className="w-3.5 h-3.5" />
-            <span>CAREER TRACK RECORD</span>
+        <div className="mb-12 space-y-2">
+          <div className="text-xs font-mono text-emerald-400 uppercase tracking-wider">
+            Chronology &amp; Impact
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Work Experience & Impact
+          <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+            Work Experience
           </h2>
-          <p className="text-slate-400 text-sm sm:text-base">
-            Proven history of delivering mission-critical IoT data pipelines, low-latency API architectures, and enterprise full-stack systems.
+          <p className="text-neutral-400 text-sm max-w-2xl">
+            Track record of delivering production IoT streaming architectures, low-latency API layers, and full-stack systems.
           </p>
         </div>
 
-        {/* Experience Content Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        {/* Experience Layout */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
           
-          {/* Company Selection Tabs */}
-          <div className="lg:col-span-4 space-y-3">
+          {/* Company List Tabs */}
+          <div className="md:col-span-4 space-y-2">
             {PORTFOLIO_DATA.experiences.map((exp) => {
               const isSelected = activeExp === exp.id;
               return (
                 <button
                   key={exp.id}
                   onClick={() => setActiveExp(exp.id)}
-                  className={`w-full text-left p-5 rounded-2xl border transition-all duration-300 relative overflow-hidden group ${
+                  className={`w-full text-left p-4 rounded-xl border transition-all text-xs ${
                     isSelected
-                      ? 'bg-slate-900 border-cyan-500/50 shadow-xl shadow-cyan-500/10'
-                      : 'bg-slate-950/60 border-slate-800/80 hover:bg-slate-900/60 hover:border-slate-700'
+                      ? 'bg-white/[0.06] border-emerald-500/40 text-white'
+                      : 'bg-black/20 border-white/[0.06] text-neutral-400 hover:text-neutral-200 hover:border-white/[0.12]'
                   }`}
                 >
-                  {isSelected && (
-                    <div className="absolute top-0 left-0 bottom-0 w-1.5 bg-gradient-to-b from-cyan-400 to-blue-500" />
-                  )}
                   <div className="flex items-center justify-between">
-                    <div className="font-bold text-white text-base group-hover:text-cyan-400 transition-colors">
+                    <div className="font-semibold text-sm text-white">
                       {exp.company}
                     </div>
-                    <ChevronRight className={`w-4 h-4 transition-transform ${isSelected ? 'text-cyan-400 translate-x-1' : 'text-slate-600'}`} />
+                    <ChevronRight className={`w-3.5 h-3.5 ${isSelected ? 'text-emerald-400' : 'text-neutral-600'}`} />
                   </div>
-                  <div className="text-xs font-medium text-cyan-400/90 mt-1 font-mono">{exp.role}</div>
-                  <div className="text-[11px] text-slate-400 flex items-center gap-2 mt-2">
+                  <div className="text-xs font-mono text-emerald-400/90 mt-1">{exp.role}</div>
+                  <div className="text-[11px] font-mono text-neutral-500 mt-1.5 flex items-center gap-1.5">
                     <Calendar className="w-3 h-3" />
                     <span>{exp.period}</span>
                   </div>
@@ -60,53 +56,48 @@ export const Experience: React.FC = () => {
           </div>
 
           {/* Active Experience Detailed Panel */}
-          <div className="lg:col-span-8">
+          <div className="md:col-span-8">
             {PORTFOLIO_DATA.experiences
               .filter((exp) => exp.id === activeExp)
               .map((exp) => (
                 <div
                   key={exp.id}
-                  className="glass-card rounded-2xl border border-slate-800 p-6 sm:p-8 space-y-6 relative overflow-hidden animate-fadeIn"
+                  className="editorial-card rounded-2xl p-6 sm:p-8 space-y-6"
                 >
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-6 border-b border-slate-800">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-5 border-b border-white/[0.08]">
                     <div>
-                      <h3 className="text-2xl font-extrabold text-white tracking-tight">
+                      <h3 className="text-xl font-bold text-white tracking-tight">
                         {exp.role}
                       </h3>
-                      <div className="text-sm font-semibold text-cyan-400 mt-0.5 flex items-center gap-2">
+                      <div className="text-xs font-medium text-emerald-400 mt-0.5 flex items-center gap-2">
                         <span>{exp.company}</span>
-                        <span className="text-slate-600">&bull;</span>
-                        <span className="text-slate-300 font-normal">{exp.projectGroup}</span>
+                        <span className="text-neutral-600">&bull;</span>
+                        <span className="text-neutral-400 font-normal">{exp.projectGroup}</span>
                       </div>
                     </div>
-                    <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-slate-400">
-                      <span className="flex items-center gap-1 bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-800">
-                        <Calendar className="w-3.5 h-3.5 text-cyan-400" />
+
+                    <div className="flex items-center gap-2 text-xs font-mono text-neutral-400">
+                      <span className="flex items-center gap-1 bg-white/[0.04] px-2.5 py-1 rounded border border-white/[0.06]">
+                        <Calendar className="w-3 h-3 text-emerald-400" />
                         {exp.period}
-                      </span>
-                      <span className="flex items-center gap-1 bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-800">
-                        <MapPin className="w-3.5 h-3.5 text-cyan-400" />
-                        {exp.location}
                       </span>
                     </div>
                   </div>
 
                   {/* Summary */}
-                  <p className="text-sm text-slate-300 leading-relaxed font-sans">
+                  <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed">
                     {exp.summary}
                   </p>
 
-                  {/* Key Highlights Bullet points */}
+                  {/* Bullet points */}
                   <div className="space-y-3">
-                    <div className="text-xs font-mono text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
-                      <Zap className="w-3.5 h-3.5 text-cyan-400" /> Key Engineering Deliverables & Impact
+                    <div className="text-[10px] font-mono text-neutral-500 uppercase tracking-wider">
+                      Key Deliverables &amp; Engineering Decisions
                     </div>
-                    <div className="space-y-2.5">
+                    <div className="space-y-2">
                       {exp.highlights.map((highlight, hIdx) => (
-                        <div key={hIdx} className="flex items-start gap-3 text-xs sm:text-sm text-slate-300 leading-relaxed">
-                          <div className="w-5 h-5 rounded-full bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center shrink-0 mt-0.5">
-                            <CheckCircle className="w-3 h-3 text-cyan-400" />
-                          </div>
+                        <div key={hIdx} className="flex items-start gap-2.5 text-xs text-neutral-300 leading-relaxed">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
                           <span>{highlight}</span>
                         </div>
                       ))}
@@ -114,15 +105,15 @@ export const Experience: React.FC = () => {
                   </div>
 
                   {/* Tech stack badges */}
-                  <div className="pt-4 border-t border-slate-800/80">
-                    <div className="text-[11px] font-mono text-slate-400 mb-2 uppercase tracking-wider">
-                      Technologies Used
+                  <div className="pt-4 border-t border-white/[0.08]">
+                    <div className="text-[10px] font-mono text-neutral-500 mb-2 uppercase tracking-wider">
+                      Tech Stack
                     </div>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-1.5">
                       {exp.technologies.map((tech) => (
                         <span
                           key={tech}
-                          className="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 text-xs font-mono"
+                          className="px-2 py-0.5 rounded bg-black/40 border border-white/[0.08] text-neutral-300 text-[11px] font-mono"
                         >
                           {tech}
                         </span>

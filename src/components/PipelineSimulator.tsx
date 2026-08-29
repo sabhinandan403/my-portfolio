@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Play, Pause, RefreshCw, Activity, Cpu, Database, Server, BarChart3, Wifi, Zap, CheckCircle2, AlertTriangle } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Play, Pause, Activity, Cpu, Database, BarChart3, Wifi, Zap, CheckCircle2 } from 'lucide-react';
 
 interface TelemetryPacket {
   id: string;
@@ -18,7 +18,7 @@ export const PipelineSimulator: React.FC = () => {
   const [processedCount, setProcessedCount] = useState(10480);
   const [currentLatency, setCurrentLatency] = useState(42);
   const [activeStage, setActiveStage] = useState(2);
-  const [streamSpeed, setStreamSpeed] = useState<number>(1000); // ms per tick
+  const [streamSpeed, setStreamSpeed] = useState<number>(1000);
   const [packets, setPackets] = useState<TelemetryPacket[]>([]);
   const [slaUptime, setSlaUptime] = useState(99.4);
 
@@ -44,7 +44,6 @@ export const PipelineSimulator: React.FC = () => {
   };
 
   useEffect(() => {
-    // initialize with 4 packets
     setPackets([generatePacket(), generatePacket(), generatePacket(), generatePacket()]);
   }, []);
 
@@ -53,12 +52,10 @@ export const PipelineSimulator: React.FC = () => {
 
     const interval = setInterval(() => {
       const newPacket = generatePacket();
-      setPackets(prev => [newPacket, ...prev.slice(0, 5)]);
+      setPackets(prev => [newPacket, ...prev.slice(0, 4)]);
       setProcessedCount(prev => prev + 1);
       setCurrentLatency(newPacket.latencyMs);
       setActiveStage(prev => (prev + 1) % 5);
-      
-      // small jitter on SLA
       setSlaUptime(99.2 + Math.random() * 0.5);
     }, streamSpeed);
 
@@ -70,82 +67,74 @@ export const PipelineSimulator: React.FC = () => {
       id: 0,
       name: "1. Edge IoT Sensors",
       tech: "LoRa / Zigbee / Mesh",
-      desc: "50+ Facility sites publishing high-frequency telemetry",
+      desc: "50+ facility sites transmitting telemetry",
       icon: Wifi,
-      color: "text-cyan-400 border-cyan-500/30"
     },
     {
       id: 1,
       name: "2. Kafka Ingestion",
-      tech: "Apache Kafka Cluster",
-      desc: "Distributed event bus partitioning telemetry streams",
+      tech: "Apache Kafka",
+      desc: "Distributed event bus partitioning",
       icon: Activity,
-      color: "text-emerald-400 border-emerald-500/30"
     },
     {
       id: 2,
-      name: "3. Databricks & PySpark",
-      tech: "Delta Lakehouse (DLT)",
-      desc: "Calculates automated Wi-Fi mesh uptime & SLA bounds",
+      name: "3. PySpark & Delta Lake",
+      tech: "Databricks Engine",
+      desc: "Automated Wi-Fi mesh uptime SLAs",
       icon: Cpu,
-      color: "text-indigo-400 border-indigo-500/30"
     },
     {
       id: 3,
       name: "4. Low-Latency Cache",
       tech: "In-Memory Preloaded Cache",
-      desc: "Sub-50ms indexed lookups with automatic DB fallback",
+      desc: "Sub-50ms indexed lookups with DB fallback",
       icon: Database,
-      color: "text-amber-400 border-amber-500/30"
     },
     {
       id: 4,
-      name: "5. Power BI & Executive UIs",
-      tech: "Real-time Dashboards",
-      desc: "Automated Excel/PDF reports and operational alarms",
+      name: "5. Operational UIs",
+      tech: "Power BI & React",
+      desc: "Executive reports and site alarms",
       icon: BarChart3,
-      color: "text-violet-400 border-violet-500/30"
     }
   ];
 
   return (
-    <div className="glass-card rounded-2xl border border-slate-800 p-6 md:p-8 relative overflow-hidden shadow-2xl">
-      {/* Glow background accent */}
-      <div className="absolute top-0 right-1/4 w-96 h-40 bg-cyan-500/10 blur-[90px] pointer-events-none" />
-
+    <div className="editorial-card rounded-2xl p-6 sm:p-8 space-y-6">
+      
       {/* Header & Controls */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-white/[0.08]">
         <div>
           <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
-            <h3 className="text-xl font-bold text-white tracking-tight flex items-center gap-2 font-mono">
+            <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+            <h3 className="text-base font-semibold text-white tracking-tight font-mono">
               REAL-TIME TELEMETRY PIPELINE SIMULATOR
             </h3>
           </div>
-          <p className="text-sm text-slate-400 mt-1">
-            Simulating Vantiva's 10,000+ daily IoT event processing with Kafka, PySpark, and low-latency cache.
+          <p className="text-xs text-neutral-400 mt-1">
+            Simulating Vantiva's 10k+ daily event stream with Kafka, PySpark, and sub-50ms caching.
           </p>
         </div>
 
-        {/* Live Controls */}
-        <div className="flex flex-wrap items-center gap-3">
-          <div className="flex items-center gap-2 bg-slate-900 px-3 py-1.5 rounded-xl border border-slate-700">
-            <span className="text-xs text-slate-400 font-mono">Speed:</span>
+        {/* Speed & Pause Controls */}
+        <div className="flex items-center gap-2">
+          <div className="flex items-center bg-black/40 p-1 rounded-lg border border-white/[0.08]">
             <button
-              onClick={() => setStreamSpeed(1500)}
-              className={`px-2 py-0.5 text-xs rounded font-mono ${streamSpeed === 1500 ? 'bg-cyan-500 text-slate-950 font-bold' : 'text-slate-400 hover:text-white'}`}
+              onClick={() => setStreamSpeed(1200)}
+              className={`px-2.5 py-1 text-xs font-mono rounded ${streamSpeed === 1200 ? 'bg-white/[0.12] text-white font-semibold' : 'text-neutral-500 hover:text-neutral-300'}`}
             >
               1x
             </button>
             <button
-              onClick={() => setStreamSpeed(800)}
-              className={`px-2 py-0.5 text-xs rounded font-mono ${streamSpeed === 800 ? 'bg-cyan-500 text-slate-950 font-bold' : 'text-slate-400 hover:text-white'}`}
+              onClick={() => setStreamSpeed(600)}
+              className={`px-2.5 py-1 text-xs font-mono rounded ${streamSpeed === 600 ? 'bg-white/[0.12] text-white font-semibold' : 'text-neutral-500 hover:text-neutral-300'}`}
             >
               2x
             </button>
             <button
-              onClick={() => setStreamSpeed(350)}
-              className={`px-2 py-0.5 text-xs rounded font-mono ${streamSpeed === 350 ? 'bg-cyan-500 text-slate-950 font-bold' : 'text-slate-400 hover:text-white'}`}
+              onClick={() => setStreamSpeed(300)}
+              className={`px-2.5 py-1 text-xs font-mono rounded ${streamSpeed === 300 ? 'bg-white/[0.12] text-white font-semibold' : 'text-neutral-500 hover:text-neutral-300'}`}
             >
               5x
             </button>
@@ -153,127 +142,123 @@ export const PipelineSimulator: React.FC = () => {
 
           <button
             onClick={() => setIsRunning(!isRunning)}
-            className={`px-4 py-2 rounded-xl text-xs font-mono font-bold flex items-center gap-2 transition-all ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-mono flex items-center gap-1.5 transition-colors border ${
               isRunning 
-                ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40 hover:bg-amber-500/30' 
-                : 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 hover:bg-emerald-500/30'
+                ? 'bg-white/[0.04] text-neutral-300 border-white/[0.1] hover:bg-white/[0.08]' 
+                : 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'
             }`}
           >
-            {isRunning ? <><Pause className="w-3.5 h-3.5" /> PAUSE STREAM</> : <><Play className="w-3.5 h-3.5" /> RESUME STREAM</>}
+            {isRunning ? <><Pause className="w-3 h-3" /> Pause</> : <><Play className="w-3 h-3" /> Resume</>}
           </button>
         </div>
       </div>
 
-      {/* Real-Time Live HUD Stats */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 my-6">
-        <div className="bg-slate-900/80 rounded-xl p-3 border border-slate-800">
-          <div className="text-[11px] font-mono text-slate-400">TOTAL PROCESSED</div>
-          <div className="text-xl font-bold font-mono text-cyan-300 mt-0.5 flex items-center gap-1.5">
-            <Zap className="w-4 h-4 text-cyan-400" />
+      {/* Live Metrics */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div className="bg-black/30 rounded-xl p-3.5 border border-white/[0.06]">
+          <div className="text-[10px] font-mono text-neutral-500 uppercase">PROCESSED EVENTS</div>
+          <div className="text-lg font-bold font-mono text-white mt-0.5 flex items-center gap-1.5">
+            <Zap className="w-3.5 h-3.5 text-emerald-400" />
             {processedCount.toLocaleString()}
           </div>
         </div>
 
-        <div className="bg-slate-900/80 rounded-xl p-3 border border-slate-800">
-          <div className="text-[11px] font-mono text-slate-400">API CACHE LATENCY</div>
-          <div className="text-xl font-bold font-mono text-emerald-400 mt-0.5 flex items-center gap-1.5">
-            <Activity className="w-4 h-4 text-emerald-400" />
-            {currentLatency} ms
-            <span className="text-[10px] text-slate-400 font-normal">(&lt;50ms SLA)</span>
+        <div className="bg-black/30 rounded-xl p-3.5 border border-white/[0.06]">
+          <div className="text-[10px] font-mono text-neutral-500 uppercase">CACHE LATENCY</div>
+          <div className="text-lg font-bold font-mono text-emerald-400 mt-0.5">
+            {currentLatency} ms <span className="text-[10px] text-neutral-500 font-normal">(&lt;50ms SLA)</span>
           </div>
         </div>
 
-        <div className="bg-slate-900/80 rounded-xl p-3 border border-slate-800">
-          <div className="text-[11px] font-mono text-slate-400">UPTIME SLA CALCULATION</div>
-          <div className="text-xl font-bold font-mono text-indigo-300 mt-0.5 flex items-center gap-1.5">
-            <CheckCircle2 className="w-4 h-4 text-indigo-400" />
+        <div className="bg-black/30 rounded-xl p-3.5 border border-white/[0.06]">
+          <div className="text-[10px] font-mono text-neutral-500 uppercase">UPTIME SLA</div>
+          <div className="text-lg font-bold font-mono text-white mt-0.5 flex items-center gap-1.5">
+            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
             {slaUptime.toFixed(2)}%
           </div>
         </div>
 
-        <div className="bg-slate-900/80 rounded-xl p-3 border border-slate-800">
-          <div className="text-[11px] font-mono text-slate-400">STREAM STATUS</div>
-          <div className="text-xl font-bold font-mono text-emerald-300 mt-0.5 flex items-center gap-1.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
-            ACTIVE SYNC
+        <div className="bg-black/30 rounded-xl p-3.5 border border-white/[0.06]">
+          <div className="text-[10px] font-mono text-neutral-500 uppercase">STREAM HEALTH</div>
+          <div className="text-lg font-bold font-mono text-emerald-400 mt-0.5 flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            ACTIVE
           </div>
         </div>
       </div>
 
-      {/* Pipeline Node Architecture Stages */}
-      <div className="space-y-2 mb-8">
-        <div className="text-xs font-mono text-slate-400 mb-2 uppercase tracking-wider">
-          Pipeline Flow Architecture (Live Active Stage)
+      {/* Stage Flow Nodes */}
+      <div className="space-y-2">
+        <div className="text-[10px] font-mono text-neutral-500 uppercase tracking-wider">
+          Architecture Flow
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
-          {stages.map((stage, idx) => {
+        <div className="grid grid-cols-1 sm:grid-cols-5 gap-2.5">
+          {stages.map((stage) => {
             const Icon = stage.icon;
             const isActive = activeStage === stage.id;
             return (
               <div
                 key={stage.id}
-                className={`rounded-xl p-3.5 border transition-all duration-300 relative ${
+                className={`p-3 rounded-xl border transition-all ${
                   isActive 
-                    ? 'bg-slate-850 border-cyan-400 shadow-lg shadow-cyan-500/20 scale-102 ring-1 ring-cyan-400' 
-                    : 'bg-slate-900/50 border-slate-800 opacity-75 hover:opacity-100'
+                    ? 'bg-white/[0.06] border-emerald-500/50 shadow-sm' 
+                    : 'bg-black/20 border-white/[0.05] opacity-75'
                 }`}
               >
-                <div className="flex items-center justify-between mb-2">
-                  <div className={`p-2 rounded-lg bg-slate-800 border ${stage.color}`}>
-                    <Icon className="w-4 h-4" />
+                <div className="flex items-center justify-between mb-1.5">
+                  <div className="p-1.5 rounded-md bg-white/[0.05] text-neutral-300">
+                    <Icon className="w-3.5 h-3.5" />
                   </div>
                   {isActive && (
-                    <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">
+                    <span className="text-[9px] font-mono px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300">
                       PROCESSING
                     </span>
                   )}
                 </div>
                 <div className="font-semibold text-xs text-white">{stage.name}</div>
-                <div className="text-[11px] text-cyan-400 font-mono mt-0.5">{stage.tech}</div>
-                <div className="text-[11px] text-slate-400 mt-1 leading-snug">{stage.desc}</div>
+                <div className="text-[10px] text-emerald-400 font-mono mt-0.5">{stage.tech}</div>
+                <div className="text-[10px] text-neutral-400 mt-1 leading-snug">{stage.desc}</div>
               </div>
             );
           })}
         </div>
       </div>
 
-      {/* Live Ingested Telemetry Feed (JSON Stream) */}
-      <div className="space-y-2">
-        <div className="flex items-center justify-between text-xs font-mono text-slate-400">
-          <span>LIVE TELEMETRY STREAM LOG (INCOMING IoT PACKETS)</span>
-          <span className="text-emerald-400 flex items-center gap-1">
+      {/* Live Stream Feed */}
+      <div className="space-y-1.5 pt-2">
+        <div className="flex items-center justify-between text-[11px] font-mono text-neutral-500">
+          <span>LIVE TELEMETRY STREAM LOG</span>
+          <span className="text-emerald-400 font-mono text-[10px] flex items-center gap-1">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-            Streaming
+            Syncing
           </span>
         </div>
 
-        <div className="bg-[#070A12] border border-slate-800 rounded-xl p-3 font-mono text-xs overflow-x-auto space-y-2">
+        <div className="bg-black/50 border border-white/[0.06] rounded-xl p-3 font-mono text-xs space-y-1.5 overflow-x-auto">
           {packets.map((pkt, idx) => (
             <div
               key={pkt.id + idx}
-              className={`p-2.5 rounded-lg border flex flex-wrap items-center justify-between gap-2 transition-all ${
+              className={`p-2 rounded-lg border flex flex-wrap items-center justify-between gap-2 text-xs transition-colors ${
                 idx === 0 
-                  ? 'bg-slate-900/90 border-cyan-500/40 text-cyan-100 animate-fadeIn' 
-                  : 'bg-slate-950/50 border-slate-800/80 text-slate-400'
+                  ? 'bg-white/[0.04] border-white/[0.12] text-neutral-200' 
+                  : 'bg-transparent border-transparent text-neutral-500'
               }`}
             >
-              <div className="flex items-center gap-3">
-                <span className="text-cyan-400 font-bold">[{pkt.timestamp}]</span>
+              <div className="flex items-center gap-2.5">
+                <span className="text-neutral-400">[{pkt.timestamp}]</span>
                 <span className="text-white font-medium">{pkt.deviceId}</span>
-                <span className="text-slate-400 text-[11px] px-1.5 py-0.5 rounded bg-slate-800">
+                <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/[0.06] text-neutral-400">
                   {pkt.deviceType}
                 </span>
               </div>
 
-              <div className="flex items-center gap-4 text-[11px]">
-                <span className={pkt.rssi < -85 ? 'text-amber-400 font-semibold' : 'text-emerald-400'}>
-                  RSSI: {pkt.rssi} dBm
+              <div className="flex items-center gap-3 text-[11px]">
+                <span className={pkt.rssi < -85 ? 'text-amber-400' : 'text-emerald-400'}>
+                  {pkt.rssi} dBm
                 </span>
-                <span>Battery: {pkt.batteryPct}%</span>
-                <span className="text-indigo-300">Latency: {pkt.latencyMs}ms</span>
-                <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${
-                  pkt.status === 'ONLINE' ? 'bg-emerald-500/20 text-emerald-300' : 'bg-amber-500/20 text-amber-300'
-                }`}>
+                <span>Bat: {pkt.batteryPct}%</span>
+                <span className="text-neutral-400">{pkt.latencyMs}ms</span>
+                <span className="px-1.5 py-0.2 rounded text-[10px] font-mono bg-emerald-500/10 text-emerald-400">
                   {pkt.status}
                 </span>
               </div>

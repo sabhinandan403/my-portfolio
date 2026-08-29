@@ -11,81 +11,62 @@ import { Certifications } from './components/Certifications';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 import { ResumeModal } from './components/ResumeModal';
-import { Database, Activity, Sparkles, Code, Cpu } from 'lucide-react';
 
 export function App() {
   const [isResumeOpen, setIsResumeOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#0B0F19] text-slate-100 selection:bg-cyan-500/30 selection:text-cyan-300 relative">
+    <div className="min-h-screen bg-[#090D16] text-neutral-200 selection:bg-emerald-500/20 selection:text-emerald-300 relative">
       
       {/* Navigation */}
       <Navbar onOpenResume={() => setIsResumeOpen(true)} />
 
-      {/* Main Content Sections */}
+      {/* Main Content */}
       <main>
         {/* Hero Section */}
         <Hero onOpenResume={() => setIsResumeOpen(true)} />
 
-        {/* Interactive Architecture & Live Telemetry Playground */}
-        <section id="playground" className="py-20 relative bg-grid-pattern border-y border-slate-800/80">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+        {/* Interactive Architecture & Showcase Bento Grid */}
+        <section id="showcase" className="py-20 relative bg-dot-grid border-y border-white/[0.08]">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
             
-            {/* Header */}
-            <div className="text-center max-w-3xl mx-auto space-y-3">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-xs font-mono text-cyan-400">
-                <Activity className="w-3.5 h-3.5" />
-                <span>INTERACTIVE ARCHITECTURE PLAYGROUND</span>
+            {/* Section Header */}
+            <div className="space-y-2">
+              <div className="text-xs font-mono text-emerald-400 uppercase tracking-wider">
+                Live Interactive Demos
               </div>
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-                Live Data Engines in Action
+              <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+                Architecture &amp; Systems Showcase
               </h2>
-              <p className="text-slate-400 text-sm sm:text-base">
-                Experience the real-time systems engineered in production: high-frequency IoT streaming and 15-minute sensor bucket aggregation.
+              <p className="text-neutral-400 text-sm max-w-2xl">
+                Experience the live engines engineered in production: high-frequency IoT streaming and 15-minute sensor bucket aggregation.
               </p>
             </div>
 
-            {/* Demo 1: IoT Pipeline Stream Simulator */}
+            {/* Bento Grid Item 1: IoT Pipeline Stream Simulator */}
             <PipelineSimulator />
 
-            {/* Demo 2: Sensor Motion Aggregation Heatmap Matrix */}
+            {/* Bento Grid Item 2: Sensor Motion Aggregation Heatmap Matrix */}
             <MotionHeatmapDemo />
+
+            {/* Bento Grid Item 3: AI Resume Agent Sandbox */}
+            <div className="pt-6">
+              <AgentChatPreview />
+            </div>
 
           </div>
         </section>
 
-        {/* Experience Timeline */}
+        {/* Experience Chronology */}
         <Experience />
 
         {/* Projects Showcase */}
         <Projects />
 
-        {/* AI Agent Showcase Section */}
-        <section id="ai-agent" className="py-20 relative bg-grid-pattern border-t border-slate-800/80">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-            <div className="text-center max-w-3xl mx-auto space-y-3">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-xs font-mono text-indigo-400">
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>GEN AI & AGENTIC SYSTEMS</span>
-              </div>
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-                Autonomous AI Portfolio Agent
-              </h2>
-              <p className="text-slate-400 text-sm sm:text-base">
-                Try the interactive retrieval agent to query Abhinandan's engineering accomplishments, low-latency API migrations, and tech stack in natural language.
-              </p>
-            </div>
-
-            <div className="max-w-4xl mx-auto">
-              <AgentChatPreview />
-            </div>
-          </div>
-        </section>
-
-        {/* Skills Matrix */}
+        {/* Skills Architecture */}
         <SkillsMatrix />
 
-        {/* Certifications & Academics */}
+        {/* Credentials & Academics */}
         <Certifications />
 
         {/* Contact Form & Google Drive Download Section */}
