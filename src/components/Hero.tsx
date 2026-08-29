@@ -32,8 +32,9 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
             <span className="text-neutral-400 font-normal">&amp; AI Agent Architect.</span>
           </h1>
 
+          {/* Simple, Non-Tech Friendly & Impactful Copy */}
           <p className="text-base sm:text-lg text-neutral-300 max-w-2xl leading-relaxed font-normal">
-            I build distributed streaming pipelines with <span className="text-white font-medium">PySpark &amp; Databricks</span>, sub-50ms caching architectures, and autonomous <span className="text-emerald-400 font-medium">AI Agents</span> that translate complex telemetry into clear business insights.
+            I design high-speed data pipelines, ultra-responsive web applications, and smart <span className="text-emerald-400 font-medium">AI Agents</span> that transform raw device telemetry into clear, reliable business decisions.
           </p>
 
           {/* Rapid Links Bar */}

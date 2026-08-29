@@ -76,7 +76,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
 
             {/* Static descriptive role badge with clean border separator */}
             <span className="hidden xl:inline-flex text-[11px] font-mono text-neutral-400 pl-2.5 border-l border-white/[0.1] select-none">
-              Data &amp; Systems
+              Data &amp; AI Engineer
             </span>
           </div>
 
