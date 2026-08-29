@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { User, Compass, ArrowDown } from 'lucide-react';
+import { User } from 'lucide-react';
 
 interface Section {
   id: string;
-  num: string;
   label: string;
 }
 
@@ -12,26 +11,23 @@ export const JourneyNavRail: React.FC = () => {
   const [scrollProgress, setScrollProgress] = useState<number>(0);
 
   const sections: Section[] = [
-    { id: 'hero', num: '01', label: 'profile' },
-    { id: 'architectures', num: '02', label: 'system design' },
-    { id: 'experience', num: '03', label: 'experience' },
-    { id: 'projects', num: '04', label: 'projects' },
-    { id: 'skills', num: '05', label: 'capabilities' },
-    { id: 'credentials', num: '06', label: 'credentials' },
-    { id: 'contact', num: '07', label: 'contact' },
+    { id: 'hero', label: 'profile' },
+    { id: 'architectures', label: 'system design' },
+    { id: 'experience', label: 'experience' },
+    { id: 'projects', label: 'projects' },
+    { id: 'skills', label: 'capabilities' },
+    { id: 'credentials', label: 'credentials' },
+    { id: 'contact', label: 'contact' },
   ];
 
   useEffect(() => {
     const handleScroll = () => {
-      // Calculate overall scroll progress (0 to 1)
       const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
       const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
       const scrolled = height > 0 ? winScroll / height : 0;
       setScrollProgress(Math.min(Math.max(scrolled, 0), 1));
 
-      // Determine active section
-      const sectionElements = sections.map(s => document.getElementById(s.id === 'hero' ? 'root' : s.id));
-      const scrollPosition = window.scrollY + 250;
+      const scrollPosition = window.scrollY + 280;
 
       for (let i = sections.length - 1; i >= 0; i--) {
         const s = sections[i];
@@ -72,88 +68,92 @@ export const JourneyNavRail: React.FC = () => {
 
   return (
     <aside
-      aria-label="Journey Progress Navigation"
-      className="hidden xl:flex fixed left-6 top-1/2 -translate-y-1/2 z-40 flex-col items-center select-none"
+      aria-label="Journey Navigation Rail"
+      className="hidden xl:flex fixed left-6 top-1/2 -translate-y-1/2 z-40 select-none"
     >
-      <div className="flex flex-col items-center bg-[#090D16]/90 backdrop-blur-md p-4 rounded-2xl border border-white/[0.08] shadow-2xl">
+      <div className="bg-[#0B0F17]/95 backdrop-blur-md p-5 rounded-2xl border border-white/[0.08] shadow-2xl flex flex-col">
         
-        {/* START Label */}
-        <span className="text-[9px] font-mono font-bold tracking-widest text-neutral-500 uppercase mb-2">
-          START
-        </span>
-
-        {/* The Vertical Rail Track */}
-        <div className="relative flex flex-col items-center py-2" style={{ height: '360px' }}>
+        {/* Track and Labels Container */}
+        <div className="relative flex items-stretch" style={{ height: '320px' }}>
           
-          {/* Background Grey Line */}
-          <div className="absolute top-0 bottom-0 w-[2px] bg-white/[0.1] rounded-full" />
+          {/* LEFT COLUMN: Vertical Line Track with Walking Avatar & Node Dots */}
+          <div className="relative w-7 flex flex-col items-center justify-between shrink-0">
+            
+            {/* Top START Text */}
+            <span className="text-[9px] font-mono font-bold tracking-widest text-neutral-500 uppercase -mt-2">
+              START
+            </span>
 
-          {/* Active Progress Fill Line (Warm Amber/Emerald gradient) */}
-          <div
-            className="absolute top-0 w-[2px] bg-gradient-to-b from-amber-400 via-emerald-400 to-emerald-500 rounded-full transition-all duration-150"
-            style={{ height: `${scrollProgress * 100}%` }}
-          />
+            {/* Background Base Rail Line */}
+            <div className="absolute top-4 bottom-4 left-1/2 -translate-x-1/2 w-[2px] bg-white/[0.1] rounded-full" />
 
-          {/* Walking Traveler Icon Avatar (Moves dynamically along the track) */}
-          <div
-            className="absolute -left-[14px] w-8 h-8 rounded-full bg-gradient-to-tr from-amber-500 to-amber-400 border-2 border-[#090D16] flex items-center justify-center text-neutral-950 shadow-lg shadow-amber-500/40 transition-all duration-150 pointer-events-none z-20"
-            style={{
-              top: `calc(${scrollProgress * 100}% - 16px)`,
-            }}
-          >
-            {/* Pulsing halo ring */}
-            <div className="absolute inset-0 rounded-full border border-amber-300 animate-ping opacity-30" />
-            <User className="w-4 h-4 text-neutral-950 stroke-[2.5]" />
+            {/* Active Progress Glowing Fill Line */}
+            <div
+              className="absolute top-4 left-1/2 -translate-x-1/2 w-[2px] bg-gradient-to-b from-amber-400 to-amber-500 rounded-full transition-all duration-150"
+              style={{
+                height: `calc(${scrollProgress * 100}% * 0.88)`
+              }}
+            />
+
+            {/* Walking Traveler Avatar (Slides along the line, cleanly contained on the track) */}
+            <div
+              className="absolute left-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-gradient-to-tr from-amber-500 to-amber-400 border-2 border-[#0B0F17] flex items-center justify-center text-neutral-950 shadow-md shadow-amber-500/50 transition-all duration-150 pointer-events-none z-30"
+              style={{
+                top: `calc(16px + ${scrollProgress} * (100% - 44px))`,
+              }}
+            >
+              <User className="w-3.5 h-3.5 text-neutral-950 stroke-[2.8]" />
+            </div>
+
+            {/* Node Dots on the Track */}
+            <div className="absolute top-4 bottom-4 left-1/2 -translate-x-1/2 flex flex-col justify-between items-center w-full pointer-events-none">
+              {sections.map((section) => {
+                const isActive = activeSection === section.id;
+                return (
+                  <div
+                    key={section.id}
+                    className={`w-2.5 h-2.5 rounded-full border transition-all duration-200 z-20 ${
+                      isActive
+                        ? 'bg-amber-400 border-amber-300 scale-125 shadow-sm shadow-amber-400'
+                        : 'bg-[#0B0F17] border-white/[0.25]'
+                    }`}
+                  />
+                );
+              })}
+            </div>
+
+            {/* Bottom NOW Text */}
+            <span className="text-[9px] font-mono font-bold tracking-widest text-neutral-500 uppercase -mb-2">
+              NOW
+            </span>
           </div>
 
-          {/* Section Nodes */}
-          <div className="h-full flex flex-col justify-between items-center relative z-10 w-full">
-            {sections.map((section, idx) => {
+          {/* RIGHT COLUMN: Clear Labels Separated by Safe Margin (No Line Overlap) */}
+          <div className="flex flex-col justify-between pl-4 py-3.5">
+            {sections.map((section) => {
               const isActive = activeSection === section.id;
               return (
                 <button
                   key={section.id}
                   onClick={() => scrollToSection(section.id)}
-                  className="group flex items-center gap-3 w-full text-left py-0.5 focus:outline-none"
-                  title={`Jump to ${section.label}`}
+                  className="group flex items-center text-left py-0.5 focus:outline-none transition-all"
+                  title={`Go to ${section.label}`}
                 >
-                  {/* Node Circle */}
-                  <div
-                    className={`w-5 h-5 rounded-full border flex items-center justify-center text-[9px] font-mono transition-all duration-200 ${
+                  <span
+                    className={`text-xs font-mono tracking-tight transition-all ${
                       isActive
-                        ? 'bg-[#090D16] border-amber-400 text-amber-300 font-bold scale-110 shadow-sm shadow-amber-400/50'
-                        : 'bg-[#090D16] border-white/[0.2] text-neutral-400 group-hover:border-white/[0.5] group-hover:text-white'
+                        ? 'text-amber-400 font-bold scale-105 origin-left'
+                        : 'text-neutral-500 group-hover:text-neutral-200'
                     }`}
                   >
-                    {section.num}
-                  </div>
-
-                  {/* Section Label (reveals or stays crisp) */}
-                  <div className="flex items-center gap-1.5 opacity-80 group-hover:opacity-100 transition-opacity">
-                    <span
-                      className={`text-[11px] font-mono tracking-tight transition-colors ${
-                        isActive
-                          ? 'text-amber-400 font-semibold'
-                          : 'text-neutral-500 group-hover:text-neutral-200'
-                      }`}
-                    >
-                      {section.label}
-                    </span>
-                    {isActive && (
-                      <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-                    )}
-                  </div>
+                    {section.label}
+                  </span>
                 </button>
               );
             })}
           </div>
 
         </div>
-
-        {/* NOW / END Label */}
-        <span className="text-[9px] font-mono font-bold tracking-widest text-neutral-500 uppercase mt-2">
-          NOW
-        </span>
 
       </div>
     </aside>
