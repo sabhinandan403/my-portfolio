@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Bot, Send, X, CheckCircle2, Zap, Minimize2, Key, Sparkles, ExternalLink } from 'lucide-react';
+import { Bot, Send, X, Minimize2, ExternalLink } from 'lucide-react';
 import { PORTFOLIO_DATA } from '../data/portfolioData';
 
 interface ChatMessage {
@@ -7,8 +7,6 @@ interface ChatMessage {
   sender: 'user' | 'agent';
   text: string;
   timestamp: string;
-  isGenAI?: boolean;
-  thoughtProcess?: string[];
   actionLink?: {
     label: string;
     url: string;
@@ -20,15 +18,8 @@ export const LisaChatWidget: React.FC = () => {
 
   // Open by default on page load so visitors can directly ask or minimize to explore
   const [isOpen, setIsOpen] = useState<boolean>(true);
-  const [proxyUrl, setProxyUrl] = useState<string>(() => {
-    return (import.meta.env.VITE_LISA_PROXY_URL as string) || localStorage.getItem('ak_portfolio_lisa_proxy') || DEFAULT_CLOUDFLARE_PROXY;
-  });
-  const [apiKey, setApiKey] = useState<string>(() => {
-    return (import.meta.env.VITE_GEMINI_API_KEY as string) || localStorage.getItem('ak_portfolio_gemini_key') || '';
-  });
-  const [showKeyInput, setShowKeyInput] = useState<boolean>(false);
-  const [tempKeyInput, setTempKeyInput] = useState<string>('');
-  const [tempProxyInput, setTempProxyInput] = useState<string>('');
+  const [inputText, setInputText] = useState('');
+  const [isThinking, setIsThinking] = useState(false);
 
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
@@ -38,8 +29,6 @@ export const LisaChatWidget: React.FC = () => {
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     }
   ]);
-  const [inputText, setInputText] = useState('');
-  const [isThinking, setIsThinking] = useState(false);
 
   const samplePrompts = [
     "Tell me about his Snowflake & dbt experience",
@@ -47,39 +36,6 @@ export const LisaChatWidget: React.FC = () => {
     "What did he build with PySpark & Databricks?",
     "What are his core skills and certifications?"
   ];
-
-  const handleSaveKey = (e: React.FormEvent) => {
-    e.preventDefault();
-    const trimmedKey = tempKeyInput.trim();
-    const trimmedProxy = tempProxyInput.trim();
-
-    if (trimmedProxy) {
-      setProxyUrl(trimmedProxy);
-      localStorage.setItem('ak_portfolio_lisa_proxy', trimmedProxy);
-    }
-    if (trimmedKey) {
-      setApiKey(trimmedKey);
-      localStorage.setItem('ak_portfolio_gemini_key', trimmedKey);
-    }
-
-    if (trimmedKey || trimmedProxy) {
-      setShowKeyInput(false);
-      setTempKeyInput('');
-      setTempProxyInput('');
-      setMessages(prev => [
-        ...prev,
-        {
-          id: 'key-set-' + Date.now(),
-          sender: 'agent',
-          text: trimmedProxy 
-            ? `Connected to your Cloudflare/Vercel serverless proxy! Lisa is now powered by live GenAI intelligence.`
-            : `Gemini API key connected successfully! Lisa is now powered by Google Gemini 2.0 Flash. Ask me anything!`,
-          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-          isGenAI: true
-        }
-      ]);
-    }
-  };
 
   const generateSystemPrompt = () => {
     return `You are Lisa, the personal AI portfolio assistant for Abhinandan Kumar, a Full Stack Data Engineer with 3 years of experience.
@@ -124,16 +80,11 @@ CORE RULES:
   };
 
   const callGeminiLLM = async (userPrompt: string, history: ChatMessage[]): Promise<string> => {
-    const activeProxy = proxyUrl || (import.meta.env.VITE_LISA_PROXY_URL as string);
-    const activeKey = apiKey || (import.meta.env.VITE_GEMINI_API_KEY as string);
-
-    if (!activeProxy && !activeKey) {
-      throw new Error("NO_API_KEY_OR_PROXY");
-    }
+    const proxyEndpoint = (import.meta.env.VITE_LISA_PROXY_URL as string) || DEFAULT_CLOUDFLARE_PROXY;
 
     // Format conversation history for Gemini API
     const formattedContents = history
-      .filter(m => m.id !== 'msg-1' && !m.id.startsWith('key-set'))
+      .filter(m => m.id !== 'msg-1')
       .slice(-6)
       .map(m => ({
         role: m.sender === 'user' ? 'user' : 'model',
@@ -156,11 +107,7 @@ CORE RULES:
       }
     };
 
-    const targetUrl = activeProxy
-      ? activeProxy
-      : `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${activeKey}`;
-
-    const response = await fetch(targetUrl, {
+    const response = await fetch(proxyEndpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -170,7 +117,7 @@ CORE RULES:
 
     if (!response.ok) {
       const errData = await response.json().catch(() => ({}));
-      throw new Error(errData?.error?.message || `HTTP ${response.status}`);
+      throw new Error(errData?.error || `HTTP ${response.status}`);
     }
 
     const data = await response.json();
@@ -200,7 +147,7 @@ CORE RULES:
       return "You can view or download Abhinandan's complete official resume PDF right now using the button below or from the top navigation bar.";
     }
 
-    return "Abhinandan Kumar is a Data Engineer with 3 years of experience specializing in Snowflake, dbt, SQL Server, Databricks, PySpark, and low-latency API caching. What specific area of his work would you like to explore?";
+    return "Abhinandan Kumar is a Full Stack Data Engineer with 3 years of experience specializing in Snowflake, dbt, SQL Server, Databricks, PySpark, and low-latency API caching. What specific area of his work would you like to explore?";
   };
 
   const handleAsk = async (query: string) => {
@@ -219,7 +166,7 @@ CORE RULES:
     setIsThinking(true);
 
     try {
-      // Attempt live Gemini 2.0 Flash LLM call
+      // Call Cloudflare backend proxy
       const genAIResponse = await callGeminiLLM(query, newHistory);
 
       const agentMsg: ChatMessage = {
@@ -227,11 +174,6 @@ CORE RULES:
         sender: 'agent',
         text: genAIResponse,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-        isGenAI: true,
-        thoughtProcess: [
-          "Grounded via Google Gemini 2.0 Flash",
-          "Synthesized from official resume knowledge base"
-        ],
         actionLink: query.toLowerCase().includes('resume') ? {
           label: "Open Official PDF Resume",
           url: PORTFOLIO_DATA.personal.googleDriveResumeUrl
@@ -240,7 +182,7 @@ CORE RULES:
 
       setMessages(prev => [...prev, agentMsg]);
     } catch {
-      // Graceful fallback to verified resume data if API key is not yet set or hits network issues
+      // Clean fallback using verified resume knowledge
       setTimeout(() => {
         const fallbackText = generateGroundedFallback(query);
 
@@ -249,11 +191,6 @@ CORE RULES:
           sender: 'agent',
           text: fallbackText,
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-          isGenAI: false,
-          thoughtProcess: [
-            "Verified from official resume database",
-            !apiKey ? "Connect a free Gemini API key via the key icon above for dynamic GenAI responses" : "Synthesized answer"
-          ],
           actionLink: (query.toLowerCase().includes('resume') || query.toLowerCase().includes('cv')) ? {
             label: "Open Official PDF Resume",
             url: PORTFOLIO_DATA.personal.googleDriveResumeUrl
@@ -261,7 +198,7 @@ CORE RULES:
         };
 
         setMessages(prev => [...prev, agentMsg]);
-      }, 500);
+      }, 400);
     } finally {
       setIsThinking(false);
     }
@@ -272,7 +209,7 @@ CORE RULES:
       
       {/* Expanded Chat Window */}
       {isOpen ? (
-        <div className="w-[90vw] sm:w-[390px] h-[530px] bg-white dark:bg-[#101114] border border-[#E8E2D5] dark:border-white/[0.12] rounded-xl shadow-2xl flex flex-col overflow-hidden animate-fadeIn transition-all">
+        <div className="w-[90vw] sm:w-[390px] h-[520px] bg-white dark:bg-[#101114] border border-[#E8E2D5] dark:border-white/[0.12] rounded-xl shadow-2xl flex flex-col overflow-hidden animate-fadeIn transition-all">
           
           {/* Header */}
           <div className="px-4 py-3 bg-[#FAF7F2] dark:bg-[#08090A] border-b border-[#E8E2D5] dark:border-white/[0.08] flex items-center justify-between">
@@ -284,26 +221,15 @@ CORE RULES:
                 <div className="flex items-center gap-1.5">
                   <span className="font-semibold text-stone-900 dark:text-[#EDEDEF] text-xs">Lisa</span>
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 dark:bg-[#4EBA6F] animate-pulse" />
-                  <span className="text-[9px] font-mono px-1.5 py-0.2 rounded bg-emerald-600/10 dark:bg-[#4EBA6F]/10 text-emerald-800 dark:text-[#4EBA6F] border border-emerald-600/20 dark:border-[#4EBA6F]/20 font-semibold flex items-center gap-1">
-                    <Sparkles className="w-2.5 h-2.5 text-emerald-600 dark:text-[#4EBA6F]" />
-                    {apiKey ? 'GenAI Active' : 'Online'}
+                  <span className="text-[9px] font-mono px-1.5 py-0.2 rounded bg-emerald-600/10 dark:bg-[#4EBA6F]/10 text-emerald-800 dark:text-[#4EBA6F] border border-emerald-600/20 dark:border-[#4EBA6F]/20 font-semibold">
+                    AI Assistant
                   </span>
                 </div>
-                <div className="text-[10px] text-stone-500 dark:text-[#8A8F98] font-mono">Abhinandan's AI Assistant</div>
+                <div className="text-[10px] text-stone-500 dark:text-[#8A8F98] font-mono">Ask anything about Abhinandan</div>
               </div>
             </div>
 
             <div className="flex items-center gap-1">
-              <button
-                onClick={() => setShowKeyInput(!showKeyInput)}
-                className={`p-1.5 rounded-lg text-stone-400 dark:text-[#8A8F98] hover:text-[#5E6AD2] hover:bg-stone-200/60 dark:hover:bg-white/[0.06] transition-colors cursor-pointer ${
-                  apiKey ? 'text-[#5E6AD2]' : ''
-                }`}
-                title={apiKey ? "Gemini API Key Connected" : "Connect Gemini API Key"}
-                aria-label="API Settings"
-              >
-                <Key className="w-3.5 h-3.5" />
-              </button>
               <button
                 onClick={() => setIsOpen(false)}
                 className="p-1.5 rounded-lg text-stone-400 dark:text-[#8A8F98] hover:text-stone-900 dark:hover:text-[#EDEDEF] hover:bg-stone-200/60 dark:hover:bg-white/[0.06] transition-colors cursor-pointer"
@@ -322,55 +248,6 @@ CORE RULES:
               </button>
             </div>
           </div>
-
-          {/* Gemini API Key & Cloudflare Proxy Configuration Drawer */}
-          {showKeyInput && (
-            <div className="p-3 bg-[#FAF7F2] dark:bg-[#08090A] border-b border-[#E8E2D5] dark:border-white/[0.08] animate-fadeIn text-xs space-y-2.5">
-              <div className="flex items-center justify-between">
-                <span className="font-semibold text-stone-900 dark:text-[#EDEDEF] font-mono text-[11px] flex items-center gap-1.5">
-                  <Sparkles className="w-3 h-3 text-[#5E6AD2]" /> GenAI Backend Settings
-                </span>
-                <span className="text-[10px] text-stone-500 dark:text-[#8A8F98] font-mono">
-                  {proxyUrl ? 'Proxy Active' : apiKey ? 'Key Connected' : 'Free Mode'}
-                </span>
-              </div>
-
-              <form onSubmit={handleSaveKey} className="space-y-2">
-                <div className="space-y-1">
-                  <label className="text-[10px] font-mono text-stone-500 dark:text-[#8A8F98]">
-                    Option 1: Cloudflare/Vercel Proxy URL (Key hidden)
-                  </label>
-                  <input
-                    type="url"
-                    value={tempProxyInput}
-                    onChange={(e) => setTempProxyInput(e.target.value)}
-                    placeholder={proxyUrl || "https://lisa-proxy.yourname.workers.dev"}
-                    className="w-full bg-white dark:bg-[#101114] border border-[#E8E2D5] dark:border-white/[0.08] text-xs text-stone-900 dark:text-[#EDEDEF] rounded-md px-2.5 py-1.5 focus:outline-none focus:border-[#5E6AD2] font-mono text-[11px]"
-                  />
-                </div>
-
-                <div className="space-y-1">
-                  <label className="text-[10px] font-mono text-stone-500 dark:text-[#8A8F98]">
-                    Option 2: Direct Google Gemini API Key
-                  </label>
-                  <input
-                    type="password"
-                    value={tempKeyInput}
-                    onChange={(e) => setTempKeyInput(e.target.value)}
-                    placeholder={apiKey ? "••••••••••••••••••••" : "Paste AI Studio API Key"}
-                    className="w-full bg-white dark:bg-[#101114] border border-[#E8E2D5] dark:border-white/[0.08] text-xs text-stone-900 dark:text-[#EDEDEF] rounded-md px-2.5 py-1.5 focus:outline-none focus:border-[#5E6AD2] font-mono text-[11px]"
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full py-1.5 bg-[#5E6AD2] hover:bg-[#6875E3] text-white dark:text-[#EDEDEF] font-semibold rounded-md font-mono text-[11px] cursor-pointer shadow-xs"
-                >
-                  Save Settings
-                </button>
-              </form>
-            </div>
-          )}
 
           {/* Quick Questions Pill Carousel */}
           <div className="px-3 py-2 bg-[#FAF7F2]/80 dark:bg-[#08090A]/60 border-b border-[#E8E2D5]/70 dark:border-white/[0.04] overflow-x-auto whitespace-nowrap flex gap-1.5 scrollbar-none">
@@ -423,20 +300,6 @@ CORE RULES:
                     )}
                   </div>
 
-                  {msg.thoughtProcess && (
-                    <div className="p-1.5 rounded bg-white dark:bg-[#08090A] border border-[#E8E2D5] dark:border-white/[0.04] text-[9px] font-mono text-stone-500 dark:text-[#62666D] space-y-0.5">
-                      <div className="text-[#5E6AD2] font-semibold flex items-center gap-1">
-                        <Zap className="w-2.5 h-2.5 text-[#5E6AD2]" /> Grounded Verification:
-                      </div>
-                      {msg.thoughtProcess.map((step, sIdx) => (
-                        <div key={sIdx} className="flex items-center gap-1 text-stone-600 dark:text-[#8A8F98]">
-                          <CheckCircle2 className="w-2 h-2 text-emerald-700 dark:text-[#4EBA6F]" />
-                          {step}
-                        </div>
-                      ))}
-                    </div>
-                  )}
-
                   <div className={`text-[9px] text-stone-400 dark:text-[#62666D] font-mono ${msg.sender === 'user' ? 'text-right' : 'text-left'}`}>
                     {msg.timestamp}
                   </div>
@@ -447,7 +310,7 @@ CORE RULES:
             {isThinking && (
               <div className="flex items-center gap-1.5 text-[11px] font-mono text-[#5E6AD2] p-2 bg-[#5E6AD2]/[0.06] rounded-lg w-fit">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#5E6AD2] animate-pulse"></span>
-                Lisa is reasoning with Gemini...
+                Lisa is thinking...
               </div>
             )}
           </div>
