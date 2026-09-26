@@ -1,22 +1,33 @@
 import React, { useState } from 'react';
-import { Bot, Send, X, CheckCircle2, Zap, Minimize2 } from 'lucide-react';
+import { Bot, Send, X, CheckCircle2, Zap, Minimize2, Key, Sparkles, ExternalLink } from 'lucide-react';
+import { PORTFOLIO_DATA } from '../data/portfolioData';
 
 interface ChatMessage {
   id: string;
   sender: 'user' | 'agent';
   text: string;
   timestamp: string;
+  isGenAI?: boolean;
   thoughtProcess?: string[];
+  actionLink?: {
+    label: string;
+    url: string;
+  };
 }
 
 export const LisaChatWidget: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [apiKey, setApiKey] = useState<string>(() => {
+    return (import.meta.env.VITE_GEMINI_API_KEY as string) || localStorage.getItem('ak_portfolio_gemini_key') || '';
+  });
+  const [showKeyInput, setShowKeyInput] = useState<boolean>(false);
+  const [tempKeyInput, setTempKeyInput] = useState<string>('');
 
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: 'msg-1',
       sender: 'agent',
-      text: `Hi! I'm Lisa, Abhinandan's AI assistant. Ask me anything about his Cassandra & Databricks Lakehouse pipelines, 40ms in-memory caching & Modular Monolith architecture, or his Gen AI agent systems!`,
+      text: `Hi! I'm Lisa, Abhinandan's AI assistant. Ask me anything about his work with Snowflake & dbt, PySpark & Databricks IoT pipelines, 40ms in-memory caching, or SQL Server architecture!`,
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     }
   ]);
@@ -24,14 +35,154 @@ export const LisaChatWidget: React.FC = () => {
   const [isThinking, setIsThinking] = useState(false);
 
   const samplePrompts = [
-    "How did he cut API response times from 7s to 40ms?",
-    "What is his experience with Cassandra & Databricks Lakehouse?",
-    "How does the timezone-aware 15-min sensor heatmap engine work?",
-    "What is his background with Gen AI and AI Agents?"
+    "Tell me about his Snowflake & dbt experience",
+    "How did he cut API latency from 7s to 40–50ms?",
+    "What did he build with PySpark & Databricks?",
+    "What are his core skills and certifications?"
   ];
 
-  const handleAsk = (query: string) => {
-    if (!query.trim()) return;
+  const handleSaveKey = (e: React.FormEvent) => {
+    e.preventDefault();
+    const trimmed = tempKeyInput.trim();
+    if (trimmed) {
+      setApiKey(trimmed);
+      localStorage.setItem('ak_portfolio_gemini_key', trimmed);
+      setShowKeyInput(false);
+      setTempKeyInput('');
+      setMessages(prev => [
+        ...prev,
+        {
+          id: 'key-set-' + Date.now(),
+          sender: 'agent',
+          text: `Gemini API key connected successfully! I am now powered by live Google Gemini 2.0 Flash intelligence. Ask me anything!`,
+          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          isGenAI: true
+        }
+      ]);
+    }
+  };
+
+  const generateSystemPrompt = () => {
+    return `You are Lisa, the personal AI portfolio assistant for Abhinandan Kumar, a Data Engineer with 3 years of experience.
+Your goal is to answer recruiters, founders, and engineering managers accurately, warmly, and concisely based strictly on his verified resume.
+
+GROUND TRUTH RESUME DATA:
+- Name: ${PORTFOLIO_DATA.personal.name}
+- Title: ${PORTFOLIO_DATA.personal.title}
+- Phone: ${PORTFOLIO_DATA.personal.phone}
+- Email: ${PORTFOLIO_DATA.personal.email}
+- LinkedIn: ${PORTFOLIO_DATA.personal.linkedin}
+- GitHub: ${PORTFOLIO_DATA.personal.github}
+- Resume PDF: ${PORTFOLIO_DATA.personal.googleDriveResumeUrl}
+
+PROFESSIONAL SUMMARY:
+${PORTFOLIO_DATA.personal.summary}
+
+EXPERIENCE:
+1. Vantiva India (Software Engineer | Data Engineer, Jun 2024 - Present):
+   - Smart Spaces: Built Snowflake ELT ingestion using stages, COPY INTO, Streams, and Tasks; developed dbt SQL models across staging, intermediate, and mart layers with incremental processing and surrogate-key joins; designed analytical data models with source granularity and business keys; debugged failed Snowflake loads and tuned tasks using query profiling and warehouse metrics; developed SQL Server stored procedures, triggers, views, and complex T-SQL for multi-table joins and archival; built PySpark/Databricks ETL pipelines processing 10,000+ daily IoT telemetry data points calculating automated Wi-Fi mesh uptime; built AWS Lambda on-demand Excel reports across 50+ facility sites; debugged LoRa/Zigbee devices maintaining ~99% uptime SLA; developed real-time Power BI dashboards.
+   - HomeSight Care: Migrated core APIs from direct database reads to Kafka-backed in-memory caching layer with indexed lookups and database fallback, cutting latency from ~7 seconds to 40–50 ms; integrated RBAC/ABAC permission models covering all user-module endpoints; resolved 30+ bugs and delivered 10+ frontend features.
+
+2. Wow Labz (Backend Engineer Intern, Apr 2024 - Jun 2024):
+   - Cab Booking App: Built FastAPI reporting service used daily by admins and 10-12 fleet drivers.
+   - Video Pipeline: Built 7-phase distributed video processing pipeline on AWS S3 and Kafka for chunking and multi-language dubbing.
+
+3. Yamaha Motor Solutions India (Graduate Engineer Trainee | Full Stack Developer, Jul 2023 - Apr 2024):
+   - Peer Review App: Full-stack review app for 30 engineers with automated tracking, Hasura GraphQL on PostgreSQL, and RabbitMQ notifications.
+
+CERTIFICATIONS:
+- Databricks Data Engineering Professional & Databricks Fundamentals Accreditation
+- McKinsey Forward Learning Program - Problem Solving, Leadership & Communication
+
+EDUCATION:
+- B.Tech in Computer Science Engineering (2019 - 2023), Kurukshetra University, GPA: 8.02 / 10
+
+CORE RULES:
+- Keep answers concise (2 to 4 sentences) unless a detailed explanation is explicitly requested.
+- If asked about his resume, offer to open the PDF resume directly.
+- Speak in a professional, polite, and enthusiastic first-person voice as Lisa ("Abhinandan has...", "In his work at Vantiva...").
+- Never make up skills or experiences outside this ground truth.`;
+  };
+
+  const callGeminiLLM = async (userPrompt: string, history: ChatMessage[]): Promise<string> => {
+    const activeKey = apiKey || (import.meta.env.VITE_GEMINI_API_KEY as string);
+    if (!activeKey) {
+      throw new Error("NO_API_KEY");
+    }
+
+    // Format conversation history for Gemini API
+    const formattedContents = history
+      .filter(m => m.id !== 'msg-1' && !m.id.startsWith('key-set'))
+      .slice(-6)
+      .map(m => ({
+        role: m.sender === 'user' ? 'user' : 'model',
+        parts: [{ text: m.text }]
+      }));
+
+    formattedContents.push({
+      role: 'user',
+      parts: [{ text: userPrompt }]
+    });
+
+    const payload = {
+      systemInstruction: {
+        parts: [{ text: generateSystemPrompt() }]
+      },
+      contents: formattedContents,
+      generationConfig: {
+        temperature: 0.4,
+        maxOutputTokens: 500,
+      }
+    };
+
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${activeKey}`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload)
+      }
+    );
+
+    if (!response.ok) {
+      const errData = await response.json().catch(() => ({}));
+      throw new Error(errData?.error?.message || `HTTP ${response.status}`);
+    }
+
+    const data = await response.json();
+    const candidateText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+    if (!candidateText) {
+      throw new Error("No response generated");
+    }
+    return candidateText;
+  };
+
+  const generateGroundedFallback = (query: string): string => {
+    const lower = query.toLowerCase();
+
+    if (lower.includes('snowflake') || lower.includes('dbt')) {
+      return "At Vantiva India, Abhinandan built end-to-end Snowflake ELT pipelines using stages, COPY INTO, Streams, and Tasks for scheduled incremental loads. He developed dbt SQL models across staging, intermediate, and mart layers using surrogate-key joins, and tuned workloads using query profiling and warehouse metrics.";
+    } else if (lower.includes('pyspark') || lower.includes('databricks') || lower.includes('telemetry') || lower.includes('lakehouse')) {
+      return "At Vantiva, Abhinandan engineered automated PySpark & Databricks pipelines processing 10,000+ daily IoT telemetry events to calculate Wi-Fi mesh uptime automatically. He also built AWS Lambda on-demand Excel reporting across 50+ facility sites maintaining a ~99% uptime SLA.";
+    } else if (lower.includes('latency') || lower.includes('40ms') || lower.includes('cache') || lower.includes('7s') || lower.includes('homesight')) {
+      return "For Vantiva's HomeSight Care ecosystem, Abhinandan migrated core APIs from direct database reads to a Kafka-backed in-memory caching layer with indexed lookups and database fallback. This slashed response times by 99% from ~7 seconds down to 40–50 ms, while enforcing strict RBAC/ABAC role-based security.";
+    } else if (lower.includes('sql') || lower.includes('stored proc') || lower.includes('database')) {
+      return "Abhinandan has strong SQL expertise across Snowflake, MS SQL Server, and PostgreSQL. He has written stored procedures, triggers, views, CTE-based transformations, and complex multi-table joins supporting analytics and historical-data archival.";
+    } else if (lower.includes('certification') || lower.includes('degree') || lower.includes('education')) {
+      return "Abhinandan holds the Databricks Certified Data Engineer Professional & Fundamentals accreditations, completed the McKinsey Forward Learning Program, and graduated with a B.Tech in Computer Science Engineering (GPA: 8.02 / 10).";
+    } else if (lower.includes('contact') || lower.includes('email') || lower.includes('hire') || lower.includes('reach')) {
+      return `You can reach Abhinandan directly at ${PORTFOLIO_DATA.personal.email} or on LinkedIn at linkedin.com/in/abhinandankumar. He is currently open to high-impact data engineering opportunities!`;
+    } else if (lower.includes('resume') || lower.includes('cv') || lower.includes('pdf')) {
+      return "You can view or download Abhinandan's complete official resume PDF right now using the button below or from the top navigation bar.";
+    }
+
+    return "Abhinandan Kumar is a Data Engineer with 3 years of experience specializing in Snowflake, dbt, SQL Server, Databricks, PySpark, and low-latency API caching. What specific area of his work would you like to explore?";
+  };
+
+  const handleAsk = async (query: string) => {
+    if (!query.trim() || isThinking) return;
 
     const userMsg: ChatMessage = {
       id: 'usr-' + Date.now(),
@@ -40,41 +191,58 @@ export const LisaChatWidget: React.FC = () => {
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     };
 
-    setMessages(prev => [...prev, userMsg]);
+    const newHistory = [...messages, userMsg];
+    setMessages(newHistory);
     setInputText('');
     setIsThinking(true);
 
-    setTimeout(() => {
-      let matchedAnswer = "";
-      const lower = query.toLowerCase();
-
-      if (lower.includes('cassandra') || lower.includes('databricks') || lower.includes('telemetry') || lower.includes('lakehouse') || lower.includes('medallion')) {
-        matchedAnswer = "At Vantiva India (Smart Spaces), Abhinandan engineered automated PySpark & Databricks ETL pipelines using Medallion Architecture (Bronze → Silver → Gold) to ingest 10,000+ daily IoT telemetry data points from Cassandra DB across 50+ facilities. He curated daily Gold tables powering executive Power BI dashboards for Senior Architects & Clients, and built on-demand Excel reports via AWS Lambda.";
-      } else if (lower.includes('latency') || lower.includes('40ms') || lower.includes('cache') || lower.includes('7s') || lower.includes('monolith')) {
-        matchedAnswer = "In the HomeSight Care project at Vantiva, Abhinandan migrated legacy multi-query database endpoints to a Vertical Modular Monolith architecture, preloading Users, HC200 gateway hubs, and Accounts into server RAM at boot. This eliminated chained database lookups, slashing response time from ~7s down to 40–50ms (99% reduction). He led the Users & AppRegistry backend modules + AppRegistry frontend UI.";
-      } else if (lower.includes('elderly') || lower.includes('homesight') || lower.includes('heatmap') || lower.includes('sensor') || lower.includes('timezone') || lower.includes('15-min')) {
-        matchedAnswer = "For HomeSight Care, Abhinandan built a generalized dynamic sensor aggregation backend engine. It pulls raw Cassandra motion and door/window contact events, normalizes UTC timestamps to the local physical timezone of the user's HC200 hub, and computes 96 discrete 15-minute buckets (count, sum, avg, mode, median) powering an interactive 24-hour caregiver activity heatmap on React.";
-      } else if (lower.includes('gen ai') || lower.includes('agent') || lower.includes('llm') || lower.includes('rag')) {
-        matchedAnswer = "Abhinandan designs and builds autonomous AI agents using Gemini API, LangGraph, tool calling, and RAG architectures — including self-correcting Text-to-SQL data analyst agents with sandboxed Python execution and structured guardrails.";
-      } else {
-        matchedAnswer = `Abhinandan Kumar is a Full Stack Data Engineer & AI Developer experienced in Cassandra DB, Databricks Medallion Lakehouses, in-memory caching & Vertical Modular Monoliths (7s → 40ms), and Gen AI agent architectures.`;
-      }
+    try {
+      // Attempt live Gemini 2.0 Flash LLM call
+      const genAIResponse = await callGeminiLLM(query, newHistory);
 
       const agentMsg: ChatMessage = {
         id: 'agt-' + Date.now(),
         sender: 'agent',
-        text: matchedAnswer,
+        text: genAIResponse,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        isGenAI: true,
         thoughtProcess: [
-          "Retrieved verified engineering architecture context",
-          "Mapped technical decisions: Vertical Modular Monolith, HC200 timezone normalization, Cassandra Lakehouse",
-          "Synthesized external-facing response"
-        ]
+          "Grounded via Google Gemini 2.0 Flash",
+          "Synthesized from official resume knowledge base"
+        ],
+        actionLink: query.toLowerCase().includes('resume') ? {
+          label: "Open Official PDF Resume",
+          url: PORTFOLIO_DATA.personal.googleDriveResumeUrl
+        } : undefined
       };
 
       setMessages(prev => [...prev, agentMsg]);
+    } catch {
+      // Graceful fallback to verified resume data if API key is not yet set or hits network issues
+      setTimeout(() => {
+        const fallbackText = generateGroundedFallback(query);
+
+        const agentMsg: ChatMessage = {
+          id: 'agt-' + Date.now(),
+          sender: 'agent',
+          text: fallbackText,
+          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          isGenAI: false,
+          thoughtProcess: [
+            "Verified from official resume database",
+            !apiKey ? "Connect a free Gemini API key via the key icon above for dynamic GenAI responses" : "Synthesized answer"
+          ],
+          actionLink: (query.toLowerCase().includes('resume') || query.toLowerCase().includes('cv')) ? {
+            label: "Open Official PDF Resume",
+            url: PORTFOLIO_DATA.personal.googleDriveResumeUrl
+          } : undefined
+        };
+
+        setMessages(prev => [...prev, agentMsg]);
+      }, 500);
+    } finally {
       setIsThinking(false);
-    }, 600);
+    }
   };
 
   return (
@@ -82,7 +250,7 @@ export const LisaChatWidget: React.FC = () => {
       
       {/* Expanded Chat Window */}
       {isOpen ? (
-        <div className="w-[90vw] sm:w-[380px] h-[520px] bg-white dark:bg-[#101114] border border-[#E8E2D5] dark:border-white/[0.12] rounded-xl shadow-2xl flex flex-col overflow-hidden animate-fadeIn transition-all">
+        <div className="w-[90vw] sm:w-[390px] h-[530px] bg-white dark:bg-[#101114] border border-[#E8E2D5] dark:border-white/[0.12] rounded-xl shadow-2xl flex flex-col overflow-hidden animate-fadeIn transition-all">
           
           {/* Header */}
           <div className="px-4 py-3 bg-[#FAF7F2] dark:bg-[#08090A] border-b border-[#E8E2D5] dark:border-white/[0.08] flex items-center justify-between">
@@ -94,8 +262,9 @@ export const LisaChatWidget: React.FC = () => {
                 <div className="flex items-center gap-1.5">
                   <span className="font-semibold text-stone-900 dark:text-[#EDEDEF] text-xs">Lisa</span>
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 dark:bg-[#4EBA6F] animate-pulse" />
-                  <span className="text-[9px] font-mono px-1.5 py-0.2 rounded bg-emerald-600/10 dark:bg-[#4EBA6F]/10 text-emerald-800 dark:text-[#4EBA6F] border border-emerald-600/20 dark:border-[#4EBA6F]/20 font-semibold">
-                    Online
+                  <span className="text-[9px] font-mono px-1.5 py-0.2 rounded bg-emerald-600/10 dark:bg-[#4EBA6F]/10 text-emerald-800 dark:text-[#4EBA6F] border border-emerald-600/20 dark:border-[#4EBA6F]/20 font-semibold flex items-center gap-1">
+                    <Sparkles className="w-2.5 h-2.5 text-emerald-600 dark:text-[#4EBA6F]" />
+                    {apiKey ? 'GenAI Active' : 'Online'}
                   </span>
                 </div>
                 <div className="text-[10px] text-stone-500 dark:text-[#8A8F98] font-mono">Abhinandan's AI Assistant</div>
@@ -103,6 +272,16 @@ export const LisaChatWidget: React.FC = () => {
             </div>
 
             <div className="flex items-center gap-1">
+              <button
+                onClick={() => setShowKeyInput(!showKeyInput)}
+                className={`p-1.5 rounded-lg text-stone-400 dark:text-[#8A8F98] hover:text-[#5E6AD2] hover:bg-stone-200/60 dark:hover:bg-white/[0.06] transition-colors cursor-pointer ${
+                  apiKey ? 'text-[#5E6AD2]' : ''
+                }`}
+                title={apiKey ? "Gemini API Key Connected" : "Connect Gemini API Key"}
+                aria-label="API Settings"
+              >
+                <Key className="w-3.5 h-3.5" />
+              </button>
               <button
                 onClick={() => setIsOpen(false)}
                 className="p-1.5 rounded-lg text-stone-400 dark:text-[#8A8F98] hover:text-stone-900 dark:hover:text-[#EDEDEF] hover:bg-stone-200/60 dark:hover:bg-white/[0.06] transition-colors cursor-pointer"
@@ -121,6 +300,38 @@ export const LisaChatWidget: React.FC = () => {
               </button>
             </div>
           </div>
+
+          {/* Gemini API Key Configuration Drawer */}
+          {showKeyInput && (
+            <div className="p-3 bg-[#FAF7F2] dark:bg-[#08090A] border-b border-[#E8E2D5] dark:border-white/[0.08] animate-fadeIn text-xs space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="font-semibold text-stone-900 dark:text-[#EDEDEF] font-mono text-[11px] flex items-center gap-1.5">
+                  <Sparkles className="w-3 h-3 text-[#5E6AD2]" /> Google Gemini API Key
+                </span>
+                <span className="text-[10px] text-stone-500 dark:text-[#8A8F98] font-mono">
+                  {apiKey ? 'Connected' : 'Free Tier'}
+                </span>
+              </div>
+              <p className="text-[11px] text-stone-600 dark:text-[#8A8F98] leading-tight">
+                Enter your free Gemini API key to enable live conversational GenAI streaming:
+              </p>
+              <form onSubmit={handleSaveKey} className="flex gap-1.5">
+                <input
+                  type="password"
+                  value={tempKeyInput}
+                  onChange={(e) => setTempKeyInput(e.target.value)}
+                  placeholder={apiKey ? "••••••••••••••••••••" : "Paste AI Studio API Key"}
+                  className="flex-1 bg-white dark:bg-[#101114] border border-[#E8E2D5] dark:border-white/[0.08] text-xs text-stone-900 dark:text-[#EDEDEF] rounded-md px-2.5 py-1.5 focus:outline-none focus:border-[#5E6AD2] font-mono text-[11px]"
+                />
+                <button
+                  type="submit"
+                  className="px-3 py-1.5 bg-[#5E6AD2] hover:bg-[#6875E3] text-white dark:text-[#EDEDEF] font-semibold rounded-md font-mono text-[11px] cursor-pointer"
+                >
+                  Save
+                </button>
+              </form>
+            </div>
+          )}
 
           {/* Quick Questions Pill Carousel */}
           <div className="px-3 py-2 bg-[#FAF7F2]/80 dark:bg-[#08090A]/60 border-b border-[#E8E2D5]/70 dark:border-white/[0.04] overflow-x-auto whitespace-nowrap flex gap-1.5 scrollbar-none">
@@ -157,6 +368,20 @@ export const LisaChatWidget: React.FC = () => {
                     }`}
                   >
                     {msg.text}
+
+                    {msg.actionLink && (
+                      <div className="pt-2 mt-2 border-t border-stone-200 dark:border-white/[0.08]">
+                        <a
+                          href={msg.actionLink.url}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center gap-1.5 text-[11px] font-mono font-semibold text-[#5E6AD2] hover:underline"
+                        >
+                          <ExternalLink className="w-3 h-3" />
+                          <span>{msg.actionLink.label}</span>
+                        </a>
+                      </div>
+                    )}
                   </div>
 
                   {msg.thoughtProcess && (
@@ -183,7 +408,7 @@ export const LisaChatWidget: React.FC = () => {
             {isThinking && (
               <div className="flex items-center gap-1.5 text-[11px] font-mono text-[#5E6AD2] p-2 bg-[#5E6AD2]/[0.06] rounded-lg w-fit">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#5E6AD2] animate-pulse"></span>
-                Lisa is thinking...
+                Lisa is reasoning with Gemini...
               </div>
             )}
           </div>
@@ -200,7 +425,7 @@ export const LisaChatWidget: React.FC = () => {
               type="text"
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
-              placeholder="Ask Lisa anything about Abhinandan..."
+              placeholder="Ask anything about Abhinandan's engineering work..."
               className="flex-1 bg-white dark:bg-[#101114] border border-[#E8E2D5] dark:border-white/[0.08] text-xs text-stone-900 dark:text-[#EDEDEF] rounded-lg px-3 py-2 focus:outline-none focus:border-[#5E6AD2] placeholder:text-stone-400 dark:placeholder:text-[#62666D] font-sans shadow-2xs"
             />
             <button

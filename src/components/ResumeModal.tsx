@@ -1,6 +1,6 @@
 import React from 'react';
 import { PORTFOLIO_DATA } from '../data/portfolioData';
-import { X, ExternalLink, FileText, CheckCircle, Mail, Phone, Printer } from 'lucide-react';
+import { X, ExternalLink, FileText, CheckCircle, Mail, Phone, Printer, Download } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './Icons';
 
 interface ResumeModalProps {
@@ -34,7 +34,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
                 Abhinandan Kumar — Resume
               </h3>
               <p className="text-[11px] text-stone-500 dark:text-[#8A8F98] font-mono">
-                Full Stack Data Engineer &bull; Curriculum Vitae
+                {PORTFOLIO_DATA.personal.title}
               </p>
             </div>
           </div>
@@ -44,11 +44,12 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
               href={PORTFOLIO_DATA.personal.googleDriveResumeUrl}
               target="_blank"
               rel="noreferrer"
+              download="Abhinandan_Kumar_Resume.pdf"
               className="px-3 py-1.5 rounded-lg bg-[#5E6AD2] hover:bg-[#6875E3] text-white dark:text-[#EDEDEF] transition-colors text-xs font-mono font-semibold flex items-center gap-1.5 shadow-xs cursor-pointer"
-              title="Open in Google Drive"
+              title="Download PDF Resume"
             >
-              <ExternalLink className="w-3.5 h-3.5" />
-              <span>Google Drive</span>
+              <Download className="w-3.5 h-3.5" />
+              <span>Download PDF</span>
             </a>
 
             <button
@@ -128,20 +129,20 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
               <div className="p-2.5 rounded-lg bg-[#FAF7F2] dark:bg-[#08090A] border border-[#E8E2D5] dark:border-white/[0.06]">
-                <span className="text-stone-500 dark:text-[#62666D] font-mono">Backend: </span>
-                <span className="text-stone-800 dark:text-[#EDEDEF]">Python, Node.js, Express.js, FastAPI, GraphQL, SQL</span>
+                <span className="text-stone-500 dark:text-[#62666D] font-mono">Data Platforms: </span>
+                <span className="text-stone-800 dark:text-[#EDEDEF]">Snowflake, MS SQL Server, PostgreSQL, Databricks, Delta Lake</span>
               </div>
               <div className="p-2.5 rounded-lg bg-[#FAF7F2] dark:bg-[#08090A] border border-[#E8E2D5] dark:border-white/[0.06]">
-                <span className="text-stone-500 dark:text-[#62666D] font-mono">Frontend: </span>
-                <span className="text-stone-800 dark:text-[#EDEDEF]">JavaScript (ES6+), React, TypeScript, HTML, Tailwind</span>
+                <span className="text-stone-500 dark:text-[#62666D] font-mono">Snowflake &amp; SQL: </span>
+                <span className="text-stone-800 dark:text-[#EDEDEF]">Stages, COPY INTO, Streams, Tasks, Query Profiling, T-SQL, Stored Procs</span>
               </div>
               <div className="p-2.5 rounded-lg bg-[#FAF7F2] dark:bg-[#08090A] border border-[#E8E2D5] dark:border-white/[0.06]">
-                <span className="text-stone-500 dark:text-[#62666D] font-mono">Data Eng: </span>
-                <span className="text-stone-800 dark:text-[#EDEDEF]">PySpark, ETL/ELT, Kafka, RabbitMQ, Databricks, Delta Lake, DLT</span>
+                <span className="text-stone-500 dark:text-[#62666D] font-mono">Data Engineering: </span>
+                <span className="text-stone-800 dark:text-[#EDEDEF]">dbt, PySpark, Incremental Processing, Dimensional Modeling, Fact &amp; Dimension Tables</span>
               </div>
               <div className="p-2.5 rounded-lg bg-[#FAF7F2] dark:bg-[#08090A] border border-[#E8E2D5] dark:border-white/[0.06]">
-                <span className="text-stone-500 dark:text-[#62666D] font-mono">Cloud &amp; DB: </span>
-                <span className="text-stone-800 dark:text-[#EDEDEF]">AWS (Lambda, S3), Azure, Databricks Unity Catalog, PostgreSQL, MongoDB</span>
+                <span className="text-stone-500 dark:text-[#62666D] font-mono">Cloud &amp; Analytics: </span>
+                <span className="text-stone-800 dark:text-[#EDEDEF]">AWS S3, AWS Lambda, Kafka, RabbitMQ, Power BI, Databricks Unity Catalog</span>
               </div>
             </div>
           </div>
@@ -162,7 +163,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
                   <span className="font-mono text-[#5E6AD2] text-[10px]">{exp.period}</span>
                 </div>
                 <div className="text-[10px] font-mono text-stone-500 dark:text-[#62666D]">
-                  Project: <span className="text-stone-800 dark:text-[#EDEDEF] font-medium">{exp.projectGroup}</span>
+                  Focus: <span className="text-stone-800 dark:text-[#EDEDEF] font-medium">{exp.projectGroup}</span>
                 </div>
                 <ul className="space-y-1 pl-4 list-disc text-xs text-stone-600 dark:text-[#8A8F98] leading-relaxed marker:text-[#5E6AD2]">
                   {exp.highlights.map((item, iIdx) => (
@@ -182,7 +183,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
               <ul className="space-y-1 pl-4 list-disc text-xs text-stone-600 dark:text-[#8A8F98] marker:text-[#5E6AD2]">
                 {PORTFOLIO_DATA.certifications.map((c, cIdx) => (
                   <li key={cIdx}>
-                    <span className="font-medium text-stone-900 dark:text-[#EDEDEF]">{c.name}</span> ({c.issuer})
+                    <span className="font-medium text-stone-900 dark:text-[#EDEDEF]">{c.name}</span>
                   </li>
                 ))}
               </ul>
@@ -206,16 +207,17 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
         <div className="px-6 py-3 border-t border-[#E8E2D5] dark:border-white/[0.08] bg-[#FAF7F2] dark:bg-[#08090A] flex items-center justify-between">
           <div className="text-xs text-stone-500 dark:text-[#62666D] font-mono flex items-center gap-1.5">
             <CheckCircle className="w-3.5 h-3.5 text-emerald-700 dark:text-[#4EBA6F]" />
-            <span>Synced with Google Drive</span>
+            <span>Verified Official Resume</span>
           </div>
 
           <a
             href={PORTFOLIO_DATA.personal.googleDriveResumeUrl}
             target="_blank"
             rel="noreferrer"
-            className="px-3.5 py-1.5 rounded-lg bg-[#5E6AD2] hover:bg-[#6875E3] text-white dark:text-[#EDEDEF] font-semibold text-xs font-mono transition-colors shadow-xs cursor-pointer"
+            className="px-3.5 py-1.5 rounded-lg bg-[#5E6AD2] hover:bg-[#6875E3] text-white dark:text-[#EDEDEF] font-semibold text-xs font-mono transition-colors shadow-xs cursor-pointer flex items-center gap-1.5"
           >
-            Open in Google Drive
+            <ExternalLink className="w-3.5 h-3.5" />
+            <span>Open PDF Document</span>
           </a>
         </div>
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Database, Server, Cpu, ArrowRight, Zap, Activity, Wifi, BarChart3, Layers, Clock, ShieldCheck, CheckCircle2, AlertTriangle, Wrench, Rocket } from 'lucide-react';
+import { Database, Server, Cpu, ArrowRight, Zap, Activity, BarChart3, Layers, CheckCircle2, AlertTriangle, Wrench, Rocket } from 'lucide-react';
 
 interface StageNode {
   phase: string;
@@ -11,7 +11,7 @@ interface StageNode {
 }
 
 interface Deliverable {
-  id: 'caching' | 'telemetry' | 'aggregation';
+  id: 'caching' | 'snowflake' | 'telemetry';
   tabLabel: string;
   tabIcon: React.ElementType;
   companyTag: string;
@@ -25,119 +25,119 @@ interface Deliverable {
 }
 
 export const ArchitectureShowcase: React.FC = () => {
-  const [activeDeliverableId, setActiveDeliverableId] = useState<'caching' | 'telemetry' | 'aggregation'>('caching');
+  const [activeDeliverableId, setActiveDeliverableId] = useState<'caching' | 'snowflake' | 'telemetry'>('snowflake');
   const [activeStageIdx, setActiveStageIdx] = useState<number>(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState<boolean>(true);
 
   const deliverables: Deliverable[] = [
     {
-      id: 'caching',
-      tabLabel: 'API Optimization & Modular Monolith',
-      tabIcon: Zap,
-      companyTag: 'VANTIVA INDIA • HOMESIGHT CARE',
-      title: 'In-Memory Startup Caching & Modular Monolith',
-      summary: 'Re-architected legacy chained API bottlenecks into a Vertical Modular Monolith with startup in-memory caching.',
-      kpiBefore: '~7,000 ms',
-      kpiLabel: 'RESPONSE TIME',
-      kpiValue: '40–50 ms',
-      technologies: ['Node.js', 'In-Memory Caching', 'Vertical Modular Monolith', 'Users & AppRegistry', 'React'],
+      id: 'snowflake',
+      tabLabel: 'Snowflake & dbt Data Platform',
+      tabIcon: Layers,
+      companyTag: 'VANTIVA INDIA • SMART SPACES',
+      title: 'Snowflake ELT & dbt Analytical Data Marts',
+      summary: 'Built automated staged-to-mart ELT pipelines in Snowflake using Stages, Streams, Tasks, and dbt dimensional models.',
+      kpiLabel: 'PIPELINE RUNTIME',
+      kpiValue: 'Sub-Minute Tasks',
+      technologies: ['Snowflake', 'dbt', 'Snowflake SQL', 'Streams & Tasks', 'Dimensional Modeling', 'Query Profiling'],
       stages: [
         {
           phase: '01. THE CHALLENGE',
-          tag: 'LEGACY BOTTLENECK',
-          title: 'Chained Multi-DB Calls',
-          description: 'Loading account dashboards required multiple serial API calls and heavy database queries, leading to ~7s page load times.',
-          highlight: 'Legacy DB Bottleneck (~7s)',
+          tag: 'UNSTRUCTURED RAW DATA',
+          title: 'Manual Loads & Recurring Failures',
+          description: 'Disjointed data sources required recurring manual loads, lacking automated incremental materializations and unified business keys.',
+          highlight: 'Disparate Staging & Schema Bottlenecks',
           icon: AlertTriangle
         },
         {
           phase: '02. HOW I BUILT IT',
-          tag: 'ARCHITECTURE DECISION',
-          title: 'Startup In-Memory Cache',
-          description: 'Preloaded Users, HC200 hub metadata, and Accounts into server RAM at boot, organizing domain logic into a Vertical Modular Monolith.',
-          highlight: 'RAM Preload & Modular Isolation',
+          tag: 'ELT & DIMENSIONAL MODELING',
+          title: 'Snowflake Streams & dbt Layers',
+          description: 'Engineered Snowflake stages, COPY INTO, Streams, and Tasks with dbt models across staging, intermediate, and mart layers using surrogate-key joins.',
+          highlight: 'Automated Streams, Tasks & dbt Marts',
           icon: Wrench
         },
         {
           phase: '03. SHIPPED RESULT',
           tag: 'PRODUCTION IMPACT',
-          title: 'Sub-50ms Response Delivery',
-          description: 'Slashed API response latency by 99% down to 40–50ms, while delivering the complete AppRegistry frontend management interface.',
-          highlight: '99% Latency Cut (40–50ms)',
+          title: 'Curated Business Marts',
+          description: 'Tuned workloads via query profiling and warehouse metrics, delivering automated incremental mart datasets for reliable downstream reporting.',
+          highlight: '100% Automated Incremental Loads',
           icon: Rocket
         }
       ]
     },
     {
       id: 'telemetry',
-      tabLabel: 'Cassandra IoT & Databricks Pipeline',
+      tabLabel: 'PySpark & Databricks IoT Lakehouse',
       tabIcon: Database,
       companyTag: 'VANTIVA INDIA • SMART SPACES',
-      title: 'Cassandra IoT Ingestion & Medallion Lakehouse',
-      summary: 'Automated PySpark ETL pipelines ingesting Cassandra device logs across 50+ facilities to curate production Gold SLA tables.',
-      kpiLabel: 'AUTOMATED SLA',
+      title: 'IoT Telemetry Pipeline & On-Demand Reporting',
+      summary: 'Automated PySpark/Databricks ETL processing 10,000+ daily IoT telemetry data points with AWS Lambda and Power BI dashboards.',
+      kpiLabel: 'UPTIME SLA',
       kpiValue: '~99% Uptime',
-      technologies: ['PySpark', 'Databricks', 'Cassandra DB', 'Delta Lake (Medallion)', 'Power BI', 'AWS Lambda'],
+      technologies: ['PySpark', 'Databricks', 'AWS Lambda', 'Power BI', 'AWS S3', 'LoRa / Zigbee'],
       stages: [
         {
           phase: '01. THE CHALLENGE',
-          tag: 'MULTI-SITE TELEMETRY',
-          title: 'Unstructured Cassandra IoT Data',
-          description: 'Raw high-velocity Wi-Fi mesh and sensor telemetry from 50+ sites was trapped in Cassandra without automated uptime tracking.',
-          highlight: '10,000+ Daily Unprocessed Events',
+          tag: 'ROUTER-BY-ROUTER CHECKS',
+          title: 'Manual Mesh Verification',
+          description: 'Engineering teams had to manually inspect routers across 50+ facilities to determine Wi-Fi mesh uptime and detect packet dropouts.',
+          highlight: '10,000+ Daily Unprocessed Telemetry Events',
           icon: AlertTriangle
         },
         {
           phase: '02. HOW I BUILT IT',
-          tag: 'MEDALLION PIPELINE',
-          title: 'Databricks PySpark Lakehouse',
-          description: 'Engineered daily scheduled ETL pipelines across Bronze, Silver, and Gold layers to clean, deduplicate, and calculate uptime SLAs.',
-          highlight: 'Automated Medallion Daily ETL',
+          tag: 'PYSPARK & SERVERLESS',
+          title: 'Databricks Pipeline & Lambda Engine',
+          description: 'Built PySpark pipelines in Databricks calculating automated mesh uptime and developed an AWS Lambda service generating custom Excel reports.',
+          highlight: 'Automated Mesh SLA & Serverless Reports',
           icon: Wrench
         },
         {
           phase: '03. SHIPPED RESULT',
           tag: 'PRODUCTION IMPACT',
-          title: 'Live Power BI & Lambda Reports',
-          description: 'Published daily Gold tables powering executive Power BI dashboards for Architects and Clients + on-demand custom Excel reports via AWS Lambda.',
-          highlight: '~99% SLA & Serverless Reports',
+          title: 'Live Power BI & ~99% SLA',
+          description: 'Enabled storage site managers and engineers across 50+ facility sites to debug LoRa/Zigbee devices rapidly, maintaining ~99% SLA.',
+          highlight: '50+ Sites Monitored (~99% SLA)',
           icon: Rocket
         }
       ]
     },
     {
-      id: 'aggregation',
-      tabLabel: 'Multi-Sensor Analytics & Heatmap Engine',
-      tabIcon: Activity,
+      id: 'caching',
+      tabLabel: 'API Optimization & In-Memory Caching',
+      tabIcon: Zap,
       companyTag: 'VANTIVA INDIA • HOMESIGHT CARE',
-      title: 'Timezone-Aware 15-Minute Sensor Heatmap Engine',
-      summary: 'Engineered a dynamic multi-sensor aggregation engine with HC200 physical timezone normalization for elderly care mobility monitoring.',
-      kpiLabel: 'INTERVAL RESOLUTION',
-      kpiValue: '96 Buckets (15-Min)',
-      technologies: ['React', 'Node.js', 'Cassandra DB', 'Timezone Normalization', 'Dynamic Aggregation', 'TypeScript'],
+      title: 'Kafka-Backed In-Memory Caching (7s → 40–50ms)',
+      summary: 'Migrated high-traffic Node.js endpoints to an in-memory caching layer with indexed lookups, DB fallback, and RBAC/ABAC security.',
+      kpiBefore: '~7,000 ms',
+      kpiLabel: 'RESPONSE TIME',
+      kpiValue: '40–50 ms',
+      technologies: ['Node.js', 'Kafka', 'In-Memory Caching', 'RBAC/ABAC', 'React', 'REST APIs'],
       stages: [
         {
           phase: '01. THE CHALLENGE',
-          tag: 'RAW SENSOR TICKS',
-          title: 'Unstructured Sensor Pulses',
-          description: 'Raw motion and door/window sensor events in Cassandra were disconnected timestamp logs with no continuous daily mobility picture.',
-          highlight: 'Asynchronous Sensor Event Stream',
+          tag: 'DIRECT DB READ BOTTLENECK',
+          title: 'Chained Multi-DB Calls',
+          description: 'High-traffic account and device APIs performed direct database reads, incurring multi-table joins with ~7-second response times.',
+          highlight: 'Direct DB Read Bottleneck (~7s)',
           icon: AlertTriangle
         },
         {
           phase: '02. HOW I BUILT IT',
-          tag: 'TIMEZONE & MATH ENGINE',
-          title: 'HC200 Timezone Sync & Math Engine',
-          description: 'Shifted UTC timestamps to the physical local timezone of the HC200 hub and built dynamic 15-minute formula bucketing (count, sum, avg, mode, median).',
-          highlight: 'HC200 Timezone & Generalized Math',
+          tag: 'ASYNC CACHE & SECURITY',
+          title: 'Kafka-Backed Cache & RBAC/ABAC',
+          description: 'Implemented an in-memory cache preloaded with indexed lookups, automatic database fallback, and strict RBAC/ABAC permissions.',
+          highlight: 'Indexed Lookups & Role-Based Security',
           icon: Wrench
         },
         {
           phase: '03. SHIPPED RESULT',
           tag: 'PRODUCTION IMPACT',
-          title: '24-Hour Caregiver Heatmap',
-          description: 'Delivered an interactive 24-hour visual intensity grid on React, allowing caregivers to monitor mobility and detect critical inactivity anomalies.',
-          highlight: 'Real-Time Anomaly Visibility',
+          title: '40–50ms Latency & UI Delivery',
+          description: 'Reduced high-traffic latency by 99% down to 40–50ms, resolved 30+ bugs, and shipped 10+ stable frontend features.',
+          highlight: '99% Latency Cut (40–50ms)',
           icon: Rocket
         }
       ]
@@ -168,7 +168,7 @@ export const ArchitectureShowcase: React.FC = () => {
             Key Engineering Deliverables
           </h2>
           <p className="text-stone-600 dark:text-[#8A8F98] text-xs sm:text-sm max-w-xl">
-            A visual walkthrough of the highest-impact systems I engineered and shipped at Vantiva.
+            A visual walkthrough of production data pipelines, analytical platforms, and low-latency systems engineered at Vantiva.
           </p>
         </div>
 

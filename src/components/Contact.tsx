@@ -96,11 +96,11 @@ export const Contact: React.FC<ContactProps> = ({ onOpenResume }) => {
                   <FileText className="w-3.5 h-3.5" /> Resume (PDF)
                 </span>
                 <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-600/10 dark:bg-[#4EBA6F]/10 text-emerald-800 dark:text-[#4EBA6F] border border-emerald-600/20 dark:border-[#4EBA6F]/20 font-semibold">
-                  Google Drive
+                  Official PDF
                 </span>
               </div>
               <p className="text-xs text-stone-600 dark:text-[#8A8F98] leading-relaxed">
-                Access the verified PDF copy directly from Google Drive or open the interactive reader.
+                Access the verified PDF copy directly or open the interactive reader.
               </p>
               <div className="flex items-center gap-2 pt-1">
                 <a
@@ -110,7 +110,7 @@ export const Contact: React.FC<ContactProps> = ({ onOpenResume }) => {
                   className="flex-1 py-2.5 rounded-lg bg-[#5E6AD2] hover:bg-[#6875E3] text-white dark:text-[#EDEDEF] font-semibold text-xs font-mono transition-colors flex items-center justify-center gap-1.5 shadow-md shadow-[#5E6AD2]/25"
                 >
                   <ExternalLink className="w-3.5 h-3.5" />
-                  <span>Google Drive</span>
+                  <span>View PDF Resume</span>
                 </a>
                 <button
                   onClick={onOpenResume}

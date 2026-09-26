@@ -35,21 +35,21 @@ export interface SkillCategory {
 export const PORTFOLIO_DATA = {
   personal: {
     name: "Abhinandan Kumar",
-    title: "Full Stack Data Engineer & AI Developer",
+    title: "Data Engineer | SQL | Snowflake | dbt | Databricks",
     location: "India",
     email: "sabhinandan403@gmail.com",
     phone: "+91-9817750262",
-    linkedin: "https://www.linkedin.com/in/abhinandan-kumar-611a64192/",
-    github: "https://github.com/sabhinandan403",
-    googleDriveResumeUrl: "https://drive.google.com/drive/folders/latest-resume?usp=sharing",
-    summary: `Full Stack Data Engineer with 2+ years of experience architecting IoT data pipelines and low-latency systems that convert raw telemetry into business-critical insights. Proven track record of designing Databricks Medallion Lakehouses ingesting from Cassandra DB for 10,000+ daily events, architecting Vertical Modular Monolith in-memory caches (slashing API response times from 7s to 40–50ms), and delivering timezone-normalized 15-minute sensor aggregation engines.`
+    linkedin: "https://linkedin.com/in/abhinandankumar",
+    github: "https://github.com/abhinandankumar",
+    googleDriveResumeUrl: "./Abhinandan_Kumar_Resume.pdf",
+    summary: `Data Engineer with 3 years of experience across SQL, ETL/ELT pipelines, cloud data platforms and data-driven applications. Hands-on with Snowflake and dbt for staged-to-mart transformations, incremental processing and analytical data modeling, and with PySpark/Databricks for IoT telemetry pipelines. Strong SQL foundation across Snowflake, SQL Server and PostgreSQL, with experience supporting production data workflows, performance investigation, reporting and application integration.`
   },
   
   metrics: [
-    { label: "Daily Telemetry Events", value: "10,000+", subtext: "Cassandra → Databricks Lakehouse" },
-    { label: "API Latency Reduction", value: "7s → 40ms", subtext: "In-memory Startup Caching" },
-    { label: "Facility Sites Monitored", value: "50+", subtext: "Automated Wi-Fi & Sensor SLAs" },
-    { label: "System Uptime SLA", value: "~99%", subtext: "Power BI & Lambda Reports" }
+    { label: "Daily Telemetry Events", value: "10,000+", subtext: "PySpark & Databricks" },
+    { label: "API Latency Reduction", value: "7s → 40ms", subtext: "In-Memory Caching & Kafka" },
+    { label: "Facility Sites Monitored", value: "50+", subtext: "LoRa & Zigbee Device SLAs" },
+    { label: "System Uptime SLA", value: "~99%", subtext: "Power BI & AWS Lambda Reports" }
   ],
 
   experiences: [
@@ -60,18 +60,22 @@ export const PORTFOLIO_DATA = {
       period: "Jun 2024 – Present",
       location: "India",
       projectGroup: "Smart Spaces & HomeSight Care",
-      summary: "Architecting end-to-end Lakehouse data pipelines, low-latency in-memory API caching layers, and real-time IoT sensor aggregation engines.",
+      summary: "Architecting Snowflake/dbt analytical pipelines, Databricks IoT telemetry ingestion, and low-latency API caching layers.",
       highlights: [
-        "Architected a Vertical Modular Monolithic backend to eliminate multi-API serial bottlenecks and heavy direct DB roundtrips, preloading high-frequency entities (Users, HC200 hub details, Accounts) into server RAM at boot.",
-        "Slashed core dashboard and account API response latency from ~7 seconds down to 40–50ms (99% reduction), taking direct ownership of the Users and AppRegistry backend modules plus AppRegistry frontend interface.",
-        "Engineered Databricks ETL pipelines using Medallion Architecture (Bronze → Silver → Gold) to ingest and clean 10,000+ daily IoT telemetry data points from Cassandra DB across 50+ facilities.",
-        "Curated daily production Gold tables powering executive Power BI dashboards for Senior Architects, Sales leadership, and Enterprise Clients to monitor device connectivity and automated SLA uptime (~99%).",
-        "Developed serverless on-demand reporting features using AWS Lambda, allowing engineering and operations teams to generate custom date-range Excel diagnostic reports.",
-        "Built a generalized dynamic sensor aggregation backend engine for HomeSight Care, mathematically aggregating Cassandra sensor pulses (motion, door/window contacts) into 96 discrete 15-minute buckets per day.",
-        "Engineered timezone-normalization logic to shift UTC sensor event timestamps to match the local physical timezone of the principal user's HC200 gateway.",
-        "Delivered a responsive 24-hour visual motion-activity heatmap on React, enabling caregivers to track mobility trends and detect critical inactivity anomalies."
+        "Built Snowflake ELT ingestion using stages, COPY INTO, Streams, and Tasks, enabling scheduled incremental loads from raw/staging tables to curated analytical datasets.",
+        "Developed dbt SQL models across staging, intermediate and mart layers, using incremental materializations and surrogate-key joins to implement reusable transformations for downstream analytics.",
+        "Developed analytical data models by defining source granularity and business keys, creating organized datasets to help the business easily track key performance metrics and analyze operations.",
+        "Debugged failed Snowflake loads and scheduled Tasks through load, task and query history; investigated schema and file-format errors, validated reruns, and used query profiles and warehouse metrics to tune recurring workloads.",
+        "Developed SQL Server stored procedures, triggers and views, and complex T-SQL for multi-table joins, CTE-based transformations and reporting workflows, while supporting historical-data archival and retention.",
+        "Built ETL pipelines using PySpark and Databricks to process 10,000+ daily telemetry data points from IoT devices, automatically calculating Wi-Fi mesh uptime, replacing a manual, router-by-router process.",
+        "Built an AWS Lambda-powered, on-demand reporting feature for the Smart Spaces web app, letting storage site managers generate Excel reports (last 24 hours or custom date range) across 50+ facility sites.",
+        "Used telemetry reports to debug connectivity and communication issues between LoRa and Zigbee-enabled sensors and routers, successfully maintaining ~99% uptime SLA.",
+        "Built real-time analytics dashboards in Power BI for sales teams, senior leadership, and clients to monitor device performance and usage statistics.",
+        "Migrated core HomeSight Care APIs from direct database reads to a Kafka-backed in-memory caching layer with indexed lookups and database fallback, reducing high-traffic response times from ~7 seconds to 40–50 ms.",
+        "Integrated RBAC/ABAC permission models into the migrated API layer, covering all user-module endpoints to enforce consistent, role-based access control across the user base.",
+        "Resolved 30+ bugs and delivered 10+ frontend features, improving application stability and user experience."
       ],
-      technologies: ["PySpark", "Databricks", "Cassandra DB", "Node.js", "React", "AWS Lambda", "Power BI", "In-Memory Caching", "Modular Monolith", "TypeScript", "SQL"],
+      technologies: ["Snowflake", "dbt", "SQL Server", "PySpark", "Databricks", "AWS Lambda", "Power BI", "Node.js", "Kafka", "In-memory Caching", "RBAC/ABAC", "React"],
       badgeColor: "from-cyan-500 to-blue-600"
     },
     {
@@ -81,10 +85,10 @@ export const PORTFOLIO_DATA = {
       period: "Apr 2024 – Jun 2024",
       location: "India",
       projectGroup: "Cab Booking App & Video Processing Pipeline",
-      summary: "Developed high-throughput backend services and distributed media processing pipelines.",
+      summary: "Developed high-throughput reporting services and distributed media processing pipelines.",
       highlights: [
-        "Built a FastAPI reporting service used daily by administrators and 10–12 fleet drivers for real-time tracking of driver earnings, bookings, and performance metrics.",
-        "Engineered a distributed 7-phase Kafka-driven video processing pipeline on AWS S3 to chunk video files and synchronously generate transcripts, subtitles, and multi-language dubbed audio."
+        "Built a FastAPI-based reporting service used daily by admins and 10-12 drivers to track driver performance, revenue, and bookings - giving admins fleet-wide visibility and drivers self-service income tracking.",
+        "Used Kafka-based messaging to move video data through a 7-phase pipeline - chunking video and generating transcripts, subtitles, and dubbed audio across multiple languages."
       ],
       technologies: ["Python", "FastAPI", "MongoDB", "Apache Kafka", "AWS S3", "Distributed Pipelines"],
       badgeColor: "from-emerald-500 to-teal-600"
@@ -98,8 +102,8 @@ export const PORTFOLIO_DATA = {
       projectGroup: "Enterprise Peer Review System",
       summary: "Constructed enterprise-grade workflow tools and GraphQL query engines for distributed engineering divisions.",
       highlights: [
-        "Developed a full-stack peer review application adopted across 30+ engineers and managers, eliminating manual spreadsheet reviews with automated status boards and RabbitMQ real-time notification streams.",
-        "Designed and implemented GraphQL APIs with Hasura over PostgreSQL, writing complex SQL functions, cursors, and dynamic DML queries to power reactive frontend review forms."
+        "Built a full-stack peer review application adopted by a 30-engineer team (later split into sub-teams), replacing manual review tracking with automated status visibility for engineers and managers, integrated RabbitMQ for real-time reviewer notifications.",
+        "Developed GraphQL APIs using the Hasura GraphQL engine on PostgreSQL, authoring complex SQL functions, cursors, and dynamic DML queries to fetch and populate information on frontend forms."
       ],
       technologies: ["Node.js", "React", "GraphQL", "Hasura", "PostgreSQL", "RabbitMQ", "PL/SQL"],
       badgeColor: "from-indigo-500 to-purple-600"
@@ -108,42 +112,42 @@ export const PORTFOLIO_DATA = {
 
   projects: [
     {
-      id: "telemetry-lakehouse",
-      title: "Cassandra IoT Telemetry & Databricks Medallion Lakehouse",
+      id: "snowflake-dbt-analytics",
+      title: "Snowflake & dbt Staged-to-Mart Analytics Lakehouse",
       category: "Data Engineering",
-      tagline: "High-throughput Medallion architecture for real-time Wi-Fi & sensor health",
-      description: "A production-grade lakehouse pipeline ingesting raw high-velocity Cassandra DB telemetry through PySpark on Databricks. Structured across Bronze, Silver, and Gold layers to publish daily uptime SLA tables powering Power BI dashboards and on-demand AWS Lambda Excel reports.",
-      architecture: ["Cassandra DB Ingestion", "Databricks PySpark", "Medallion Delta Lake (Bronze/Silver/Gold)", "Power BI & AWS Lambda Reports"],
-      metrics: ["10,000+ daily events", "99% SLA adherence", "50+ facility sites"],
-      technologies: ["PySpark", "Databricks", "Cassandra DB", "Delta Lake", "AWS Lambda", "Power BI"],
+      tagline: "End-to-end ELT with incremental processing, surrogate-key modeling & Streams/Tasks",
+      description: "A production-grade analytical data platform built on Snowflake and dbt. Ingests raw multi-source data through external stages and COPY INTO, running automated Streams & Tasks for incremental transformation into staging, intermediate, and dimensional business mart layers.",
+      architecture: ["Snowflake Stages & COPY INTO", "Streams & Scheduled Tasks", "dbt Core (Staging/Intermediate/Mart)", "Dimensional Star Schema", "Query Profile Optimization"],
+      metrics: ["100% automated incremental loads", "Sub-minute warehouse execution", "Zero-downtime mart refreshes"],
+      technologies: ["Snowflake", "dbt", "Snowflake SQL", "Tasks & Streams", "Python", "Dimensional Modeling"],
       featured: true,
-      githubUrl: "https://github.com/sabhinandan403",
+      githubUrl: "https://github.com/abhinandankumar",
+      date: "2024"
+    },
+    {
+      id: "telemetry-lakehouse",
+      title: "IoT Telemetry Lakehouse & Automated SLA Pipeline",
+      category: "Data Engineering",
+      tagline: "High-throughput PySpark & Databricks pipeline with AWS Lambda & Power BI",
+      description: "Automated telemetry processing engine handling 10,000+ daily IoT telemetry data points. Computes router and Wi-Fi mesh uptime, detects connectivity anomalies across LoRa and Zigbee sensors, and powers on-demand Excel reports via AWS Lambda and live Power BI dashboards.",
+      architecture: ["IoT Gateway & Mesh Routers", "Databricks PySpark Streaming", "Delta Lake (Bronze/Silver/Gold)", "AWS Lambda On-Demand Engine", "Power BI Dashboards"],
+      metrics: ["10,000+ daily events", "99% SLA adherence", "50+ facility sites monitored"],
+      technologies: ["PySpark", "Databricks", "Delta Lake", "AWS Lambda", "AWS S3", "Power BI"],
+      featured: true,
+      githubUrl: "https://github.com/abhinandankumar",
       date: "2024"
     },
     {
       id: "ai-data-analyst-agent",
       title: "Autonomous Data Analyst AI Agent",
       category: "Gen AI & ML",
-      tagline: "Self-correcting Text-to-SQL and data visualization agent with sandboxed execution",
-      description: "An agentic system leveraging LLM tool-calling and code execution to translate natural language into optimized SQL queries, validate execution plans, auto-generate charts, and draft statistical executive summaries.",
-      architecture: ["LangGraph / ReAct Loop", "BigQuery / PostgreSQL Tool", "Sandboxed Python REPL", "Structured JSON Guardrails"],
+      tagline: "Self-correcting Text-to-SQL and analytical report generation with sandboxed execution",
+      description: "An agentic system leveraging LLM tool-calling and code execution to translate natural language into optimized SQL queries, validate execution plans across Snowflake and PostgreSQL, auto-generate charts, and draft statistical executive summaries.",
+      architecture: ["LangGraph / ReAct Loop", "Snowflake & PostgreSQL Tool", "Sandboxed Python REPL", "Structured JSON Guardrails"],
       metrics: ["94% SQL Accuracy", "Auto self-correction on syntax errors", "Zero SQL injection"],
-      technologies: ["Python", "Gemini API", "LangGraph", "FastAPI", "PostgreSQL", "Pydantic"],
+      technologies: ["Python", "Gemini API", "LangGraph", "FastAPI", "Snowflake", "PostgreSQL"],
       featured: true,
-      githubUrl: "https://github.com/sabhinandan403",
-      date: "2024"
-    },
-    {
-      id: "homesight-motion-engine",
-      title: "Timezone-Aware Dynamic 15-Minute Sensor Aggregation Engine",
-      category: "Full Stack",
-      tagline: "15-minute dynamic time-bucket heatmap with multi-sensor aggregation",
-      description: "A generalized backend aggregation engine and interactive React heatmap that ingests raw Cassandra sensor events (motion, door/window contacts), normalizes timestamps to the user's local HC200 timezone, and computes 96 discrete 15-minute intervals for elderly care monitoring.",
-      architecture: ["Fast Node.js Aggregator", "HC200 Timezone Normalizer", "Dynamic Formula Dispatcher", "React 24h Heatmap Grid"],
-      metrics: ["40ms cached lookups", "15-min granular time buckets", "Timezone normalized"],
-      technologies: ["React", "Node.js", "Cassandra DB", "In-Memory Cache", "TypeScript"],
-      featured: true,
-      githubUrl: "https://github.com/sabhinandan403",
+      githubUrl: "https://github.com/abhinandankumar",
       date: "2024"
     },
     {
@@ -156,7 +160,7 @@ export const PORTFOLIO_DATA = {
       metrics: ["7 asynchronous phases", "Sub-minute chunk processing", "Multi-language sync"],
       technologies: ["Python", "Apache Kafka", "AWS S3", "FastAPI", "Docker"],
       featured: false,
-      githubUrl: "https://github.com/sabhinandan403",
+      githubUrl: "https://github.com/abhinandankumar",
       date: "2024"
     },
     {
@@ -169,89 +173,77 @@ export const PORTFOLIO_DATA = {
       metrics: ["Adopted by 30+ engineers", "100% automated status visibility", "Zero review drop-offs"],
       technologies: ["React", "Node.js", "Hasura GraphQL", "PostgreSQL", "RabbitMQ"],
       featured: false,
-      githubUrl: "https://github.com/sabhinandan403",
+      githubUrl: "https://github.com/abhinandankumar",
       date: "2023 - 2024"
     }
   ] as Project[],
 
   skillCategories: [
     {
-      title: "Data Engineering & Streaming",
+      title: "Data Platforms & Databases",
       icon: "Database",
       skills: [
-        { name: "PySpark", level: 90, tags: ["Transformations", "DataFrames", "UDFs"] },
-        { name: "Databricks & Delta Lake", level: 90, tags: ["Medallion Architecture", "Unity Catalog", "DLT"] },
-        { name: "Cassandra DB", level: 85, tags: ["IoT Telemetry", "Time-Series", "CQL"] },
-        { name: "Apache Kafka", level: 85, tags: ["Message Queuing", "Partitions", "Event Streams"] },
-        { name: "ETL / ELT Pipelines", level: 92, tags: ["Medallion Lakehouse", "Batch", "Data Cleaning"] },
-        { name: "SQL & Query Tuning", level: 95, tags: ["Window Functions", "Partitioning", "Execution Plans"] }
+        { name: "Snowflake", level: 95, tags: ["Virtual Warehouses", "Stages", "COPY INTO", "Streams & Tasks"] },
+        { name: "MS SQL Server", level: 90, tags: ["T-SQL", "Stored Procedures", "Triggers", "Views", "CTEs"] },
+        { name: "PostgreSQL", level: 90, tags: ["Complex Queries", "Indexes", "PL/pgSQL", "Cursors"] },
+        { name: "Databricks & Delta Lake", level: 90, tags: ["PySpark", "Unity Catalog", "Lakehouse"] }
       ]
     },
     {
-      title: "AI & Gen AI Engineering",
-      icon: "Sparkles",
+      title: "Snowflake & Advanced SQL",
+      icon: "Layers",
       skills: [
-        { name: "AI Agents & Tool Calling", level: 88, tags: ["ReAct Loops", "Multi-Agent Teams", "HITL"] },
-        { name: "LLM APIs & Google GenAI", level: 85, tags: ["Structured Outputs", "Multimodal", "Gemini"] },
-        { name: "Vector Search & RAG", level: 82, tags: ["Embeddings", "Semantic Retrieval", "Chroma"] },
-        { name: "LangGraph / Frameworks", level: 80, tags: ["State Graphs", "Memory", "Observability"] },
-        { name: "Prompt & Context Engineering", level: 90, tags: ["Few-Shot", "Chain-of-Thought", "Guardrails"] }
+        { name: "Snowflake SQL & Architecture", level: 95, tags: ["Query Profiling", "Virtual Warehouses", "MERGE Patterns"] },
+        { name: "T-SQL & Stored Procedures", level: 92, tags: ["Window Functions", "Multi-table Joins", "Archival & Retention"] },
+        { name: "Database Views & Functions", level: 90, tags: ["CTE-based Transforms", "Performance Tuning"] }
       ]
     },
     {
-      title: "Backend & Low-Latency APIs",
+      title: "Data Engineering & Modeling",
+      icon: "Cpu",
+      skills: [
+        { name: "dbt (data build tool)", level: 95, tags: ["Staging", "Intermediate", "Mart Layers", "Surrogate Keys"] },
+        { name: "ETL / ELT Pipelines", level: 95, tags: ["Incremental Processing", "Scheduled Tasks", "Data Quality"] },
+        { name: "Dimensional Modeling", level: 92, tags: ["Fact & Dimension Tables", "Star Schema", "Business Keys"] },
+        { name: "PySpark", level: 90, tags: ["Telemetry Ingestion", "DataFrames", "Spark Tuning"] }
+      ]
+    },
+    {
+      title: "Programming, Cloud & Messaging",
       icon: "Server",
       skills: [
-        { name: "Vertical Modular Monolith", level: 90, tags: ["Domain Boundaries", "High Cohesion", "Clean Arch"] },
-        { name: "In-Memory Startup Caching", level: 92, tags: ["Sub-50ms Response", "RAM Preload", "Zero-Lag"] },
-        { name: "Python", level: 92, tags: ["AsyncIO", "OOP", "Data Structures"] },
-        { name: "FastAPI", level: 88, tags: ["REST", "Pydantic", "Swagger Docs"] },
-        { name: "Node.js & Express.js", level: 85, tags: ["Event Loop", "Microservices", "JWT/Auth"] },
-        { name: "GraphQL & Hasura", level: 82, tags: ["Subscriptions", "Mutations", "Resolvers"] }
+        { name: "Python", level: 92, tags: ["FastAPI", "Data Pipelines", "OOP", "AsyncIO"] },
+        { name: "SQL (ANSI, T-SQL, Snowflake)", level: 95, tags: ["Advanced Joins", "Partitioning", "Execution Plans"] },
+        { name: "AWS (S3 & Lambda)", level: 88, tags: ["Serverless Reporting", "Event Triggers", "Cloud Storage"] },
+        { name: "Apache Kafka & RabbitMQ", level: 85, tags: ["Message Queues", "Streaming", "In-Memory Caching"] },
+        { name: "Node.js & FastAPI", level: 88, tags: ["Low-Latency APIs", "RBAC/ABAC", "REST"] }
       ]
     },
     {
-      title: "Frontend & Data Visualization",
-      icon: "Layout",
+      title: "Analytics, Dev Tools & DevOps",
+      icon: "BarChart3",
       skills: [
-        { name: "React (ES6+ / TS)", level: 88, tags: ["Hooks", "Context API", "Component Architecture"] },
-        { name: "Interactive Visualizations", level: 86, tags: ["Custom Heatmaps", "Time-Series Grids"] },
-        { name: "Tailwind CSS", level: 90, tags: ["Responsive", "Dark Mode", "Modern Glassmorphism"] },
-        { name: "Power BI", level: 85, tags: ["DAX", "Executive Dashboards", "Live Datasets"] }
-      ]
-    },
-    {
-      title: "Databases & Cloud Platforms",
-      icon: "Cloud",
-      skills: [
-        { name: "PostgreSQL & PL/SQL", level: 90, tags: ["Complex Queries", "Indexes", "Cursors"] },
-        { name: "Cassandra DB", level: 85, tags: ["Wide-Column", "Time-Series Storage"] },
-        { name: "AWS (Lambda, S3)", level: 85, tags: ["Serverless Reports", "Event Triggers"] },
-        { name: "MongoDB", level: 80, tags: ["Aggregation Pipelines", "Documents"] },
-        { name: "Git & Developer Tools", level: 90, tags: ["Branching", "Code Review", "TOAD"] }
+        { name: "Power BI", level: 88, tags: ["Real-time Dashboards", "DAX", "Executive Metrics"] },
+        { name: "Git & Azure DevOps", level: 90, tags: ["Version Control", "CI/CD", "Branching"] },
+        { name: "Databricks Unity Catalog", level: 85, tags: ["Governance", "Lineage", "Access Control"] },
+        { name: "Snowsight, TOAD & SQL Developer", level: 90, tags: ["Query Profiling", "Worksheets", "Schema Debugging"] }
       ]
     }
   ] as SkillCategory[],
 
   certifications: [
     {
-      name: "Databricks Certified Data Engineer Professional",
+      name: "Databricks Data Engineering Professional & Databricks Fundamentals Accreditation",
       issuer: "Databricks",
       date: "Accredited",
       badge: "https://images.credly.com/size/340x340/images/6b010f60-d8a6-4b8c-8f3e-8c887413693f/image.png",
-      description: "Advanced proficiency in Spark streaming, Delta Lake optimizations, Medallion architectures, and production ETL pipelines."
-    },
-    {
-      name: "Databricks Fundamentals Accreditation",
-      issuer: "Databricks",
-      date: "Accredited",
-      description: "Core architecture of Lakehouse, Unity Catalog governance, and distributed computing principles."
+      description: "Advanced proficiency in Spark streaming, Delta Lake optimizations, Lakehouse architectures, and production ETL pipelines."
     },
     {
       name: "McKinsey Forward Learning Program",
       issuer: "McKinsey & Company",
       date: "Completed",
-      description: "Structured problem solving, data-driven leadership, agile communication, and strategic project management."
+      description: "Problem Solving, Leadership & Communication - Structured data-driven strategy and execution."
     }
   ],
 
