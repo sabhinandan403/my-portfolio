@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Bot, Send, X, Minimize2, ExternalLink } from 'lucide-react';
 import { PORTFOLIO_DATA } from '../data/portfolioData';
 
@@ -21,6 +21,12 @@ export const LisaChatWidget: React.FC = () => {
   const [inputText, setInputText] = useState('');
   const [isThinking, setIsThinking] = useState(false);
 
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: 'msg-1',
@@ -36,6 +42,12 @@ export const LisaChatWidget: React.FC = () => {
     "What did he build with PySpark & Databricks?",
     "What are his core skills and certifications?"
   ];
+
+  useEffect(() => {
+    if (isOpen) {
+      scrollToBottom();
+    }
+  }, [messages, isThinking, isOpen]);
 
   const generateSystemPrompt = () => {
     return `You are Lisa, the personal AI portfolio assistant for Abhinandan Kumar, a Full Stack Data Engineer with 3 years of experience.
@@ -313,6 +325,8 @@ CORE RULES:
                 Lisa is thinking...
               </div>
             )}
+
+            <div ref={messagesEndRef} />
           </div>
 
           {/* Chat Input */}
