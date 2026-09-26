@@ -121,7 +121,6 @@ export const PORTFOLIO_DATA = {
       metrics: ["100% automated incremental loads", "Sub-minute warehouse execution", "Zero-downtime mart refreshes"],
       technologies: ["Snowflake", "dbt", "Snowflake SQL", "Tasks & Streams", "Python", "Dimensional Modeling"],
       featured: true,
-      githubUrl: "https://github.com/abhinandankumar",
       date: "2024"
     },
     {
@@ -134,7 +133,6 @@ export const PORTFOLIO_DATA = {
       metrics: ["10,000+ daily events", "99% SLA adherence", "50+ facility sites monitored"],
       technologies: ["PySpark", "Databricks", "Delta Lake", "AWS Lambda", "AWS S3", "Power BI"],
       featured: true,
-      githubUrl: "https://github.com/abhinandankumar",
       date: "2024"
     },
     {
@@ -147,7 +145,6 @@ export const PORTFOLIO_DATA = {
       metrics: ["94% SQL Accuracy", "Auto self-correction on syntax errors", "Zero SQL injection"],
       technologies: ["Python", "Gemini API", "LangGraph", "FastAPI", "Snowflake", "PostgreSQL"],
       featured: true,
-      githubUrl: "https://github.com/abhinandankumar",
       date: "2024"
     },
     {
@@ -160,7 +157,6 @@ export const PORTFOLIO_DATA = {
       metrics: ["7 asynchronous phases", "Sub-minute chunk processing", "Multi-language sync"],
       technologies: ["Python", "Apache Kafka", "AWS S3", "FastAPI", "Docker"],
       featured: false,
-      githubUrl: "https://github.com/abhinandankumar",
       date: "2024"
     },
     {
@@ -173,7 +169,6 @@ export const PORTFOLIO_DATA = {
       metrics: ["Adopted by 30+ engineers", "100% automated status visibility", "Zero review drop-offs"],
       technologies: ["React", "Node.js", "Hasura GraphQL", "PostgreSQL", "RabbitMQ"],
       featured: false,
-      githubUrl: "https://github.com/abhinandankumar",
       date: "2023 - 2024"
     }
   ] as Project[],

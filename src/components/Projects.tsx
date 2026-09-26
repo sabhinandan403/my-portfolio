@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { PORTFOLIO_DATA } from '../data/portfolioData';
-import { ArrowUpRight } from 'lucide-react';
-import { GithubIcon } from './Icons';
+import { ShieldCheck } from 'lucide-react';
 
 export const Projects: React.FC = () => {
   const [filter, setFilter] = useState<'all' | 'data' | 'ai' | 'fullstack'>('all');
 
   const filteredProjects = PORTFOLIO_DATA.projects.filter((p) => {
     if (filter === 'all') return true;
-    if (filter === 'data') return p.technologies.some(t => ['PySpark', 'Databricks', 'Delta Lake', 'Kafka'].includes(t));
+    if (filter === 'data') return p.technologies.some(t => ['Snowflake', 'dbt', 'PySpark', 'Databricks', 'Delta Lake', 'Kafka'].includes(t));
     if (filter === 'ai') return p.technologies.some(t => ['Gemini API', 'LangGraph', 'Python'].includes(t));
     if (filter === 'fullstack') return p.technologies.some(t => ['React', 'Node.js', 'FastAPI', 'GraphQL'].includes(t));
     return true;
@@ -28,7 +27,7 @@ export const Projects: React.FC = () => {
               Engineering Projects
             </h2>
             <p className="text-stone-600 dark:text-[#8A8F98] text-sm max-w-xl">
-              Production systems, distributed streaming pipelines, and AI agent architectures.
+              Production architectures, distributed streaming pipelines, and analytical data platforms.
             </p>
           </div>
 
@@ -69,15 +68,10 @@ export const Projects: React.FC = () => {
                     {project.date}
                   </span>
 
-                  <a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="p-1.5 rounded-lg text-stone-400 dark:text-[#8A8F98] hover:text-stone-900 dark:hover:text-[#EDEDEF] hover:bg-stone-100 dark:hover:bg-white/[0.04] transition-colors"
-                    title="View GitHub Repository"
-                  >
-                    <GithubIcon className="w-4 h-4" />
-                  </a>
+                  <span className="text-[10px] font-mono text-stone-500 dark:text-[#62666D] flex items-center gap-1">
+                    <ShieldCheck className="w-3 h-3 text-[#5E6AD2]" />
+                    Enterprise System
+                  </span>
                 </div>
 
                 <h3 className="text-base sm:text-lg font-bold text-stone-900 dark:text-[#EDEDEF] group-hover:text-[#5E6AD2] transition-colors">
@@ -106,28 +100,22 @@ export const Projects: React.FC = () => {
                 </div>
               </div>
 
-              {/* Technologies */}
+              {/* Technologies Strip */}
               <div className="pt-4 border-t border-[#E8E2D5] dark:border-white/[0.06] flex flex-wrap items-center justify-between gap-2">
                 <div className="flex flex-wrap gap-1.5">
-                  {project.technologies.slice(0, 4).map((tech) => (
+                  {project.technologies.slice(0, 5).map((tech) => (
                     <span
                       key={tech}
-                      className="text-[10px] font-mono px-2 py-0.5 rounded bg-stone-100 dark:bg-white/[0.02] text-stone-600 dark:text-[#8A8F98]"
+                      className="text-[10px] font-mono px-2.5 py-0.5 rounded bg-stone-100 dark:bg-white/[0.04] text-stone-600 dark:text-[#8A8F98]"
                     >
                       {tech}
                     </span>
                   ))}
                 </div>
 
-                <a
-                  href={project.githubUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-xs font-mono text-[#5E6AD2] hover:underline flex items-center gap-1 font-semibold"
-                >
-                  <span>Code</span>
-                  <ArrowUpRight className="w-3 h-3" />
-                </a>
+                <span className="text-[10px] font-mono text-stone-400 dark:text-[#62666D]">
+                  Proprietary IP
+                </span>
               </div>
             </div>
           ))}
