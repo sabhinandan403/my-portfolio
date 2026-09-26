@@ -80,10 +80,7 @@ CORE RULES:
   };
 
   const callGeminiLLM = async (userPrompt: string, history: ChatMessage[]): Promise<string> => {
-    const isLocal = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
-    const proxyEndpoint = isLocal 
-      ? '/api/chat' 
-      : ((import.meta.env.VITE_LISA_PROXY_URL as string) || DEFAULT_CLOUDFLARE_PROXY);
+    const proxyEndpoint = (import.meta.env.VITE_LISA_PROXY_URL as string) || DEFAULT_CLOUDFLARE_PROXY;
 
     // Format conversation history for Gemini API
     const formattedContents = history
