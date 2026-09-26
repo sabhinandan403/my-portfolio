@@ -16,12 +16,17 @@ interface ChatMessage {
 }
 
 export const LisaChatWidget: React.FC = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  // Open by default on page load so visitors can directly ask or minimize to explore
+  const [isOpen, setIsOpen] = useState<boolean>(true);
+  const [proxyUrl, setProxyUrl] = useState<string>(() => {
+    return (import.meta.env.VITE_LISA_PROXY_URL as string) || localStorage.getItem('ak_portfolio_lisa_proxy') || '';
+  });
   const [apiKey, setApiKey] = useState<string>(() => {
     return (import.meta.env.VITE_GEMINI_API_KEY as string) || localStorage.getItem('ak_portfolio_gemini_key') || '';
   });
   const [showKeyInput, setShowKeyInput] = useState<boolean>(false);
   const [tempKeyInput, setTempKeyInput] = useState<string>('');
+  const [tempProxyInput, setTempProxyInput] = useState<string>('');
 
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
@@ -43,18 +48,30 @@ export const LisaChatWidget: React.FC = () => {
 
   const handleSaveKey = (e: React.FormEvent) => {
     e.preventDefault();
-    const trimmed = tempKeyInput.trim();
-    if (trimmed) {
-      setApiKey(trimmed);
-      localStorage.setItem('ak_portfolio_gemini_key', trimmed);
+    const trimmedKey = tempKeyInput.trim();
+    const trimmedProxy = tempProxyInput.trim();
+
+    if (trimmedProxy) {
+      setProxyUrl(trimmedProxy);
+      localStorage.setItem('ak_portfolio_lisa_proxy', trimmedProxy);
+    }
+    if (trimmedKey) {
+      setApiKey(trimmedKey);
+      localStorage.setItem('ak_portfolio_gemini_key', trimmedKey);
+    }
+
+    if (trimmedKey || trimmedProxy) {
       setShowKeyInput(false);
       setTempKeyInput('');
+      setTempProxyInput('');
       setMessages(prev => [
         ...prev,
         {
           id: 'key-set-' + Date.now(),
           sender: 'agent',
-          text: `Gemini API key connected successfully! I am now powered by live Google Gemini 2.0 Flash intelligence. Ask me anything!`,
+          text: trimmedProxy 
+            ? `Connected to your Cloudflare/Vercel serverless proxy! Lisa is now powered by live GenAI intelligence.`
+            : `Gemini API key connected successfully! Lisa is now powered by Google Gemini 2.0 Flash. Ask me anything!`,
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
           isGenAI: true
         }
@@ -63,7 +80,7 @@ export const LisaChatWidget: React.FC = () => {
   };
 
   const generateSystemPrompt = () => {
-    return `You are Lisa, the personal AI portfolio assistant for Abhinandan Kumar, a Data Engineer with 3 years of experience.
+    return `You are Lisa, the personal AI portfolio assistant for Abhinandan Kumar, a Full Stack Data Engineer with 3 years of experience.
 Your goal is to answer recruiters, founders, and engineering managers accurately, warmly, and concisely based strictly on his verified resume.
 
 GROUND TRUTH RESUME DATA:
@@ -105,9 +122,11 @@ CORE RULES:
   };
 
   const callGeminiLLM = async (userPrompt: string, history: ChatMessage[]): Promise<string> => {
+    const activeProxy = proxyUrl || (import.meta.env.VITE_LISA_PROXY_URL as string);
     const activeKey = apiKey || (import.meta.env.VITE_GEMINI_API_KEY as string);
-    if (!activeKey) {
-      throw new Error("NO_API_KEY");
+
+    if (!activeProxy && !activeKey) {
+      throw new Error("NO_API_KEY_OR_PROXY");
     }
 
     // Format conversation history for Gemini API
@@ -135,16 +154,17 @@ CORE RULES:
       }
     };
 
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${activeKey}`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload)
-      }
-    );
+    const targetUrl = activeProxy
+      ? activeProxy
+      : `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${activeKey}`;
+
+    const response = await fetch(targetUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload)
+    });
 
     if (!response.ok) {
       const errData = await response.json().catch(() => ({}));
@@ -301,33 +321,50 @@ CORE RULES:
             </div>
           </div>
 
-          {/* Gemini API Key Configuration Drawer */}
+          {/* Gemini API Key & Cloudflare Proxy Configuration Drawer */}
           {showKeyInput && (
-            <div className="p-3 bg-[#FAF7F2] dark:bg-[#08090A] border-b border-[#E8E2D5] dark:border-white/[0.08] animate-fadeIn text-xs space-y-2">
+            <div className="p-3 bg-[#FAF7F2] dark:bg-[#08090A] border-b border-[#E8E2D5] dark:border-white/[0.08] animate-fadeIn text-xs space-y-2.5">
               <div className="flex items-center justify-between">
                 <span className="font-semibold text-stone-900 dark:text-[#EDEDEF] font-mono text-[11px] flex items-center gap-1.5">
-                  <Sparkles className="w-3 h-3 text-[#5E6AD2]" /> Google Gemini API Key
+                  <Sparkles className="w-3 h-3 text-[#5E6AD2]" /> GenAI Backend Settings
                 </span>
                 <span className="text-[10px] text-stone-500 dark:text-[#8A8F98] font-mono">
-                  {apiKey ? 'Connected' : 'Free Tier'}
+                  {proxyUrl ? 'Proxy Active' : apiKey ? 'Key Connected' : 'Free Mode'}
                 </span>
               </div>
-              <p className="text-[11px] text-stone-600 dark:text-[#8A8F98] leading-tight">
-                Enter your free Gemini API key to enable live conversational GenAI streaming:
-              </p>
-              <form onSubmit={handleSaveKey} className="flex gap-1.5">
-                <input
-                  type="password"
-                  value={tempKeyInput}
-                  onChange={(e) => setTempKeyInput(e.target.value)}
-                  placeholder={apiKey ? "••••••••••••••••••••" : "Paste AI Studio API Key"}
-                  className="flex-1 bg-white dark:bg-[#101114] border border-[#E8E2D5] dark:border-white/[0.08] text-xs text-stone-900 dark:text-[#EDEDEF] rounded-md px-2.5 py-1.5 focus:outline-none focus:border-[#5E6AD2] font-mono text-[11px]"
-                />
+
+              <form onSubmit={handleSaveKey} className="space-y-2">
+                <div className="space-y-1">
+                  <label className="text-[10px] font-mono text-stone-500 dark:text-[#8A8F98]">
+                    Option 1: Cloudflare/Vercel Proxy URL (Key hidden)
+                  </label>
+                  <input
+                    type="url"
+                    value={tempProxyInput}
+                    onChange={(e) => setTempProxyInput(e.target.value)}
+                    placeholder={proxyUrl || "https://lisa-proxy.yourname.workers.dev"}
+                    className="w-full bg-white dark:bg-[#101114] border border-[#E8E2D5] dark:border-white/[0.08] text-xs text-stone-900 dark:text-[#EDEDEF] rounded-md px-2.5 py-1.5 focus:outline-none focus:border-[#5E6AD2] font-mono text-[11px]"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-[10px] font-mono text-stone-500 dark:text-[#8A8F98]">
+                    Option 2: Direct Google Gemini API Key
+                  </label>
+                  <input
+                    type="password"
+                    value={tempKeyInput}
+                    onChange={(e) => setTempKeyInput(e.target.value)}
+                    placeholder={apiKey ? "••••••••••••••••••••" : "Paste AI Studio API Key"}
+                    className="w-full bg-white dark:bg-[#101114] border border-[#E8E2D5] dark:border-white/[0.08] text-xs text-stone-900 dark:text-[#EDEDEF] rounded-md px-2.5 py-1.5 focus:outline-none focus:border-[#5E6AD2] font-mono text-[11px]"
+                  />
+                </div>
+
                 <button
                   type="submit"
-                  className="px-3 py-1.5 bg-[#5E6AD2] hover:bg-[#6875E3] text-white dark:text-[#EDEDEF] font-semibold rounded-md font-mono text-[11px] cursor-pointer"
+                  className="w-full py-1.5 bg-[#5E6AD2] hover:bg-[#6875E3] text-white dark:text-[#EDEDEF] font-semibold rounded-md font-mono text-[11px] cursor-pointer shadow-xs"
                 >
-                  Save
+                  Save Settings
                 </button>
               </form>
             </div>
