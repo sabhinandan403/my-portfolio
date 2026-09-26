@@ -16,10 +16,12 @@ interface ChatMessage {
 }
 
 export const LisaChatWidget: React.FC = () => {
+  const DEFAULT_CLOUDFLARE_PROXY = 'https://my-portfolio.sabhinandan403.workers.dev/api/chat';
+
   // Open by default on page load so visitors can directly ask or minimize to explore
   const [isOpen, setIsOpen] = useState<boolean>(true);
   const [proxyUrl, setProxyUrl] = useState<string>(() => {
-    return (import.meta.env.VITE_LISA_PROXY_URL as string) || localStorage.getItem('ak_portfolio_lisa_proxy') || '';
+    return (import.meta.env.VITE_LISA_PROXY_URL as string) || localStorage.getItem('ak_portfolio_lisa_proxy') || DEFAULT_CLOUDFLARE_PROXY;
   });
   const [apiKey, setApiKey] = useState<string>(() => {
     return (import.meta.env.VITE_GEMINI_API_KEY as string) || localStorage.getItem('ak_portfolio_gemini_key') || '';
