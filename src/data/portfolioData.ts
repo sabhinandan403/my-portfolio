@@ -35,11 +35,11 @@ export interface SkillCategory {
 export const PORTFOLIO_DATA = {
   personal: {
     name: "Abhinandan Kumar",
-    title: "Data Engineer | SQL | Snowflake | dbt | Databricks",
+    title: "Full Stack Data Engineer & AI Agent Enthusiast",
     location: "India",
     email: "sabhinandan403@gmail.com",
     phone: "+91-9817750262",
-    linkedin: "https://linkedin.com/in/abhinandankumar",
+    linkedin: "https://www.linkedin.com/in/abhinandan-kumar-611a64192/",
     github: "https://github.com/abhinandankumar",
     googleDriveResumeUrl: "./Abhinandan_Kumar_Resume.pdf",
     summary: `Data Engineer with 3 years of experience across SQL, ETL/ELT pipelines, cloud data platforms and data-driven applications. Hands-on with Snowflake and dbt for staged-to-mart transformations, incremental processing and analytical data modeling, and with PySpark/Databricks for IoT telemetry pipelines. Strong SQL foundation across Snowflake, SQL Server and PostgreSQL, with experience supporting production data workflows, performance investigation, reporting and application integration.`

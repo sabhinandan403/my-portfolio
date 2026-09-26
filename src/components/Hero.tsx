@@ -28,27 +28,25 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
         {/* Editorial Headline */}
         <div className="space-y-6 max-w-4xl">
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-stone-900 dark:text-[#EDEDEF] leading-[1.08]">
-            Data Engineer <br />
-            <span className="text-stone-500 dark:text-[#8A8F98] font-normal">Snowflake &bull; dbt &bull; Databricks.</span>
+            Full Stack Data Engineer <br />
+            <span className="text-stone-500 dark:text-[#8A8F98] font-normal">&amp; AI Agent Enthusiast.</span>
           </h1>
 
           {/* Simple, Non-Tech Friendly & Impactful Copy */}
           <p className="text-base sm:text-lg text-stone-600 dark:text-[#8A8F98] max-w-2xl leading-relaxed font-normal">
-            Data Engineer with 3 years of experience architecting staged-to-mart ELT pipelines in Snowflake &amp; dbt, high-throughput PySpark telemetry lakehouses in Databricks, and low-latency API caching layers.
+            I design high-speed data pipelines, ultra-responsive web applications, and smart <span className="text-[#5E6AD2] font-medium">AI Agents</span> that transform raw device telemetry into clear, reliable business decisions.
           </p>
 
           {/* Rapid Links Bar */}
           <div className="flex flex-wrap items-center gap-3 pt-4">
-            <a
-              href={PORTFOLIO_DATA.personal.googleDriveResumeUrl}
-              target="_blank"
-              rel="noreferrer"
+            <button
+              onClick={onOpenResume}
               className="px-4 py-2.5 rounded-lg bg-[#5E6AD2] hover:bg-[#6875E3] text-white dark:text-[#EDEDEF] font-semibold text-xs font-mono transition-all flex items-center gap-1.5 shadow-md shadow-[#5E6AD2]/25 border border-white/[0.1] active:scale-98 cursor-pointer"
             >
               <FileText className="w-3.5 h-3.5" />
-              <span>Resume (PDF)</span>
+              <span>Resume</span>
               <ArrowUpRight className="w-3 h-3" />
-            </a>
+            </button>
 
             <a
               href="#architectures"
