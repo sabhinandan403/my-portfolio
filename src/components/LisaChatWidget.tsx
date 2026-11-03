@@ -88,7 +88,15 @@ CORE RULES:
 - Keep answers concise (2 to 4 sentences) unless a detailed explanation is explicitly requested.
 - If asked about his resume, offer to open the PDF resume directly.
 - Speak in a professional, polite, and enthusiastic first-person voice as Lisa ("Abhinandan has...", "In his work at Vantiva...").
-- Never make up skills or experiences outside this ground truth.`;
+- Never make up skills or experiences outside this ground truth.
+
+STRICT SCOPE & GUARDRAILS:
+- You are ONLY permitted to answer questions about Abhinandan Kumar, his resume, technical skills, projects, work experience, certifications, and education.
+- If the user asks about ANYTHING ELSE (unrelated general trivia, unrelated programming questions, recipes, math problems, politics, opinions, or off-topic subjects):
+  Politely decline: "I'm specifically here to answer questions about Abhinandan Kumar's career, technical skills, and data engineering projects. I can't help with unrelated topics, but feel free to ask about his work with Snowflake, dbt, Databricks, PySpark, or API optimization!"
+- If the user enters gibberish, nonsense, or incomprehensible jargon (e.g. "asdf", random strings, or unrelated buzzwords):
+  Politely reply: "I didn't quite catch that. I'm Lisa, Abhinandan's portfolio assistant—feel free to ask me anything about his data engineering experience, projects, or skills!"
+- NEVER attempt to force an unrelated query to connect with his resume, and NEVER answer out-of-scope questions.`;
   };
 
   const callGeminiLLM = async (userPrompt: string, history: ChatMessage[]): Promise<string> => {
@@ -114,7 +122,7 @@ CORE RULES:
       },
       contents: formattedContents,
       generationConfig: {
-        temperature: 0.4,
+        temperature: 0.3,
         maxOutputTokens: 500,
       }
     };
@@ -141,25 +149,33 @@ CORE RULES:
   };
 
   const generateGroundedFallback = (query: string): string => {
-    const lower = query.toLowerCase();
+    const trimmed = query.trim().toLowerCase();
 
-    if (lower.includes('snowflake') || lower.includes('dbt')) {
-      return "At Vantiva India, Abhinandan built end-to-end Snowflake ELT pipelines using stages, COPY INTO, Streams, and Tasks for scheduled incremental loads. He developed dbt SQL models across staging, intermediate, and mart layers using surrogate-key joins, and tuned workloads using query profiling and warehouse metrics.";
-    } else if (lower.includes('pyspark') || lower.includes('databricks') || lower.includes('telemetry') || lower.includes('lakehouse')) {
-      return "At Vantiva, Abhinandan engineered automated PySpark & Databricks pipelines processing 10,000+ daily IoT telemetry events to calculate Wi-Fi mesh uptime automatically. He also built AWS Lambda on-demand Excel reporting across 50+ facility sites maintaining a ~99% uptime SLA.";
-    } else if (lower.includes('latency') || lower.includes('40ms') || lower.includes('cache') || lower.includes('7s') || lower.includes('homesight')) {
-      return "For Vantiva's HomeSight Care ecosystem, Abhinandan migrated core APIs from direct database reads to a Kafka-backed in-memory caching layer with indexed lookups and database fallback. This slashed response times by 99% from ~7 seconds down to 40–50 ms, while enforcing strict RBAC/ABAC role-based security.";
-    } else if (lower.includes('sql') || lower.includes('stored proc') || lower.includes('database')) {
-      return "Abhinandan has strong SQL expertise across Snowflake, MS SQL Server, and PostgreSQL. He has written stored procedures, triggers, views, CTE-based transformations, and complex multi-table joins supporting analytics and historical-data archival.";
-    } else if (lower.includes('certification') || lower.includes('degree') || lower.includes('education')) {
-      return "Abhinandan holds the Databricks Certified Data Engineer Professional & Fundamentals accreditations, completed the McKinsey Forward Learning Program, and graduated with a B.Tech in Computer Science Engineering (GPA: 8.02 / 10).";
-    } else if (lower.includes('contact') || lower.includes('email') || lower.includes('hire') || lower.includes('reach')) {
-      return `You can reach Abhinandan directly at ${PORTFOLIO_DATA.personal.email} or on LinkedIn at linkedin.com/in/abhinandankumar. He is currently open to high-impact data engineering opportunities!`;
-    } else if (lower.includes('resume') || lower.includes('cv') || lower.includes('pdf')) {
-      return "You can view or download Abhinandan's complete official resume PDF right now using the button below or from the top navigation bar.";
+    // Friendly greeting check
+    if (/^(hi|hello|hey|greetings|good\s*(morning|afternoon|evening))\b/i.test(trimmed)) {
+      return "Hi there! I'm Lisa, Abhinandan's AI assistant. Ask me anything about his work with Snowflake & dbt, PySpark & Databricks pipelines, 40ms API caching, or his background!";
     }
 
-    return "Abhinandan Kumar is a Full Stack Data Engineer with 3 years of experience specializing in Snowflake, dbt, SQL Server, Databricks, PySpark, and low-latency API caching. What specific area of his work would you like to explore?";
+    if (trimmed.includes('snowflake') || trimmed.includes('dbt')) {
+      return "At Vantiva India, Abhinandan built end-to-end Snowflake ELT pipelines using stages, COPY INTO, Streams, and Tasks for scheduled incremental loads. He developed dbt SQL models across staging, intermediate, and mart layers using surrogate-key joins, and tuned workloads using query profiling and warehouse metrics.";
+    } else if (trimmed.includes('pyspark') || trimmed.includes('databricks') || trimmed.includes('telemetry') || trimmed.includes('lakehouse') || trimmed.includes('iot')) {
+      return "At Vantiva, Abhinandan engineered automated PySpark & Databricks pipelines processing 10,000+ daily IoT telemetry events to calculate Wi-Fi mesh uptime automatically. He also built AWS Lambda on-demand Excel reporting across 50+ facility sites maintaining a ~99% uptime SLA.";
+    } else if (trimmed.includes('latency') || trimmed.includes('40ms') || trimmed.includes('50ms') || trimmed.includes('cache') || trimmed.includes('caching') || trimmed.includes('7s') || trimmed.includes('homesight') || trimmed.includes('kafka')) {
+      return "For Vantiva's HomeSight Care ecosystem, Abhinandan migrated core APIs from direct database reads to a Kafka-backed in-memory caching layer with indexed lookups and database fallback. This slashed response times by 99% from ~7 seconds down to 40–50 ms, while enforcing strict RBAC/ABAC role-based security.";
+    } else if (trimmed.includes('sql') || trimmed.includes('stored proc') || trimmed.includes('database') || trimmed.includes('postgres') || trimmed.includes('t-sql')) {
+      return "Abhinandan has strong SQL expertise across Snowflake, MS SQL Server, and PostgreSQL. He has written stored procedures, triggers, views, CTE-based transformations, and complex multi-table joins supporting analytics and historical-data archival.";
+    } else if (trimmed.includes('certification') || trimmed.includes('degree') || trimmed.includes('education') || trimmed.includes('university') || trimmed.includes('college')) {
+      return "Abhinandan holds the Databricks Certified Data Engineer Professional & Fundamentals accreditations, completed the McKinsey Forward Learning Program, and graduated with a B.Tech in Computer Science Engineering (GPA: 8.02 / 10).";
+    } else if (trimmed.includes('contact') || trimmed.includes('email') || trimmed.includes('hire') || trimmed.includes('reach') || trimmed.includes('linkedin') || trimmed.includes('github') || trimmed.includes('phone')) {
+      return `You can reach Abhinandan directly at ${PORTFOLIO_DATA.personal.email} or on LinkedIn at linkedin.com/in/abhinandankumar. He is currently open to high-impact data engineering opportunities!`;
+    } else if (trimmed.includes('resume') || trimmed.includes('cv') || trimmed.includes('pdf')) {
+      return "You can view or download Abhinandan's complete official resume PDF right now using the button below or from the top navigation bar.";
+    } else if (trimmed.includes('experience') || trimmed.includes('work') || trimmed.includes('project') || trimmed.includes('career') || trimmed.includes('vantiva') || trimmed.includes('who is abhinandan') || trimmed.includes('background') || trimmed.includes('about')) {
+      return "Abhinandan Kumar is a Full Stack Data Engineer with 3 years of experience specializing in Snowflake, dbt, SQL Server, Databricks, PySpark, and low-latency API caching. What specific area of his work would you like to explore?";
+    }
+
+    // Default polite response for out-of-scope questions, jargon, or gibberish
+    return "I'm specifically designed to answer questions regarding Abhinandan Kumar's professional career, data engineering projects, and technical skills. I can't answer unrelated questions or jargon, but I'd be happy to share details about his work with Snowflake, dbt, Databricks, PySpark, or low-latency caching!";
   };
 
   const handleAsk = async (query: string) => {
